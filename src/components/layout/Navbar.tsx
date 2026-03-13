@@ -152,7 +152,7 @@ export function Navbar() {
 
               {/* Resume button */}
               <motion.a
-                href="/resume.pdf"
+                href="/Akshat_Banga_Resume.pdf"
                 download
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -166,6 +166,8 @@ export function Navbar() {
               <button
                 className="md:hidden w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
                 onClick={() => setMobileOpen(!mobileOpen)}
+                aria-label="Toggle mobile menu"
+                aria-expanded={mobileOpen}
               >
                 {mobileOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
               </button>
@@ -198,7 +200,7 @@ export function Navbar() {
                 </motion.button>
               ))}
               <a
-                href="/resume.pdf"
+                href="/Akshat_Banga_Resume.pdf"
                 download
                 className="flex items-center gap-2 px-4 py-3 text-sm font-semibold text-indigo-500 hover:bg-indigo-500/10 rounded-lg transition-colors mt-1"
               >

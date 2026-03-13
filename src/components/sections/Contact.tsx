@@ -2,18 +2,10 @@
 
 import { useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Mail, Linkedin, Github, Send, Loader2, CheckCircle2, MapPin, Clock, MessageSquare } from 'lucide-react';
+import { Linkedin, Github, Send, Loader2, CheckCircle2, MapPin, Clock, MessageSquare } from 'lucide-react';
 import { toast } from 'sonner';
 
 const contactInfo = [
-  {
-    icon: Mail,
-    label: 'Email',
-    value: 'akshat.banga@example.com',
-    href: 'mailto:akshat.banga@example.com',
-    color: 'text-indigo-400',
-    bg: 'bg-indigo-500/10',
-  },
   {
     icon: Linkedin,
     label: 'LinkedIn',

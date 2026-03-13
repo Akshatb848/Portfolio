@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://akshatbanga.dev',
+    url: 'https://akshatbanga.net',
     title: 'Akshat Banga | AI Engineer & ML Specialist',
     description:
       'Building production-grade AI systems powered by machine learning, generative AI, and scalable cloud infrastructure.',
@@ -41,6 +41,10 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+  },
+  icons: {
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
   },
 };
 

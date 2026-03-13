@@ -1,13 +1,29 @@
+import dynamic from 'next/dynamic';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { HeroSection } from '@/components/sections/Hero';
-import { AboutSection } from '@/components/sections/About';
-import { SkillsSection } from '@/components/sections/Skills';
-import { ProjectsSection } from '@/components/sections/Projects';
-import { ExperienceSection } from '@/components/sections/Experience';
-import { GitHubSection } from '@/components/sections/GitHub';
-import { EducationSection } from '@/components/sections/Education';
-import { ContactSection } from '@/components/sections/Contact';
+
+const AboutSection = dynamic(() =>
+  import('@/components/sections/About').then((m) => ({ default: m.AboutSection }))
+);
+const SkillsSection = dynamic(() =>
+  import('@/components/sections/Skills').then((m) => ({ default: m.SkillsSection }))
+);
+const ProjectsSection = dynamic(() =>
+  import('@/components/sections/Projects').then((m) => ({ default: m.ProjectsSection }))
+);
+const ExperienceSection = dynamic(() =>
+  import('@/components/sections/Experience').then((m) => ({ default: m.ExperienceSection }))
+);
+const GitHubSection = dynamic(() =>
+  import('@/components/sections/GitHub').then((m) => ({ default: m.GitHubSection }))
+);
+const EducationSection = dynamic(() =>
+  import('@/components/sections/Education').then((m) => ({ default: m.EducationSection }))
+);
+const ContactSection = dynamic(() =>
+  import('@/components/sections/Contact').then((m) => ({ default: m.ContactSection }))
+);
 
 export default function Home() {
   return (

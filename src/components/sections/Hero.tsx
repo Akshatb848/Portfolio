@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import { ArrowDown, Github, Linkedin, Mail, Download, Sparkles, Zap, Brain } from 'lucide-react';
+import { ArrowDown, Github, Linkedin, Download, Sparkles, Zap, Brain } from 'lucide-react';
 
 const titles = [
   'AI Engineer',
@@ -257,7 +257,7 @@ export function HeroSection() {
           </motion.button>
 
           <motion.a
-            href="/resume.pdf"
+            href="/Akshat_Banga_Resume.pdf"
             download
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
@@ -291,7 +291,6 @@ export function HeroSection() {
               href: 'https://www.linkedin.com/in/akshat-banga-6574aa170/',
               label: 'LinkedIn',
             },
-            { icon: Mail, href: 'mailto:akshat@example.com', label: 'Email' },
           ].map((link) => (
             <motion.a
               key={link.label}
