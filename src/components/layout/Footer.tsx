@@ -24,7 +24,7 @@ export function Footer() {
   return (
     <footer className="relative border-t border-border/50 bg-background">
       {/* Gradient top border */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-500 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-500 to-transparent" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="flex flex-col items-center gap-8">
@@ -35,12 +35,12 @@ export function Footer() {
             viewport={{ once: true }}
             className="flex items-center gap-2"
           >
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center">
               <Code2 className="w-4 h-4 text-white" />
             </div>
             <span className="font-bold text-sm">
               <span className="text-foreground">Akshat Banga</span>
-              <span className="text-indigo-500"> · </span>
+              <span className="text-violet-500"> · </span>
               <span className="text-muted-foreground">AI Engineer</span>
             </span>
           </motion.div>
@@ -61,7 +61,7 @@ export function Footer() {
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.1, y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                className="w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:text-indigo-500 hover:bg-indigo-500/10 border border-border/50 hover:border-indigo-500/30 transition-all duration-200"
+                className="w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:text-violet-500 hover:bg-violet-500/10 border border-border/50 hover:border-violet-500/30 transition-all duration-200"
                 aria-label={link.label}
               >
                 <link.icon className="w-4 h-4" />
@@ -89,7 +89,7 @@ export function Footer() {
         onClick={scrollToTop}
         whileHover={{ scale: 1.05, y: -2 }}
         whileTap={{ scale: 0.95 }}
-        className="absolute bottom-8 right-8 w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:text-indigo-500 hover:bg-indigo-500/10 border border-border/50 hover:border-indigo-500/30 transition-all duration-200"
+        className="absolute bottom-8 right-8 w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:text-violet-500 hover:bg-violet-500/10 border border-border/50 hover:border-violet-500/30 transition-all duration-200"
         aria-label="Scroll to top"
       >
         <ArrowUp className="w-4 h-4" />

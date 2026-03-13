@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import { ArrowDown, Github, Linkedin, Download, Sparkles, Zap, Brain } from 'lucide-react';
+import { ArrowDown, Github, Linkedin, Download, Terminal } from 'lucide-react';
 
 const titles = [
   'AI Engineer',
@@ -12,208 +12,135 @@ const titles = [
   'LLM Engineer',
 ];
 
-const floatingBadges = [
-  { icon: Brain, label: 'LLMs', color: 'from-purple-500 to-indigo-600', delay: 0 },
-  { icon: Sparkles, label: 'GenAI', color: 'from-pink-500 to-rose-600', delay: 0.5 },
-  { icon: Zap, label: 'MLOps', color: 'from-amber-500 to-orange-600', delay: 1 },
-];
-
-function ParticleBackground() {
+// ─── Code Rain Background ────────────────────────────────────────────────────
+function CodeRainBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    const particles: {
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      size: number;
-      opacity: number;
-      color: string;
-    }[] = [];
-
-    const colors = ['#6366f1', '#8b5cf6', '#a78bfa', '#818cf8', '#c4b5fd'];
-
-    for (let i = 0; i < 80; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: (Math.random() - 0.5) * 0.4,
-        size: Math.random() * 2 + 0.5,
-        opacity: Math.random() * 0.5 + 0.1,
-        color: colors[Math.floor(Math.random() * colors.length)],
-      });
-    }
-
-    let animId: number;
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      particles.forEach((p, i) => {
-        p.x += p.vx;
-        p.y += p.vy;
-
-        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-
-        // Draw particle
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
-        ctx.globalAlpha = p.opacity;
-        ctx.fill();
-
-        // Draw connections
-        particles.slice(i + 1).forEach((p2) => {
-          const dx = p.x - p2.x;
-          const dy = p.y - p2.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 120) {
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = '#6366f1';
-            ctx.globalAlpha = (1 - dist / 120) * 0.15;
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
-          }
-        });
-      });
-
-      ctx.globalAlpha = 1;
-      animId = requestAnimationFrame(animate);
-    };
-
-    animate();
-
-    const handleResize = () => {
+    const setSize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     };
-    window.addEventListener('resize', handleResize);
+    setSize();
 
+    const chars = 'アイウエオカキクケコ0123456789ABCDEFdef{}[]()=>const type import class return async await'.split('');
+    const fontSize = 13;
+    const cols = Math.floor(canvas.width / fontSize);
+    const drops: number[] = Array(cols).fill(1);
+
+    let animId: number;
+    const draw = () => {
+      ctx.fillStyle = 'rgba(9, 11, 18, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      drops.forEach((y, i) => {
+        const char = chars[Math.floor(Math.random() * chars.length)];
+        // head char brighter
+        const brightness = drops[i] === 1 ? 1 : Math.random() * 0.4 + 0.1;
+        ctx.fillStyle = `rgba(${i % 3 === 0 ? '99,102,241' : i % 3 === 1 ? '139,92,246' : '34,197,94'},${brightness})`;
+        ctx.font = `${fontSize}px 'JetBrains Mono', monospace`;
+        ctx.fillText(char, i * fontSize, y * fontSize);
+
+        if (y * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      });
+
+      animId = requestAnimationFrame(draw);
+    };
+
+    draw();
+    window.addEventListener('resize', setSize);
     return () => {
       cancelAnimationFrame(animId);
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('resize', setSize);
     };
   }, []);
 
-  return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 w-full h-full pointer-events-none opacity-60 dark:opacity-40"
-    />
-  );
+  return <canvas ref={canvasRef} className="absolute inset-0 opacity-[0.07] dark:opacity-[0.12]" />;
 }
 
+// ─── Typewriter ───────────────────────────────────────────────────────────────
 function TypewriterText({ texts }: { texts: string[] }) {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [displayText, setDisplayText] = useState('');
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [charIndex, setCharIndex] = useState(0);
+  const [index, setIndex] = useState(0);
+  const [display, setDisplay] = useState('');
+  const [deleting, setDeleting] = useState(false);
+  const [charIdx, setCharIdx] = useState(0);
 
   useEffect(() => {
-    const current = texts[currentIndex];
-    let timeout: ReturnType<typeof setTimeout>;
-
-    if (!isDeleting && charIndex < current.length) {
-      timeout = setTimeout(() => setCharIndex((c) => c + 1), 60);
-    } else if (!isDeleting && charIndex === current.length) {
-      timeout = setTimeout(() => setIsDeleting(true), 2000);
-    } else if (isDeleting && charIndex > 0) {
-      timeout = setTimeout(() => setCharIndex((c) => c - 1), 35);
-    } else if (isDeleting && charIndex === 0) {
-      setIsDeleting(false);
-      setCurrentIndex((i) => (i + 1) % texts.length);
+    const current = texts[index];
+    let t: ReturnType<typeof setTimeout>;
+    if (!deleting && charIdx < current.length) {
+      t = setTimeout(() => setCharIdx((c) => c + 1), 60);
+    } else if (!deleting && charIdx === current.length) {
+      t = setTimeout(() => setDeleting(true), 2200);
+    } else if (deleting && charIdx > 0) {
+      t = setTimeout(() => setCharIdx((c) => c - 1), 32);
+    } else if (deleting && charIdx === 0) {
+      setDeleting(false);
+      setIndex((i) => (i + 1) % texts.length);
     }
-
-    setDisplayText(current.slice(0, charIndex));
-    return () => clearTimeout(timeout);
-  }, [charIndex, currentIndex, isDeleting, texts]);
+    setDisplay(current.slice(0, charIdx));
+    return () => clearTimeout(t);
+  }, [charIdx, index, deleting, texts]);
 
   return (
-    <span className="text-indigo-500">
-      {displayText}
-      <span className="animate-pulse text-indigo-400">|</span>
+    <span className="text-violet-400 dark:text-violet-300 font-mono">
+      {display}
+      <span className="animate-pulse text-violet-400">|</span>
     </span>
   );
 }
 
+// ─── Hero Section ─────────────────────────────────────────────────────────────
 export function HeroSection() {
   const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 500], [0, 150]);
+  const y = useTransform(scrollY, [0, 500], [0, 120]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
   const springY = useSpring(y, { stiffness: 100, damping: 30 });
 
-  const scrollToAbout = () => {
-    document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Particle background */}
-      <ParticleBackground />
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
+      {/* Code rain */}
+      <CodeRainBackground />
 
       {/* Gradient blobs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 -left-32 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl animate-blob" />
-        <div className="absolute top-1/3 -right-32 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-blob animation-delay-2000" />
-        <div className="absolute -bottom-16 left-1/2 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl animate-blob animation-delay-4000" />
+        <div className="absolute top-1/4 -left-40 w-[500px] h-[500px] bg-violet-600/10 rounded-full blur-[120px]" />
+        <div className="absolute top-1/3 -right-40 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[120px]" />
+        <div className="absolute -bottom-20 left-1/2 w-[400px] h-[400px] bg-cyan-500/5 rounded-full blur-[120px]" />
       </div>
 
-      {/* Grid pattern */}
-      <div className="absolute inset-0 grid-pattern opacity-30 dark:opacity-20 pointer-events-none" />
+      {/* Grid */}
+      <div className="absolute inset-0 grid-pattern opacity-100 pointer-events-none" />
 
       <motion.div
         style={{ y: springY, opacity }}
-        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
+        className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
       >
-        {/* Badge */}
+        {/* Status badge */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-medium mb-8"
+          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-emerald-500/25 bg-emerald-500/8 text-emerald-400 text-xs font-medium mb-10 tracking-wide"
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse" />
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
           Available for new opportunities
         </motion.div>
 
-        {/* Floating badges */}
-        {floatingBadges.map((badge) => (
-          <motion.div
-            key={badge.label}
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.8 + badge.delay, type: 'spring' }}
-            className={`absolute hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r ${badge.color} text-white text-xs font-semibold shadow-lg`}
-            style={{
-              top: badge.delay === 0 ? '25%' : badge.delay === 0.5 ? '20%' : '35%',
-              left: badge.delay === 0 ? '8%' : undefined,
-              right: badge.delay === 0.5 ? '8%' : badge.delay === 1 ? '12%' : undefined,
-            }}
-          >
-            <badge.icon className="w-3.5 h-3.5" />
-            {badge.label}
-          </motion.div>
-        ))}
-
         {/* Name */}
         <motion.h1
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight mb-4"
+          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight mb-3 leading-none"
         >
           <span className="text-foreground">Akshat </span>
           <span className="text-gradient">Banga</span>
@@ -221,47 +148,49 @@ export function HeroSection() {
 
         {/* Dynamic title */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.35 }}
-          className="text-xl sm:text-2xl md:text-3xl font-semibold text-muted-foreground mb-6 h-10 flex items-center justify-center"
+          className="flex items-center justify-center gap-2 text-xl sm:text-2xl md:text-3xl font-semibold text-muted-foreground mb-6 h-10"
         >
+          <Terminal className="w-5 h-5 text-violet-400 hidden sm:block" />
           <TypewriterText texts={titles} />
         </motion.div>
 
-        {/* Headline */}
+        {/* Sub-headline */}
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.45 }}
           className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
         >
-          AI Engineer building{' '}
-          <span className="text-foreground font-semibold">production-grade machine learning</span> and generative AI systems with scalable cloud infrastructure.
+          Building{' '}
+          <span className="text-foreground font-semibold">production-grade machine learning</span>{' '}
+          and generative AI systems with scalable cloud infrastructure.
         </motion.p>
 
-        {/* CTA buttons */}
+        {/* CTAs */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.55 }}
           className="flex flex-wrap items-center justify-center gap-3 mb-12"
         >
           <motion.button
-            whileHover={{ scale: 1.03, boxShadow: '0 0 30px rgba(99,102,241,0.4)' }}
+            whileHover={{ scale: 1.03, boxShadow: '0 0 24px rgba(139,92,246,0.4)' }}
             whileTap={{ scale: 0.97 }}
             onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
-            className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-xl transition-colors shadow-lg shadow-indigo-500/30"
+            className="px-6 py-2.5 bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold rounded-lg transition-colors shadow-lg shadow-violet-500/25"
           >
             View Projects
           </motion.button>
 
           <motion.a
             href="/Akshat_Banga_Resume.pdf"
-            download
+            download="Akshat_Banga_Resume.pdf"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
-            className="px-6 py-3 flex items-center gap-2 bg-background hover:bg-accent text-foreground text-sm font-semibold rounded-xl border border-border hover:border-indigo-500/50 transition-all duration-200"
+            className="px-6 py-2.5 flex items-center gap-2 bg-background hover:bg-muted text-foreground text-sm font-semibold rounded-lg border border-border hover:border-violet-500/40 transition-all duration-200"
           >
             <Download className="w-4 h-4" />
             Download Resume
@@ -271,7 +200,7 @@ export function HeroSection() {
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
             onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-            className="px-6 py-3 text-sm font-semibold text-muted-foreground hover:text-foreground rounded-xl border border-border hover:border-indigo-500/50 transition-all duration-200"
+            className="px-6 py-2.5 text-sm font-semibold text-muted-foreground hover:text-foreground rounded-lg border border-border hover:border-violet-500/40 transition-all duration-200"
           >
             Contact Me
           </motion.button>
@@ -279,27 +208,23 @@ export function HeroSection() {
 
         {/* Social links */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.65 }}
-          className="flex items-center justify-center gap-4 mb-16"
+          className="flex items-center justify-center gap-6 mb-16"
         >
           {[
             { icon: Github, href: 'https://github.com/Akshatb848', label: 'GitHub' },
-            {
-              icon: Linkedin,
-              href: 'https://www.linkedin.com/in/akshat-banga-6574aa170/',
-              label: 'LinkedIn',
-            },
+            { icon: Linkedin, href: 'https://www.linkedin.com/in/akshat-banga-6574aa170/', label: 'LinkedIn' },
           ].map((link) => (
             <motion.a
               key={link.label}
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ scale: 1.1, y: -3 }}
+              whileHover={{ scale: 1.08, y: -2 }}
               whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-indigo-400 transition-colors"
+              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-violet-400 transition-colors"
             >
               <link.icon className="w-5 h-5" />
               <span className="hidden sm:block">{link.label}</span>
@@ -309,13 +234,13 @@ export function HeroSection() {
 
         {/* Scroll indicator */}
         <motion.button
-          onClick={scrollToAbout}
+          onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2 }}
           className="flex flex-col items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mx-auto"
         >
-          <span className="text-xs font-medium tracking-widest uppercase">Scroll to explore</span>
+          <span className="text-xs font-medium tracking-widest uppercase opacity-60">Scroll</span>
           <motion.div
             animate={{ y: [0, 6, 0] }}
             transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
@@ -325,7 +250,7 @@ export function HeroSection() {
         </motion.button>
       </motion.div>
 
-      {/* Bottom gradient fade */}
+      {/* Bottom fade */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent pointer-events-none" />
     </section>
   );
