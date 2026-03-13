@@ -1,8 +1,12 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { ArrowDown, Github, Linkedin, Terminal } from 'lucide-react';
+
+// Three.js background — SSR disabled, loads client-only
+const AiBackground = dynamic(() => import('@/components/AiBackground'), { ssr: false });
 
 const titles = [
   'AI Engineer',
@@ -12,63 +16,9 @@ const titles = [
   'LLM Engineer',
 ];
 
-// ─── Code Rain Background ────────────────────────────────────────────────────
-function CodeRainBackground() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    const setSize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-    setSize();
-
-    const chars = 'アイウエオカキクケコ0123456789ABCDEFdef{}[]()=>const type import class return async await'.split('');
-    const fontSize = 13;
-    const cols = Math.floor(canvas.width / fontSize);
-    const drops: number[] = Array(cols).fill(1);
-
-    let animId: number;
-    const draw = () => {
-      ctx.fillStyle = 'rgba(9, 11, 18, 0.05)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      drops.forEach((y, i) => {
-        const char = chars[Math.floor(Math.random() * chars.length)];
-        // head char brighter
-        const brightness = drops[i] === 1 ? 1 : Math.random() * 0.4 + 0.1;
-        ctx.fillStyle = `rgba(${i % 3 === 0 ? '99,102,241' : i % 3 === 1 ? '139,92,246' : '34,197,94'},${brightness})`;
-        ctx.font = `${fontSize}px 'JetBrains Mono', monospace`;
-        ctx.fillText(char, i * fontSize, y * fontSize);
-
-        if (y * fontSize > canvas.height && Math.random() > 0.975) {
-          drops[i] = 0;
-        }
-        drops[i]++;
-      });
-
-      animId = requestAnimationFrame(draw);
-    };
-
-    draw();
-    window.addEventListener('resize', setSize);
-    return () => {
-      cancelAnimationFrame(animId);
-      window.removeEventListener('resize', setSize);
-    };
-  }, []);
-
-  return <canvas ref={canvasRef} className="absolute inset-0 opacity-[0.07] dark:opacity-[0.12]" />;
-}
-
 // ─── Typewriter ───────────────────────────────────────────────────────────────
 function TypewriterText({ texts }: { texts: string[] }) {
-  const [index, setIndex] = useState(0);
+  const [index,   setIndex]   = useState(0);
   const [display, setDisplay] = useState('');
   const [deleting, setDeleting] = useState(false);
   const [charIdx, setCharIdx] = useState(0);
@@ -101,25 +51,27 @@ function TypewriterText({ texts }: { texts: string[] }) {
 // ─── Hero Section ─────────────────────────────────────────────────────────────
 export function HeroSection() {
   const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 500], [0, 120]);
+  const y       = useTransform(scrollY, [0, 500], [0, 120]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
   const springY = useSpring(y, { stiffness: 100, damping: 30 });
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
-      {/* Code rain */}
-      <CodeRainBackground />
 
-      {/* Gradient blobs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 -left-40 w-[500px] h-[500px] bg-violet-600/10 rounded-full blur-[120px]" />
-        <div className="absolute top-1/3 -right-40 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[120px]" />
+      {/* Three.js neural-network background (z-0, no pointer events) */}
+      <AiBackground />
+
+      {/* Soft gradient blobs layered on top of canvas */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-[1]">
+        <div className="absolute top-1/4 -left-40 w-[500px] h-[500px] bg-violet-600/8 rounded-full blur-[120px]" />
+        <div className="absolute top-1/3 -right-40 w-[500px] h-[500px] bg-indigo-600/8 rounded-full blur-[120px]" />
         <div className="absolute -bottom-20 left-1/2 w-[400px] h-[400px] bg-cyan-500/5 rounded-full blur-[120px]" />
       </div>
 
-      {/* Grid */}
-      <div className="absolute inset-0 grid-pattern opacity-100 pointer-events-none" />
+      {/* Subtle grid */}
+      <div className="absolute inset-0 grid-pattern opacity-60 pointer-events-none z-[1]" />
 
+      {/* Hero content — z-10 to stay above canvas */}
       <motion.div
         style={{ y: springY, opacity }}
         className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
@@ -188,10 +140,10 @@ export function HeroSection() {
           <motion.button
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
-            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+            onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
             className="px-6 py-2.5 text-sm font-semibold text-muted-foreground hover:text-foreground rounded-lg border border-border hover:border-violet-500/40 transition-all duration-200"
           >
-            Contact Me
+            About Me
           </motion.button>
         </motion.div>
 
@@ -203,8 +155,8 @@ export function HeroSection() {
           className="flex items-center justify-center gap-6 mb-16"
         >
           {[
-            { icon: Github, href: 'https://github.com/Akshatb848', label: 'GitHub' },
-            { icon: Linkedin, href: 'https://www.linkedin.com/in/akshat-banga-6574aa170/', label: 'LinkedIn' },
+            { icon: Github,   href: 'https://github.com/Akshatb848',                          label: 'GitHub'   },
+            { icon: Linkedin, href: 'https://www.linkedin.com/in/akshat-banga-6574aa170/',    label: 'LinkedIn' },
           ].map((link) => (
             <motion.a
               key={link.label}
@@ -240,7 +192,7 @@ export function HeroSection() {
       </motion.div>
 
       {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent pointer-events-none z-10" />
     </section>
   );
 }

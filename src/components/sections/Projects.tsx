@@ -4,12 +4,12 @@ import { useRef, useState } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import {
   Github,
-  ExternalLink,
   Star,
   GitFork,
   ChevronRight,
   BookOpen,
 } from 'lucide-react';
+import { ProjectVideo } from '@/components/ProjectVideo';
 
 /**
  * All projects sourced from real GitHub repositories at github.com/Akshatb848
@@ -31,6 +31,7 @@ const projects = [
     language: 'Python',
     icon: '🎾',
     featured: true,
+    video: '/videos/ai-tennis-demo.mp4',
   },
   {
     id: 2,
@@ -47,6 +48,7 @@ const projects = [
     language: 'Jupyter Notebook',
     icon: '🛡️',
     featured: true,
+    video: '/videos/aegis-demo.mp4',
   },
   {
     id: 3,
@@ -63,6 +65,7 @@ const projects = [
     language: 'Python',
     icon: '🤖',
     featured: true,
+    video: '/videos/ds-agent-demo.mp4',
   },
   {
     id: 4,
@@ -79,6 +82,7 @@ const projects = [
     language: 'Python',
     icon: '📊',
     featured: true,
+    video: '/videos/analytics-demo.mp4',
   },
   {
     id: 5,
@@ -95,6 +99,7 @@ const projects = [
     language: 'JavaScript',
     icon: '📚',
     featured: true,
+    video: '/videos/llm-dashboard-demo.mp4',
   },
   {
     id: 6,
@@ -327,9 +332,19 @@ function ProjectCard({
     >
       {/* Featured badge */}
       {project.featured && (
-        <div className="absolute top-4 right-4 flex items-center gap-1 px-2 py-0.5 rounded-full bg-indigo-500/10 border border-indigo-500/20">
-          <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse" />
-          <span className="text-xs font-medium text-indigo-400">Featured</span>
+        <div className="absolute top-4 right-4 flex items-center gap-1 px-2 py-0.5 rounded-full bg-violet-500/10 border border-violet-500/20 z-10">
+          <span className="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse" />
+          <span className="text-xs font-medium text-violet-400">Featured</span>
+        </div>
+      )}
+
+      {/* Video preview for featured projects */}
+      {'video' in project && project.video && (
+        <div className="mb-4 -mx-0">
+          <ProjectVideo
+            videoSrc={project.video as string}
+            title={project.title}
+          />
         </div>
       )}
 
