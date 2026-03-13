@@ -20,12 +20,12 @@ const pinnedRepos = [
   {
     name: 'AI-Tennis-Swing-Analyzer',
     description:
-      'Computer vision system that analyzes tennis swings using pose estimation and AI coaching models for real-time biomechanical feedback.',
+      'Multi-agent AI platform for tennis swing analysis. Modular agents/core/services architecture with ChromaDB RAG, Streamlit dashboard. 129 commits — Python 78%, TypeScript 17%.',
     language: 'Python',
     languageColor: '#3572A5',
     stars: 1,
     forks: 0,
-    topics: ['computer-vision', 'pose-estimation', 'langchain', 'streamlit'],
+    topics: ['streamlit', 'chromadb', 'rag', 'agents'],
     url: 'https://github.com/Akshatb848/AI-Tennis-Swing-Analyzer',
   },
   {
@@ -42,12 +42,12 @@ const pinnedRepos = [
   {
     name: 'data-science-agent-platform',
     description:
-      'Agentic AI platform that automates data science workflows — EDA, feature engineering, model selection, and evaluation using multi-agent collaboration.',
+      'Production-grade agentic AI platform (126 commits, 2 open PRs). Modular agents/core/services architecture with RAG pipeline setup and Docker support.',
     language: 'Python',
     languageColor: '#3572A5',
     stars: 0,
     forks: 0,
-    topics: ['agents', 'llm', 'data-science', 'automation'],
+    topics: ['agents', 'rag', 'docker', 'fastapi'],
     url: 'https://github.com/Akshatb848/data-science-agent-platform',
   },
   {

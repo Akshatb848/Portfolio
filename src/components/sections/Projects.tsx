@@ -21,8 +21,8 @@ const projects = [
     name: 'AI-Tennis-Swing-Analyzer',
     title: 'AI Tennis Swing Analyzer',
     description:
-      'Computer vision system that analyzes tennis swings using pose estimation and AI coaching models. Provides real-time biomechanical feedback to help players improve technique.',
-    tech: ['Python', 'OpenCV', 'Streamlit', 'LangChain', 'Pose Estimation'],
+      'Multi-agent AI platform that analyzes tennis swings using a Streamlit dashboard. Built with a modular agents/core/services architecture, ChromaDB-backed RAG for coaching knowledge retrieval, and 129 commits of active development. Covers Python (78%), TypeScript (17%), and Swift components.',
+    tech: ['Python', 'TypeScript', 'Streamlit', 'ChromaDB', 'RAG', 'Agents', 'Docker'],
     category: 'Computer Vision',
     color: 'indigo',
     github: 'https://github.com/Akshatb848/AI-Tennis-Swing-Analyzer',
@@ -53,8 +53,8 @@ const projects = [
     name: 'data-science-agent-platform',
     title: 'Data Science Agent Platform',
     description:
-      'Agentic AI platform designed to automate data science workflows. Agents collaborate to handle data ingestion, EDA, feature engineering, model selection, and evaluation — reducing manual iteration cycles.',
-    tech: ['Python', 'Agents', 'LLMs', 'FastAPI'],
+      'Production-grade agentic AI platform (126 commits, 2 open PRs) automating data science workflows through a modular agents/core/services/dashboard architecture. Built in Python (93%) with Docker support and a RAG setup pipeline (setup_rag.py) for knowledge-grounded analysis.',
+    tech: ['Python', 'Agents', 'RAG', 'FastAPI', 'Docker', 'Streamlit'],
     category: 'Agentic AI',
     color: 'emerald',
     github: 'https://github.com/Akshatb848/data-science-agent-platform',
@@ -101,8 +101,8 @@ const projects = [
     name: 'EcomPriceGen-AI-Powered-Pricing-Discount-Calculator',
     title: 'EcomPriceGen – LLM-Powered Pricing Calculator',
     description:
-      'AI-powered e-commerce pricing solution using LLM fine-tuning with LoRA (Low-Rank Adaptation) on the Zephyr-7B model. Provides a natural language interface for computing discounted prices, fine-tuned on specialized e-commerce datasets for accurate product-aware calculations.',
-    tech: ['Python', 'HuggingFace', 'LoRA', 'Zephyr-7B', 'PEFT', 'Jupyter'],
+      'Automated e-commerce pricing engine combining two notebooks: a RAG Agent for product knowledge retrieval and a Smart E-Commerce Platform. Fine-tunes HuggingFace\'s Zephyr-7B model with LoRA (Low-Rank Adaptation) for resource-efficient training, accepting natural language discount queries.',
+    tech: ['Python', 'HuggingFace', 'Zephyr-7B', 'LoRA', 'PEFT', 'RAG', 'Jupyter'],
     category: 'Generative AI',
     color: 'amber',
     github: 'https://github.com/Akshatb848/EcomPriceGen-AI-Powered-Pricing-Discount-Calculator',
@@ -115,10 +115,10 @@ const projects = [
   {
     id: 7,
     name: 'Degraded-Devanagari-and-Bangla-Script-Identification-Using-CNN-Frameworks',
-    title: 'CNN-Based Script Identification',
+    title: 'CNN Script Identification (99.34% Accuracy)',
     description:
-      'Deep learning system for identifying degraded Devanagari and Bangla scripts using CNN frameworks. Showcases ML/DL projects with cutting-edge computer vision techniques for low-quality document digitization.',
-    tech: ['Python', 'CNN', 'TensorFlow', 'Keras', 'OpenCV', 'Jupyter'],
+      'Identifies degraded Devanagari and Bangla script characters using four CNN architectures on the Ekush dataset (600K+ images). VGG-16 achieves 99.34%, DenseNet-121 98.89%, ResNet-50 98.60%, AlexNet 97.75%. Dockerized with a Streamlit web interface for live inference.',
+    tech: ['Python', 'TensorFlow', 'Keras', 'VGG-16', 'ResNet-50', 'Streamlit', 'Docker'],
     category: 'Computer Vision',
     color: 'rose',
     github:
@@ -196,17 +196,17 @@ const projects = [
   {
     id: 12,
     name: 'Deloitte-South-Asia-projects',
-    title: 'Deloitte South Asia – AI Projects',
+    title: 'MoE Education Intelligence Dashboard (Deloitte)',
     description:
-      'Collection of AI and machine learning projects developed during tenure at Deloitte South Asia. Demonstrates enterprise-grade AI solutions applied to real-world business problems.',
-    tech: ['Python', 'Machine Learning', 'Data Analysis', 'Pandas'],
+      'Government-grade AI analytics platform built for India\'s Ministry of Education with Deloitte Touche Tohmatsu. Converts monthly newsletter data into an interactive command center (FAISS semantic search, LLM chatbot via Ollama, Chart.js visualizations) optimized for cabinet presentations. Deployable via Docker Compose.',
+    tech: ['Python', 'FastAPI', 'FAISS', 'Ollama', 'Docker', 'JavaScript', 'Chart.js', 'Nginx'],
     category: 'Enterprise AI',
     color: 'green',
     github: 'https://github.com/Akshatb848/Deloitte-South-Asia-projects',
     stars: 0,
     forks: 0,
     language: 'Python',
-    icon: '🏢',
+    icon: '🏛️',
     featured: false,
   },
 ];
