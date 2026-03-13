@@ -236,9 +236,8 @@ export function HeroSection() {
           transition={{ duration: 0.7, delay: 0.45 }}
           className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
         >
-          Building{' '}
-          <span className="text-foreground font-semibold">production-grade AI systems</span> powered
-          by machine learning, generative AI, and scalable cloud infrastructure.
+          AI Engineer building{' '}
+          <span className="text-foreground font-semibold">production-grade machine learning</span> and generative AI systems with scalable cloud infrastructure.
         </motion.p>
 
         {/* CTA buttons */}

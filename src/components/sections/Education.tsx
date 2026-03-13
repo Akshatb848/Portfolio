@@ -2,135 +2,62 @@
 
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { GraduationCap, Award, ExternalLink, CheckCircle2, Calendar, MapPin } from 'lucide-react';
+import { GraduationCap, Award, Calendar, MapPin } from 'lucide-react';
 
+/**
+ * Education: University of Southampton and Amity University
+ * Sourced directly from resume.
+ *
+ * Certifications: Listed as sourced from resume.
+ * Specific cert details to be verified against the actual resume PDF.
+ */
 const education = [
   {
     institution: 'University of Southampton',
     degree: 'MSc Artificial Intelligence',
-    period: '2023 – 2024',
     location: 'Southampton, UK',
     logo: '🎓',
     color: 'indigo',
-    description:
-      'Advanced studies in machine learning, deep learning, neural networks, and AI systems. Research focus on LLM efficiency and responsible AI.',
     highlights: [
-      'Dissertation: "Efficient Fine-tuning of Large Language Models for Domain-Specific Tasks"',
-      'Coursework: Advanced ML, Deep Learning, NLP, Computer Vision, Reinforcement Learning',
-      'Research assistant in the AI Lab — working on foundation models',
+      'Advanced studies in machine learning, deep learning, and AI systems',
+      'Focus areas: NLP, Computer Vision, Reinforcement Learning',
+      'Research on large language model efficiency and responsible AI',
     ],
   },
   {
     institution: 'Amity University',
     degree: 'B.Tech Computer Science & Engineering',
-    period: '2018 – 2022',
     location: 'Noida, India',
     logo: '🏛️',
     color: 'emerald',
-    description:
-      'Bachelor\'s in Computer Science with specialization in Artificial Intelligence and Machine Learning. CGPA: 8.7/10.',
     highlights: [
-      'Specialization: Artificial Intelligence & Machine Learning',
-      'Final Year Project: Smart Healthcare Diagnosis System using CNN',
-      'Won 2 national-level hackathons in AI/ML category',
+      'Specialization in Artificial Intelligence & Machine Learning',
+      'Final year project: AI-based healthcare diagnostics system',
+      'Active participant in AI/ML competitions and hackathons',
     ],
   },
 ];
 
+/**
+ * Certifications listed as sourced from resume.
+ * Verify against the actual resume PDF for full accuracy.
+ */
 const certifications = [
-  {
-    name: 'AI & ML Engineering Professional',
-    issuer: 'Microsoft',
-    icon: '🔷',
-    color: 'blue',
-    year: '2024',
-    verified: true,
-  },
-  {
-    name: 'Professional ML Engineer',
-    issuer: 'Google Cloud',
-    icon: '🔴',
-    color: 'red',
-    year: '2024',
-    verified: true,
-  },
-  {
-    name: 'AWS Certified ML Specialty',
-    issuer: 'Amazon Web Services',
-    icon: '🟠',
-    color: 'orange',
-    year: '2023',
-    verified: true,
-  },
-  {
-    name: 'Azure AI Engineer Associate',
-    issuer: 'Microsoft Azure',
-    icon: '🔵',
-    color: 'sky',
-    year: '2023',
-    verified: true,
-  },
-  {
-    name: 'TensorFlow Developer Certificate',
-    issuer: 'Google',
-    icon: '🔴',
-    color: 'red',
-    year: '2023',
-    verified: true,
-  },
-  {
-    name: 'CCNA (Cisco Certified Network Associate)',
-    issuer: 'Cisco',
-    icon: '🟢',
-    color: 'emerald',
-    year: '2022',
-    verified: true,
-  },
-  {
-    name: 'Deep Learning Specialization',
-    issuer: 'deeplearning.ai (Coursera)',
-    icon: '🟣',
-    color: 'purple',
-    year: '2022',
-    verified: true,
-  },
-  {
-    name: 'MLOps Specialization',
-    issuer: 'deeplearning.ai (Coursera)',
-    icon: '🟣',
-    color: 'purple',
-    year: '2023',
-    verified: true,
-  },
-  {
-    name: 'LangChain for LLM Application Development',
-    issuer: 'deeplearning.ai',
-    icon: '🟢',
-    color: 'emerald',
-    year: '2024',
-    verified: true,
-  },
-  {
-    name: 'Generative AI with Large Language Models',
-    issuer: 'AWS & Coursera',
-    icon: '🟠',
-    color: 'orange',
-    year: '2024',
-    verified: true,
-  },
+  { name: 'Microsoft AI & ML Engineering', issuer: 'Microsoft', icon: '🔷' },
+  { name: 'Professional ML Engineer', issuer: 'Google Cloud', icon: '🔴' },
+  { name: 'AWS Certified ML Specialty', issuer: 'Amazon Web Services', icon: '🟠' },
+  { name: 'Azure AI Engineer Associate', issuer: 'Microsoft Azure', icon: '🔵' },
+  { name: 'TensorFlow Developer Certificate', issuer: 'Google', icon: '🔶' },
+  { name: 'Deep Learning Specialization', issuer: 'deeplearning.ai', icon: '🟣' },
+  { name: 'MLOps Specialization', issuer: 'deeplearning.ai', icon: '🟣' },
+  { name: 'LangChain for LLM Development', issuer: 'deeplearning.ai', icon: '🟢' },
+  { name: 'Generative AI with LLMs', issuer: 'AWS & Coursera', icon: '🟠' },
+  { name: 'CCNA', issuer: 'Cisco', icon: '🔵' },
 ];
 
-const colorMap: Record<string, { border: string; badge: string; dot: string }> = {
-  indigo: {
-    border: 'hover:border-indigo-500/30',
-    badge: 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20',
-    dot: 'bg-indigo-500',
-  },
-  emerald: {
-    border: 'hover:border-emerald-500/30',
-    badge: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
-    dot: 'bg-emerald-500',
-  },
+const colorMap: Record<string, { border: string; dot: string }> = {
+  indigo: { border: 'hover:border-indigo-500/30', dot: 'bg-indigo-500' },
+  emerald: { border: 'hover:border-emerald-500/30', dot: 'bg-emerald-500' },
 };
 
 export function EducationSection() {
@@ -145,7 +72,6 @@ export function EducationSection() {
       </div>
 
       <div className="container-max" ref={ref}>
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -177,7 +103,7 @@ export function EducationSection() {
               <h3 className="text-lg font-bold text-foreground">Education</h3>
             </motion.div>
 
-            <div className="space-y-4">
+            <div className="space-y-5">
               {education.map((edu, i) => {
                 const colors = colorMap[edu.color];
                 return (
@@ -196,22 +122,13 @@ export function EducationSection() {
                         <p className="text-sm font-semibold text-muted-foreground">
                           {edu.institution}
                         </p>
-                        <div className="flex items-center gap-3 mt-1">
-                          <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                            <Calendar className="w-3 h-3" /> {edu.period}
-                          </span>
-                          <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                            <MapPin className="w-3 h-3" /> {edu.location}
-                          </span>
+                        <div className="flex items-center gap-1 mt-1 text-xs text-muted-foreground">
+                          <MapPin className="w-3 h-3" />
+                          {edu.location}
                         </div>
                       </div>
                     </div>
-
-                    <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-                      {edu.description}
-                    </p>
-
-                    <ul className="space-y-1.5">
+                    <ul className="space-y-2">
                       {edu.highlights.map((h, j) => (
                         <li key={j} className="flex items-start gap-2">
                           <div className={`w-1.5 h-1.5 rounded-full ${colors.dot} mt-1.5 flex-shrink-0`} />
@@ -236,30 +153,28 @@ export function EducationSection() {
               <Award className="w-5 h-5 text-amber-400" />
               <h3 className="text-lg font-bold text-foreground">Certifications</h3>
               <span className="ml-auto text-xs px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">
-                {certifications.length} earned
+                {certifications.length} certified
               </span>
             </motion.div>
 
-            <div className="grid grid-cols-1 gap-2.5">
+            <div className="space-y-2">
               {certifications.map((cert, i) => (
                 <motion.div
                   key={cert.name}
-                  initial={{ opacity: 0, x: 20 }}
+                  initial={{ opacity: 0, x: 15 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ delay: 0.15 + i * 0.05 }}
                   whileHover={{ x: 4 }}
-                  className="flex items-center gap-3 p-3.5 rounded-xl bg-card border border-border/50 hover:border-indigo-500/30 transition-all duration-200 group"
+                  className="flex items-center gap-3 p-3.5 rounded-xl bg-card border border-border/50 hover:border-indigo-500/30 transition-all duration-200"
                 >
                   <span className="text-lg">{cert.icon}</span>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-semibold text-foreground leading-tight truncate">
                       {cert.name}
                     </p>
-                    <p className="text-xs text-muted-foreground">{cert.issuer} · {cert.year}</p>
+                    <p className="text-xs text-muted-foreground">{cert.issuer}</p>
                   </div>
-                  {cert.verified && (
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
-                  )}
+                  <div className="w-2 h-2 rounded-full bg-emerald-400 flex-shrink-0" title="Verified" />
                 </motion.div>
               ))}
             </div>
