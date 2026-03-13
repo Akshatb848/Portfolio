@@ -2,106 +2,118 @@
 
 import { useRef, useState } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { Briefcase, Calendar, MapPin, ChevronDown, ExternalLink, TrendingUp } from 'lucide-react';
+import { Briefcase, Calendar, MapPin, ChevronDown, CheckCircle2 } from 'lucide-react';
 
+/**
+ * Work experience sourced from resume.
+ * Companies verified: Jio Platforms Limited, Deloitte South Asia,
+ * Unified Mentor, C-DOT, Feynn Labs.
+ * GitHub corroboration: github.com/Akshatb848/Deloitte-South-Asia-projects
+ *                       github.com/Akshatb848/UNIFIED-MENTOR
+ */
 const experiences = [
   {
     id: 1,
-    company: 'Jio Platforms',
+    company: 'Jio Platforms Limited',
     role: 'AI Engineer',
     type: 'Full-time',
-    period: '2023 – Present',
-    location: 'Mumbai, India',
+    period: 'Present',
+    location: 'India',
     logo: '🔵',
     color: 'indigo',
     description:
-      'Leading AI engineering initiatives at India\'s largest telecommunications company, building enterprise-grade ML systems that serve 400M+ users.',
-    achievements: [
-      'Architected an AI-driven network operations system using anomaly detection (LSTM + Isolation Forest), reducing MTTR by 60% and saving $2M+ annually',
-      'Built production RAG system using LangChain + Pinecone that answers 50K+ internal queries/day with 92% accuracy',
-      'Led development of automated ML pipeline for customer churn prediction achieving 89% accuracy, deployed on AWS SageMaker',
-      'Designed and deployed GenAI-powered customer service bot serving 100K+ daily interactions with 85% resolution rate',
-      'Established MLOps practices using MLflow + Kubeflow, reducing model deployment time from 2 weeks to 2 hours',
+      "Engineering AI systems at India's largest digital services platform, building and deploying machine learning solutions that power services for 400M+ users.",
+    bullets: [
+      'Designing and deploying production ML pipelines for large-scale data processing',
+      'Building RAG-based retrieval systems and LLM-powered internal tools',
+      'Developing AI automation systems for network operations and monitoring',
+      'Implementing MLOps practices for continuous model training and deployment',
+      'Collaborating on generative AI features serving enterprise and consumer products',
     ],
-    tech: ['Python', 'PyTorch', 'LangChain', 'AWS SageMaker', 'Kubernetes', 'MLflow', 'Kafka'],
+    tech: ['Python', 'PyTorch', 'LangChain', 'AWS', 'Kubernetes', 'MLflow'],
   },
   {
     id: 2,
-    company: 'Deloitte',
-    role: 'AI & ML Consultant',
+    company: 'Deloitte South Asia',
+    role: 'AI / ML Consultant',
     type: 'Full-time',
-    period: '2022 – 2023',
-    location: 'Hybrid',
+    period: '',
+    location: 'India',
     logo: '🟢',
     color: 'emerald',
     description:
-      'Delivered enterprise AI transformation projects for Fortune 500 clients across finance, healthcare, and retail verticals.',
-    achievements: [
-      'Deployed NLP-based document intelligence system for a global bank processing 500K+ documents/month with 96% accuracy',
-      'Built predictive analytics dashboard for supply chain optimization, reducing inventory costs by 23% for a retail client',
-      'Implemented computer vision-based quality inspection system achieving 98% defect detection rate in manufacturing',
-      'Led AI readiness assessments for 5+ enterprise clients, creating roadmaps for responsible AI adoption',
+      'Delivered AI and machine learning consulting engagements for enterprise clients across multiple industry verticals.',
+    bullets: [
+      'Built and deployed ML models for enterprise clients in finance, healthcare, and retail',
+      'Developed NLP and computer vision solutions for document intelligence use cases',
+      'Created predictive analytics solutions for supply chain and operations optimization',
+      'Conducted AI readiness assessments and developed AI adoption roadmaps for clients',
     ],
-    tech: ['Python', 'TensorFlow', 'Azure ML', 'Power BI', 'FastAPI', 'PostgreSQL', 'Docker'],
+    tech: ['Python', 'TensorFlow', 'Azure ML', 'FastAPI', 'Docker', 'Power BI'],
+    githubRepo: 'https://github.com/Akshatb848/Deloitte-South-Asia-projects',
   },
   {
     id: 3,
     company: 'Unified Mentor',
     role: 'Machine Learning Engineer',
     type: 'Full-time',
-    period: '2021 – 2022',
+    period: '',
     location: 'Remote',
     logo: '🟣',
     color: 'purple',
     description:
-      'Built ML-powered educational technology products that personalized learning experiences for 100K+ students.',
-    achievements: [
-      'Designed recommendation engine using collaborative filtering + content-based hybrid model serving 100K+ students',
-      'Built NLP pipeline for automatic quiz generation from educational content using GPT-3 fine-tuning',
-      'Created student performance prediction model with 87% accuracy for early intervention systems',
-      'Reduced model inference latency by 65% through model quantization and TensorRT optimization',
+      'Built ML-powered educational technology products, developing recommendation and personalization systems for learners.',
+    bullets: [
+      'Designed recommendation engine for personalizing learning content and pathways',
+      'Developed NLP pipelines for automated educational content processing',
+      'Created student performance prediction models for early intervention systems',
+      'Optimized model inference performance for production serving',
     ],
-    tech: ['Python', 'PyTorch', 'HuggingFace', 'GCP', 'FastAPI', 'Redis', 'PostgreSQL'],
+    tech: ['Python', 'PyTorch', 'HuggingFace', 'GCP', 'FastAPI', 'PostgreSQL'],
+    githubRepo: 'https://github.com/Akshatb848/UNIFIED-MENTOR',
   },
   {
     id: 4,
-    company: 'C-DOT (Govt. of India)',
-    role: 'Research Engineer – AI/ML',
+    company: 'C-DOT (Centre for Development of Telematics)',
+    role: 'Research Engineer – AI / ML',
     type: 'Contract',
-    period: '2020 – 2021',
+    period: '',
     location: 'New Delhi, India',
     logo: '🔴',
     color: 'rose',
     description:
-      'Contributed to national-level telecommunications research with focus on AI-driven network optimization and security.',
-    achievements: [
-      'Developed intrusion detection system using deep learning (CNN-LSTM), achieving 97.3% detection accuracy',
-      'Built ML models for 5G network traffic classification and optimization in collaboration with Telecom Regulatory Authority of India',
-      'Implemented anomaly detection for critical infrastructure monitoring using unsupervised learning techniques',
+      'Government of India telecom research institute. Contributed to AI-driven network security and optimization research.',
+    bullets: [
+      'Developed deep learning models for network intrusion detection and classification',
+      'Built ML-based traffic analysis systems for telecom network optimization',
+      'Implemented unsupervised anomaly detection for critical infrastructure monitoring',
     ],
-    tech: ['Python', 'TensorFlow', 'OpenCV', 'Scikit-learn', 'Linux', 'Docker'],
+    tech: ['Python', 'TensorFlow', 'OpenCV', 'Scikit-learn', 'Docker', 'Linux'],
   },
   {
     id: 5,
     company: 'Feynn Labs',
     role: 'AI Research Intern',
     type: 'Internship',
-    period: '2019 – 2020',
+    period: '',
     location: 'Remote',
     logo: '🟡',
     color: 'amber',
     description:
-      'Early-stage AI research and development, building foundational ML models and contributing to open-source AI tools.',
-    achievements: [
-      'Developed sentiment analysis model for financial news achieving 88% accuracy using BERT fine-tuning',
-      'Built data augmentation pipeline for computer vision tasks, improving model accuracy by 15%',
-      'Contributed to 3 open-source ML projects with 200+ GitHub stars combined',
+      'Early-stage AI research company. Built ML models and contributed to AI product development and research initiatives.',
+    bullets: [
+      'Developed NLP models for text classification and sentiment analysis tasks',
+      'Built computer vision data augmentation pipelines to improve model accuracy',
+      'Contributed to open-source ML projects and internal research tooling',
     ],
-    tech: ['Python', 'PyTorch', 'HuggingFace', 'Pandas', 'Matplotlib', 'Scikit-learn'],
+    tech: ['Python', 'PyTorch', 'HuggingFace', 'Pandas', 'Scikit-learn'],
   },
 ];
 
-const colorMap: Record<string, { dot: string; border: string; badge: string; line: string }> = {
+const colorMap: Record<
+  string,
+  { dot: string; border: string; badge: string; line: string }
+> = {
   indigo: {
     dot: 'bg-indigo-500 shadow-indigo-500/50',
     border: 'border-indigo-500/30',
@@ -152,47 +164,64 @@ function ExperienceCard({
       transition={{ duration: 0.5, delay: index * 0.1 }}
       className="relative flex gap-6"
     >
-      {/* Timeline */}
+      {/* Timeline line */}
       <div className="flex flex-col items-center">
         <div
-          className={`w-4 h-4 rounded-full ${colors.dot} shadow-lg flex-shrink-0 mt-1 ring-4 ring-background`}
+          className={`w-4 h-4 rounded-full ${colors.dot} shadow-lg flex-shrink-0 mt-1.5 ring-4 ring-background`}
         />
         {index < experiences.length - 1 && (
-          <div className={`w-px flex-1 min-h-full bg-gradient-to-b ${colors.line} to-transparent mt-2`} />
+          <div
+            className={`w-px flex-1 min-h-full bg-gradient-to-b ${colors.line} to-transparent mt-2`}
+          />
         )}
       </div>
 
-      {/* Content */}
-      <div className={`flex-1 pb-10 border rounded-2xl bg-card p-6 ${colors.border} mb-2 hover:shadow-md transition-all duration-200`}>
+      {/* Card */}
+      <div
+        className={`flex-1 pb-10 p-6 rounded-2xl bg-card border ${colors.border} mb-2 hover:shadow-md transition-all duration-200`}
+      >
         {/* Header */}
-        <div className="flex items-start justify-between gap-4 mb-4">
+        <div className="flex items-start justify-between gap-4 mb-3">
           <div className="flex items-start gap-3">
             <span className="text-2xl">{exp.logo}</span>
             <div>
-              <h3 className="text-lg font-bold text-foreground">{exp.role}</h3>
-              <div className="flex items-center gap-2 mt-0.5">
-                <span className="text-base font-semibold text-foreground/80">{exp.company}</span>
+              <h3 className="text-base font-bold text-foreground">{exp.role}</h3>
+              <div className="flex flex-wrap items-center gap-2 mt-0.5">
+                <span className="text-sm font-semibold text-foreground/80">{exp.company}</span>
                 <span className={`text-xs px-2 py-0.5 rounded-full border ${colors.badge}`}>
                   {exp.type}
                 </span>
               </div>
             </div>
           </div>
-          <div className="flex flex-col items-end gap-1 flex-shrink-0">
-            <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-              <Calendar className="w-3.5 h-3.5" />
-              {exp.period}
-            </div>
-            <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-              <MapPin className="w-3.5 h-3.5" />
-              {exp.location}
-            </div>
+          <div className="flex flex-col items-end gap-1 flex-shrink-0 text-xs text-muted-foreground">
+            {exp.period && (
+              <span className="flex items-center gap-1">
+                <Calendar className="w-3 h-3" /> {exp.period}
+              </span>
+            )}
+            <span className="flex items-center gap-1">
+              <MapPin className="w-3 h-3" /> {exp.location}
+            </span>
           </div>
         </div>
 
-        <p className="text-sm text-muted-foreground leading-relaxed mb-4">{exp.description}</p>
+        <p className="text-sm text-muted-foreground leading-relaxed mb-3">{exp.description}</p>
 
-        {/* Achievements */}
+        {/* GitHub repo link if available */}
+        {exp.githubRepo && (
+          <a
+            href={exp.githubRepo}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-xs text-indigo-400 hover:text-indigo-300 transition-colors mb-3"
+          >
+            <span>📁</span>
+            View related work on GitHub →
+          </a>
+        )}
+
+        {/* Bullets */}
         <AnimatePresence>
           {expanded && (
             <motion.div
@@ -202,26 +231,26 @@ function ExperienceCard({
               transition={{ duration: 0.3 }}
               className="overflow-hidden"
             >
-              <div className="space-y-2 mb-4">
-                {exp.achievements.map((achievement, i) => (
-                  <motion.div
+              <ul className="space-y-2 mb-4">
+                {exp.bullets.map((bullet, i) => (
+                  <motion.li
                     key={i}
-                    initial={{ opacity: 0, x: -10 }}
+                    initial={{ opacity: 0, x: -8 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.05 }}
                     className="flex items-start gap-2.5"
                   >
-                    <TrendingUp className="w-3.5 h-3.5 text-indigo-400 flex-shrink-0 mt-0.5" />
-                    <p className="text-sm text-muted-foreground leading-relaxed">{achievement}</p>
-                  </motion.div>
+                    <CheckCircle2 className="w-3.5 h-3.5 text-indigo-400 flex-shrink-0 mt-0.5" />
+                    <p className="text-sm text-muted-foreground leading-relaxed">{bullet}</p>
+                  </motion.li>
                 ))}
-              </div>
+              </ul>
             </motion.div>
           )}
         </AnimatePresence>
 
         {/* Tech stack */}
-        <div className="flex flex-wrap gap-1.5 mb-4">
+        <div className="flex flex-wrap gap-1.5 mb-3">
           {exp.tech.map((t) => (
             <span
               key={t}
@@ -232,12 +261,12 @@ function ExperienceCard({
           ))}
         </div>
 
-        {/* Expand button */}
+        {/* Expand toggle */}
         <button
           onClick={() => setExpanded(!expanded)}
           className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
         >
-          {expanded ? 'Hide details' : 'Show achievements'}
+          {expanded ? 'Hide details' : 'Show details'}
           <ChevronDown
             className={`w-3.5 h-3.5 transition-transform duration-200 ${expanded ? 'rotate-180' : ''}`}
           />
@@ -258,7 +287,6 @@ export function ExperienceSection() {
       </div>
 
       <div className="container-max" ref={ref}>
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -278,12 +306,11 @@ export function ExperienceSection() {
             </h2>
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <Briefcase className="w-4 h-4 text-indigo-400" />
-              <span>5+ years · 5 companies</span>
+              <span>5 companies across AI &amp; ML roles</span>
             </div>
           </div>
         </motion.div>
 
-        {/* Timeline */}
         <div className="max-w-4xl">
           {experiences.map((exp, i) => (
             <ExperienceCard key={exp.id} exp={exp} index={i} />

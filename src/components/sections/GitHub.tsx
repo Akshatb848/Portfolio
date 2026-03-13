@@ -2,90 +2,129 @@
 
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import Image from 'next/image';
-import { Github, Star, GitFork, GitCommit, Users, ExternalLink, Code2 } from 'lucide-react';
+import {
+  Github,
+  Star,
+  GitFork,
+  ExternalLink,
+  Code2,
+  BookOpen,
+} from 'lucide-react';
 
+/**
+ * All repository data sourced from real GitHub API:
+ * https://api.github.com/users/Akshatb848/repos
+ * Last verified: March 2026
+ */
 const pinnedRepos = [
   {
-    name: 'enterprise-rag-system',
-    description: 'Production-grade RAG pipeline with LangChain, Pinecone & GPT-4. Handles 10K+ queries/day.',
+    name: 'AI-Tennis-Swing-Analyzer',
+    description:
+      'Multi-agent AI platform for tennis swing analysis. Modular agents/core/services architecture with ChromaDB RAG, Streamlit dashboard. 129 commits — Python 78%, TypeScript 17%.',
     language: 'Python',
     languageColor: '#3572A5',
-    stars: 48,
-    forks: 12,
-    topics: ['langchain', 'rag', 'openai', 'pinecone', 'fastapi'],
+    stars: 1,
+    forks: 0,
+    topics: ['streamlit', 'chromadb', 'rag', 'agents'],
+    url: 'https://github.com/Akshatb848/AI-Tennis-Swing-Analyzer',
   },
   {
-    name: 'ai-healthcare-diagnostics',
-    description: 'Deep learning medical image analysis system with 94%+ accuracy for anomaly detection.',
-    language: 'Python',
-    languageColor: '#3572A5',
-    stars: 73,
-    forks: 19,
-    topics: ['pytorch', 'computer-vision', 'medical-ai', 'deep-learning'],
+    name: 'AI-Governance-and-Risk-Management',
+    description:
+      'AEGIS: End-to-end AI Governance & Risk Management platform with ML and GenAI audits. Multi-agent architecture with SHAP explainability and compliance-ready PDF reports.',
+    language: 'Jupyter Notebook',
+    languageColor: '#DA5B0B',
+    stars: 0,
+    forks: 0,
+    topics: ['langgraph', 'shap', 'rag', 'ai-governance', 'streamlit'],
+    url: 'https://github.com/Akshatb848/AI-Governance-and-Risk-Management',
   },
   {
-    name: 'multi-agent-ai-platform',
-    description: 'Agentic AI orchestration with LangGraph. Automates complex multi-step business workflows.',
+    name: 'data-science-agent-platform',
+    description:
+      'Production-grade agentic AI platform (126 commits, 2 open PRs). Modular agents/core/services architecture with RAG pipeline setup and Docker support.',
     language: 'Python',
     languageColor: '#3572A5',
-    stars: 61,
-    forks: 15,
-    topics: ['langraph', 'agents', 'gpt-4', 'automation'],
+    stars: 0,
+    forks: 0,
+    topics: ['agents', 'rag', 'docker', 'fastapi'],
+    url: 'https://github.com/Akshatb848/data-science-agent-platform',
   },
   {
-    name: 'mlops-infrastructure',
-    description: 'End-to-end MLOps platform: model versioning, CI/CD, A/B testing, monitoring.',
+    name: 'AI-Analytics-Dashboard',
+    description:
+      'Open-source Tableau AI alternative: automated insights, time-series forecasting with Prophet, natural language queries, and executive dashboard studio.',
     language: 'Python',
     languageColor: '#3572A5',
-    stars: 42,
-    forks: 11,
-    topics: ['mlflow', 'kubernetes', 'kubeflow', 'terraform'],
+    stars: 0,
+    forks: 0,
+    topics: ['streamlit', 'plotly', 'prophet', 'nlq', 'analytics'],
+    url: 'https://github.com/Akshatb848/AI-Analytics-Dashboard',
   },
   {
-    name: 'realtime-nlp-pipeline',
-    description: 'High-throughput NLP processing at 1M+ records/hour using Kafka & transformer models.',
-    language: 'Python',
-    languageColor: '#3572A5',
-    stars: 34,
-    forks: 8,
-    topics: ['nlp', 'kafka', 'transformers', 'spark'],
+    name: 'LLM-dashboard',
+    description:
+      'Conference-ready Ministry of Education dashboard featuring RAG-first AI chatbot with strict no-hallucination mode and monthly newsletter retrieval.',
+    language: 'JavaScript',
+    languageColor: '#F1E05A',
+    stars: 0,
+    forks: 0,
+    topics: ['rag', 'llm', 'fastapi', 'education', 'ollama'],
+    url: 'https://github.com/Akshatb848/LLM-dashboard',
   },
   {
-    name: 'yolov8-industrial-inspection',
-    description: 'Real-time object detection & tracking at 60FPS with TensorRT optimization for edge devices.',
-    language: 'Python',
-    languageColor: '#3572A5',
-    stars: 55,
-    forks: 16,
-    topics: ['yolov8', 'tensorrt', 'computer-vision', 'edge-ai'],
+    name: 'EcomPriceGen-AI-Powered-Pricing-Discount-Calculator',
+    description:
+      'AI e-commerce pricing engine using LLM fine-tuning with LoRA on Zephyr-7B. Natural language interface for discount calculations.',
+    language: 'Jupyter Notebook',
+    languageColor: '#DA5B0B',
+    stars: 0,
+    forks: 0,
+    topics: ['lora', 'llm-finetuning', 'huggingface', 'zephyr', 'peft'],
+    url: 'https://github.com/Akshatb848/EcomPriceGen-AI-Powered-Pricing-Discount-Calculator',
   },
 ];
 
-const githubStats = [
-  { label: 'Total Stars', value: '300+', icon: Star, color: 'text-yellow-400' },
-  { label: 'Repositories', value: '25+', icon: Code2, color: 'text-indigo-400' },
-  { label: 'Contributions', value: '1.2K+', icon: GitCommit, color: 'text-emerald-400' },
-  { label: 'Followers', value: '50+', icon: Users, color: 'text-purple-400' },
+const allRepos = [
+  { name: 'AI-Tennis-Swing-Analyzer', lang: 'Python', stars: 1 },
+  { name: 'data-science-agent-platform', lang: 'Python', stars: 0 },
+  { name: 'Degraded-Devanagari-Bangla-CNN', lang: 'Python', stars: 0 },
+  { name: 'LLM-dashboard', lang: 'JavaScript', stars: 0 },
+  { name: 'Deloitte-South-Asia-projects', lang: 'Python', stars: 0 },
+  { name: 'AI-Analytics-Dashboard', lang: 'Python', stars: 0 },
+  { name: 'Dashboard-demo', lang: 'Python', stars: 0 },
+  { name: 'AI-Governance-and-Risk-Management', lang: 'Jupyter', stars: 0 },
+  { name: 'UNIFIED-MENTOR', lang: 'Jupyter', stars: 0 },
+  { name: 'Market-Segmentation-Edtech', lang: 'Jupyter', stars: 0 },
+  { name: 'EcomPriceGen', lang: 'Jupyter', stars: 0 },
+  { name: 'Real-Time-Air-Quality-Prediction', lang: 'Jupyter', stars: 0 },
+  { name: 'Music-Genre-Classification', lang: 'Jupyter', stars: 0 },
+  { name: 'NPS-Driven-Strategy-Aviation', lang: 'Jupyter', stars: 0 },
 ];
 
-function RepoCard({ repo, index }: { repo: (typeof pinnedRepos)[0]; index: number }) {
+function RepoCard({
+  repo,
+  index,
+}: {
+  repo: (typeof pinnedRepos)[0];
+  index: number;
+}) {
   return (
     <motion.a
-      href={`https://github.com/Akshatb848/${repo.name}`}
+      href={repo.url}
       target="_blank"
       rel="noopener noreferrer"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-30px' }}
       transition={{ duration: 0.5, delay: index * 0.08 }}
-      whileHover={{ y: -3, boxShadow: '0 8px 30px rgba(0,0,0,0.12)' }}
+      whileHover={{ y: -3 }}
       className="group p-5 rounded-xl bg-card border border-border/50 hover:border-indigo-500/30 transition-all duration-200 flex flex-col"
     >
       {/* Header */}
-      <div className="flex items-start justify-between gap-3 mb-3">
-        <div className="flex items-center gap-2">
-          <Github className="w-4 h-4 text-muted-foreground" />
+      <div className="flex items-start justify-between gap-2 mb-3">
+        <div className="flex items-center gap-2 min-w-0">
+          <Github className="w-4 h-4 text-muted-foreground flex-shrink-0" />
           <span className="text-sm font-semibold text-indigo-400 group-hover:text-indigo-300 transition-colors truncate">
             {repo.name}
           </span>
@@ -94,7 +133,9 @@ function RepoCard({ repo, index }: { repo: (typeof pinnedRepos)[0]; index: numbe
       </div>
 
       {/* Description */}
-      <p className="text-xs text-muted-foreground leading-relaxed mb-3 flex-1">{repo.description}</p>
+      <p className="text-xs text-muted-foreground leading-relaxed mb-3 flex-1">
+        {repo.description}
+      </p>
 
       {/* Topics */}
       <div className="flex flex-wrap gap-1 mb-3">
@@ -172,14 +213,18 @@ export function GitHubSection() {
           </div>
         </motion.div>
 
-        {/* Stats cards */}
+        {/* Profile summary card */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10"
+          className="grid sm:grid-cols-3 gap-4 mb-10"
         >
-          {githubStats.map((stat, i) => (
+          {[
+            { icon: Code2, label: 'Public Repositories', value: '14', color: 'text-indigo-400' },
+            { icon: Star, label: 'Total Stars', value: '1', color: 'text-yellow-400' },
+            { icon: BookOpen, label: 'Primary Language', value: 'Python', color: 'text-emerald-400' },
+          ].map((stat, i) => (
             <motion.div
               key={stat.label}
               initial={{ opacity: 0, scale: 0.95 }}
@@ -201,32 +246,45 @@ export function GitHubSection() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="grid sm:grid-cols-2 gap-4 mb-10"
         >
-          {/* Stats card */}
           <div className="p-4 rounded-xl bg-card border border-border/50 overflow-hidden">
             <p className="text-xs font-semibold text-muted-foreground mb-3">GitHub Statistics</p>
-            <div className="relative w-full aspect-[2/1] rounded-lg overflow-hidden bg-muted">
+            <div className="w-full overflow-hidden rounded-lg bg-muted/30 p-2">
               <img
-                src={`https://github-readme-stats.vercel.app/api?username=${username}&show_icons=true&theme=transparent&hide_border=true&title_color=6366f1&icon_color=6366f1&text_color=94a3b8&bg_color=00000000`}
-                alt="GitHub Stats"
-                className="w-full h-full object-contain"
+                src={`https://github-readme-stats.vercel.app/api?username=${username}&show_icons=true&theme=transparent&hide_border=true&title_color=6366f1&icon_color=6366f1&text_color=94a3b8&bg_color=00000000&count_private=true`}
+                alt={`${username} GitHub Stats`}
+                className="w-full"
                 onError={(e) => {
-                  const el = e.target as HTMLImageElement;
+                  const el = e.currentTarget;
                   el.style.display = 'none';
+                  const fallback = el.nextElementSibling as HTMLElement;
+                  if (fallback) fallback.style.display = 'flex';
                 }}
               />
+              <div
+                className="hidden items-center justify-center py-6 text-sm text-muted-foreground"
+              >
+                Stats available at{' '}
+                <a
+                  href={`https://github.com/${username}`}
+                  className="text-indigo-400 ml-1 hover:underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  github.com/{username}
+                </a>
+              </div>
             </div>
           </div>
 
-          {/* Top languages */}
           <div className="p-4 rounded-xl bg-card border border-border/50 overflow-hidden">
             <p className="text-xs font-semibold text-muted-foreground mb-3">Top Languages</p>
-            <div className="relative w-full aspect-[2/1] rounded-lg overflow-hidden bg-muted">
+            <div className="w-full overflow-hidden rounded-lg bg-muted/30 p-2">
               <img
                 src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${username}&layout=compact&theme=transparent&hide_border=true&title_color=6366f1&text_color=94a3b8&bg_color=00000000`}
-                alt="Top Languages"
-                className="w-full h-full object-contain"
+                alt={`${username} Top Languages`}
+                className="w-full"
                 onError={(e) => {
-                  const el = e.target as HTMLImageElement;
+                  const el = e.currentTarget;
                   el.style.display = 'none';
                 }}
               />
@@ -234,28 +292,28 @@ export function GitHubSection() {
           </div>
         </motion.div>
 
-        {/* Contribution streak */}
+        {/* Contribution activity */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.25 }}
           className="p-4 rounded-xl bg-card border border-border/50 overflow-hidden mb-10"
         >
-          <p className="text-xs font-semibold text-muted-foreground mb-3">Contribution Streak</p>
-          <div className="w-full overflow-hidden rounded-lg bg-muted">
+          <p className="text-xs font-semibold text-muted-foreground mb-3">Contribution Activity</p>
+          <div className="w-full overflow-hidden rounded-lg bg-muted/30">
             <img
-              src={`https://github-readme-streak-stats.herokuapp.com/?user=${username}&theme=transparent&hide_border=true&ring=6366f1&fire=8b5cf6&currStreakLabel=6366f1&sideLabels=94a3b8&dates=94a3b8&currStreakNum=a5b4fc`}
-              alt="Contribution Streak"
-              className="w-full"
+              src={`https://ghchart.rshah.org/6366f1/${username}`}
+              alt={`${username} contribution chart`}
+              className="w-full opacity-90"
               onError={(e) => {
-                const el = e.target as HTMLImageElement;
+                const el = e.currentTarget;
                 el.style.display = 'none';
               }}
             />
           </div>
         </motion.div>
 
-        {/* Pinned repos */}
+        {/* Featured repos */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -263,11 +321,44 @@ export function GitHubSection() {
         >
           <p className="text-sm font-semibold text-muted-foreground mb-4 flex items-center gap-2">
             <Star className="w-4 h-4 text-yellow-400" />
-            Pinned Repositories
+            Featured Repositories
           </p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {pinnedRepos.map((repo, i) => (
               <RepoCard key={repo.name} repo={repo} index={i} />
+            ))}
+          </div>
+        </motion.div>
+
+        {/* All repos list */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.5 }}
+          className="mt-8"
+        >
+          <p className="text-xs font-semibold text-muted-foreground mb-3 flex items-center gap-2">
+            <Code2 className="w-3.5 h-3.5 text-indigo-400" />
+            All {allRepos.length} repositories
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {allRepos.map((repo) => (
+              <a
+                key={repo.name}
+                href={`https://github.com/${username}/${repo.name}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-card border border-border/50 hover:border-indigo-500/30 text-xs text-muted-foreground hover:text-foreground transition-all duration-200"
+              >
+                <span className="w-2 h-2 rounded-full bg-indigo-400/60" />
+                {repo.name}
+                {repo.stars > 0 && (
+                  <span className="flex items-center gap-0.5 text-yellow-400">
+                    <Star className="w-2.5 h-2.5 fill-current" />
+                    {repo.stars}
+                  </span>
+                )}
+              </a>
             ))}
           </div>
         </motion.div>
