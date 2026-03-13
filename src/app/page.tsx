@@ -21,10 +21,6 @@ const GitHubSection = dynamic(() =>
 const EducationSection = dynamic(() =>
   import('@/components/sections/Education').then((m) => ({ default: m.EducationSection }))
 );
-const ContactSection = dynamic(() =>
-  import('@/components/sections/Contact').then((m) => ({ default: m.ContactSection }))
-);
-
 export default function Home() {
   return (
     <main className="relative min-h-screen bg-background overflow-x-hidden">
@@ -36,7 +32,6 @@ export default function Home() {
       <ExperienceSection />
       <GitHubSection />
       <EducationSection />
-      <ContactSection />
       <Footer />
     </main>
   );

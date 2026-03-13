@@ -9,7 +9,7 @@ const experiences = [
     id: 1,
     company: 'Jio Platforms Limited',
     companyInitial: 'JP',
-    role: 'AI Engineer',
+    role: 'Assistant Manager (AIOps)',
     type: 'Full-time',
     period: 'Present',
     location: 'India',

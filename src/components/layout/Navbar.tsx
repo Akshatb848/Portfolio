@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from 'next-themes';
-import { Moon, Sun, Menu, X, Code2, Download } from 'lucide-react';
+import { Moon, Sun, Menu, X, Code2 } from 'lucide-react';
 
 const navLinks = [
   { href: '#about', label: 'About' },
@@ -12,7 +12,6 @@ const navLinks = [
   { href: '#experience', label: 'Experience' },
   { href: '#github', label: 'GitHub' },
   { href: '#education', label: 'Education' },
-  { href: '#contact', label: 'Contact' },
 ];
 
 export function Navbar() {
@@ -150,18 +149,6 @@ export function Navbar() {
                 </motion.button>
               )}
 
-              {/* Resume button */}
-              <motion.a
-                href="/Akshat_Banga_Resume.pdf"
-                download
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-violet-600 hover:bg-violet-700 rounded-lg transition-colors shadow-lg shadow-violet-500/20"
-              >
-                <Download className="w-3.5 h-3.5" />
-                Resume
-              </motion.a>
-
               {/* Mobile menu */}
               <button
                 className="md:hidden w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
@@ -199,14 +186,6 @@ export function Navbar() {
                   {link.label}
                 </motion.button>
               ))}
-              <a
-                href="/Akshat_Banga_Resume.pdf"
-                download
-                className="flex items-center gap-2 px-4 py-3 text-sm font-semibold text-violet-400 hover:bg-violet-500/10 rounded-lg transition-colors mt-1"
-              >
-                <Download className="w-4 h-4" />
-                Download Resume
-              </a>
             </div>
           </motion.div>
         )}

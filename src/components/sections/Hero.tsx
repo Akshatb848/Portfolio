@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import { ArrowDown, Github, Linkedin, Download, Terminal } from 'lucide-react';
+import { ArrowDown, Github, Linkedin, Terminal } from 'lucide-react';
 
 const titles = [
   'AI Engineer',
@@ -184,17 +184,6 @@ export function HeroSection() {
           >
             View Projects
           </motion.button>
-
-          <motion.a
-            href="/Akshat_Banga_Resume.pdf"
-            download="Akshat_Banga_Resume.pdf"
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            className="px-6 py-2.5 flex items-center gap-2 bg-background hover:bg-muted text-foreground text-sm font-semibold rounded-lg border border-border hover:border-violet-500/40 transition-all duration-200"
-          >
-            <Download className="w-4 h-4" />
-            Download Resume
-          </motion.a>
 
           <motion.button
             whileHover={{ scale: 1.03 }}
