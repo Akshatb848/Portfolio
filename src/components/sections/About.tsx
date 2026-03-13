@@ -18,9 +18,9 @@ const highlights = [
     icon: Brain,
     title: 'AI & ML Systems',
     description: 'Production ML models, deep learning architectures, and NLP pipelines.',
-    color: 'text-indigo-500',
-    bg: 'bg-indigo-500/10',
-    border: 'border-indigo-500/20',
+    color: 'text-violet-500',
+    bg: 'bg-violet-500/10',
+    border: 'border-violet-500/20',
   },
   {
     icon: Zap,
@@ -68,7 +68,7 @@ export function AboutSection() {
         >
           <div className="flex items-center gap-3 mb-4">
             <div className="h-px flex-1 max-w-12 bg-gradient-to-r from-transparent to-indigo-500" />
-            <span className="text-xs font-semibold tracking-widest uppercase text-indigo-500">
+            <span className="text-xs font-semibold tracking-widest uppercase text-violet-500">
               About Me
             </span>
           </div>
@@ -116,10 +116,10 @@ export function AboutSection() {
               </p>
             </div>
 
-            <div className="p-5 rounded-2xl bg-gradient-to-br from-indigo-500/10 to-purple-500/10 border border-indigo-500/20">
+            <div className="p-5 rounded-2xl bg-gradient-to-br from-violet-500/10 to-purple-500/10 border border-violet-500/20">
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-indigo-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <Code2 className="w-4 h-4 text-indigo-400" />
+                <div className="w-8 h-8 rounded-lg bg-violet-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <Code2 className="w-4 h-4 text-violet-400" />
                 </div>
                 <div>
                   <p className="text-sm font-semibold text-foreground mb-1">My Approach</p>
@@ -138,7 +138,7 @@ export function AboutSection() {
                 onClick={() =>
                   document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
                 }
-                className="flex items-center gap-2 text-sm font-semibold text-indigo-500 hover:text-indigo-400 transition-colors"
+                className="flex items-center gap-2 text-sm font-semibold text-violet-500 hover:text-violet-400 transition-colors"
               >
                 Let&apos;s work together
                 <ArrowRight className="w-4 h-4" />
@@ -201,7 +201,7 @@ export function AboutSection() {
                   key={s.label}
                   className="text-center p-3 rounded-xl bg-card border border-border/50"
                 >
-                  <s.icon className="w-4 h-4 text-indigo-400 mx-auto mb-1" />
+                  <s.icon className="w-4 h-4 text-violet-400 mx-auto mb-1" />
                   <div className="text-lg font-black text-foreground">{s.value}</div>
                   <div className="text-xs text-muted-foreground leading-tight">{s.label}</div>
                   <div className="text-xs text-muted-foreground/60 leading-tight">{s.note}</div>

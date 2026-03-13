@@ -79,13 +79,13 @@ export function Navbar() {
               className="flex items-center gap-2 group"
               whileHover={{ scale: 1.02 }}
             >
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/30">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-violet-500/25">
                 <Code2 className="w-4 h-4 text-white" />
               </div>
-              <span className="font-bold text-sm tracking-tight">
-                <span className="text-foreground">Akshat</span>
-                <span className="text-indigo-500">.</span>
-                <span className="text-muted-foreground">dev</span>
+              <span className="font-mono font-bold text-sm tracking-tight">
+                <span className="text-foreground">akshat</span>
+                <span className="text-violet-400">@</span>
+                <span className="text-muted-foreground">net</span>
               </span>
             </motion.a>
 
@@ -97,14 +97,14 @@ export function Navbar() {
                   onClick={() => scrollToSection(link.href)}
                   className={`relative px-3 py-1.5 text-sm font-medium rounded-md transition-colors duration-200 ${
                     activeSection === link.href.substring(1)
-                      ? 'text-indigo-500'
+                      ? 'text-violet-400'
                       : 'text-muted-foreground hover:text-foreground'
                   }`}
                 >
                   {activeSection === link.href.substring(1) && (
                     <motion.div
                       layoutId="activeNav"
-                      className="absolute inset-0 rounded-md bg-indigo-500/10"
+                      className="absolute inset-0 rounded-md bg-violet-500/10"
                       transition={{ duration: 0.2 }}
                     />
                   )}
@@ -156,7 +156,7 @@ export function Navbar() {
                 download
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition-colors shadow-lg shadow-indigo-500/25"
+                className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-violet-600 hover:bg-violet-700 rounded-lg transition-colors shadow-lg shadow-violet-500/20"
               >
                 <Download className="w-3.5 h-3.5" />
                 Resume
@@ -202,7 +202,7 @@ export function Navbar() {
               <a
                 href="/Akshat_Banga_Resume.pdf"
                 download
-                className="flex items-center gap-2 px-4 py-3 text-sm font-semibold text-indigo-500 hover:bg-indigo-500/10 rounded-lg transition-colors mt-1"
+                className="flex items-center gap-2 px-4 py-3 text-sm font-semibold text-violet-400 hover:bg-violet-500/10 rounded-lg transition-colors mt-1"
               >
                 <Download className="w-4 h-4" />
                 Download Resume

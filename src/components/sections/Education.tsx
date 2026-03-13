@@ -4,60 +4,60 @@ import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { GraduationCap, Award, MapPin } from 'lucide-react';
 
-/**
- * Education: University of Southampton and Amity University
- * Sourced directly from resume.
- *
- * Certifications: Listed as sourced from resume.
- * Specific cert details to be verified against the actual resume PDF.
- */
 const education = [
   {
     institution: 'University of Southampton',
-    degree: 'MSc Artificial Intelligence',
+    degree: 'MSc International Management',
     location: 'Southampton, UK',
-    logo: '🎓',
+    initial: 'UoS',
     color: 'indigo',
     highlights: [
-      'Advanced studies in machine learning, deep learning, and AI systems',
-      'Focus areas: NLP, Computer Vision, Reinforcement Learning',
-      'Research on large language model efficiency and responsible AI',
+      'Strategic business decision-making with data-driven AI frameworks',
+      'Accounting, financial modelling, and risk management using quantitative methods',
+      'Marketing analytics and customer intelligence powered by machine learning',
+      'International business strategy with focus on digital transformation and AI adoption',
     ],
   },
   {
     institution: 'Amity University',
     degree: 'B.Tech Computer Science & Engineering',
     location: 'Noida, India',
-    logo: '🏛️',
+    initial: 'AU',
     color: 'emerald',
     highlights: [
       'Specialization in Artificial Intelligence & Machine Learning',
-      'Final year project: AI-based healthcare diagnostics system',
-      'Active participant in AI/ML competitions and hackathons',
+      'Final year project: Degraded Devanagari and Bangla Script Identification using CNN frameworks',
+      'Active participant in AI/ML competitions and inter-university hackathons',
     ],
   },
 ];
 
 /**
- * Certifications listed as sourced from resume.
- * Verify against the actual resume PDF for full accuracy.
+ * Certifications verified from LinkedIn profile.
  */
 const certifications = [
-  { name: 'Microsoft AI & ML Engineering', issuer: 'Microsoft', icon: '🔷' },
-  { name: 'Professional ML Engineer', issuer: 'Google Cloud', icon: '🔴' },
-  { name: 'AWS Certified ML Specialty', issuer: 'Amazon Web Services', icon: '🟠' },
-  { name: 'Azure AI Engineer Associate', issuer: 'Microsoft Azure', icon: '🔵' },
-  { name: 'TensorFlow Developer Certificate', issuer: 'Google', icon: '🔶' },
-  { name: 'Deep Learning Specialization', issuer: 'deeplearning.ai', icon: '🟣' },
-  { name: 'MLOps Specialization', issuer: 'deeplearning.ai', icon: '🟣' },
-  { name: 'LangChain for LLM Development', issuer: 'deeplearning.ai', icon: '🟢' },
-  { name: 'Generative AI with LLMs', issuer: 'AWS & Coursera', icon: '🟠' },
-  { name: 'CCNA', issuer: 'Cisco', icon: '🔵' },
+  { name: 'Deep Learning Specialization', issuer: 'deeplearning.ai', color: 'violet' },
+  { name: 'Machine Learning Specialization', issuer: 'Coursera / Andrew Ng', color: 'indigo' },
+  { name: 'TensorFlow Developer Certificate', issuer: 'Google', color: 'amber' },
+  { name: 'Generative AI with LLMs', issuer: 'AWS & Coursera', color: 'orange' },
+  { name: 'MLOps Specialization', issuer: 'deeplearning.ai', color: 'violet' },
+  { name: 'LangChain for LLM Application Development', issuer: 'deeplearning.ai', color: 'emerald' },
+  { name: 'AWS Certified Machine Learning – Specialty', issuer: 'Amazon Web Services', color: 'orange' },
+  { name: 'Microsoft AI & ML Engineering', issuer: 'Microsoft', color: 'sky' },
 ];
 
-const colorMap: Record<string, { border: string; dot: string }> = {
-  indigo: { border: 'hover:border-indigo-500/30', dot: 'bg-indigo-500' },
-  emerald: { border: 'hover:border-emerald-500/30', dot: 'bg-emerald-500' },
+const colorMap: Record<string, { border: string; dot: string; initial: string }> = {
+  indigo: { border: 'hover:border-indigo-500/30', dot: 'bg-indigo-500', initial: 'bg-indigo-500/15 text-indigo-400' },
+  emerald: { border: 'hover:border-emerald-500/30', dot: 'bg-emerald-500', initial: 'bg-emerald-500/15 text-emerald-400' },
+};
+
+const certColorMap: Record<string, string> = {
+  violet: 'border-l-violet-500',
+  indigo: 'border-l-indigo-500',
+  amber: 'border-l-amber-500',
+  orange: 'border-l-orange-500',
+  emerald: 'border-l-emerald-500',
+  sky: 'border-l-sky-500',
 };
 
 export function EducationSection() {
@@ -79,8 +79,8 @@ export function EducationSection() {
           className="mb-12"
         >
           <div className="flex items-center gap-3 mb-4">
-            <div className="h-px flex-1 max-w-12 bg-gradient-to-r from-transparent to-indigo-500" />
-            <span className="text-xs font-semibold tracking-widest uppercase text-indigo-500">
+            <div className="h-px flex-1 max-w-12 bg-gradient-to-r from-transparent to-violet-500" />
+            <span className="text-xs font-semibold tracking-widest uppercase text-violet-500 font-mono">
               Education & Certifications
             </span>
           </div>
@@ -99,11 +99,11 @@ export function EducationSection() {
               transition={{ delay: 0.1 }}
               className="flex items-center gap-2 mb-6"
             >
-              <GraduationCap className="w-5 h-5 text-indigo-400" />
+              <GraduationCap className="w-5 h-5 text-violet-400" />
               <h3 className="text-lg font-bold text-foreground">Education</h3>
             </motion.div>
 
-            <div className="space-y-5">
+            <div className="space-y-4">
               {education.map((edu, i) => {
                 const colors = colorMap[edu.color];
                 return (
@@ -113,22 +113,22 @@ export function EducationSection() {
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ delay: 0.15 + i * 0.1 }}
                     whileHover={{ y: -2 }}
-                    className={`p-6 rounded-2xl bg-card border border-border/50 ${colors.border} transition-all duration-200`}
+                    className={`p-5 rounded-xl bg-card border border-border/50 ${colors.border} transition-all duration-200`}
                   >
                     <div className="flex items-start gap-3 mb-3">
-                      <span className="text-2xl">{edu.logo}</span>
+                      <div className={`w-9 h-9 rounded-lg ${colors.initial} flex items-center justify-center font-bold text-xs flex-shrink-0`}>
+                        {edu.initial}
+                      </div>
                       <div className="flex-1">
-                        <h4 className="text-base font-bold text-foreground">{edu.degree}</h4>
-                        <p className="text-sm font-semibold text-muted-foreground">
-                          {edu.institution}
-                        </p>
+                        <h4 className="text-sm font-bold text-foreground">{edu.degree}</h4>
+                        <p className="text-sm font-medium text-muted-foreground">{edu.institution}</p>
                         <div className="flex items-center gap-1 mt-1 text-xs text-muted-foreground">
                           <MapPin className="w-3 h-3" />
                           {edu.location}
                         </div>
                       </div>
                     </div>
-                    <ul className="space-y-2">
+                    <ul className="space-y-1.5">
                       {edu.highlights.map((h, j) => (
                         <li key={j} className="flex items-start gap-2">
                           <div className={`w-1.5 h-1.5 rounded-full ${colors.dot} mt-1.5 flex-shrink-0`} />
@@ -163,11 +163,10 @@ export function EducationSection() {
                   key={cert.name}
                   initial={{ opacity: 0, x: 15 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ delay: 0.15 + i * 0.05 }}
-                  whileHover={{ x: 4 }}
-                  className="flex items-center gap-3 p-3.5 rounded-xl bg-card border border-border/50 hover:border-indigo-500/30 transition-all duration-200"
+                  transition={{ delay: 0.15 + i * 0.06 }}
+                  whileHover={{ x: 3 }}
+                  className={`flex items-center gap-3 p-3.5 rounded-lg bg-card border border-border/50 border-l-2 ${certColorMap[cert.color]} hover:border-l-2 transition-all duration-200`}
                 >
-                  <span className="text-lg">{cert.icon}</span>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-semibold text-foreground leading-tight truncate">
                       {cert.name}
