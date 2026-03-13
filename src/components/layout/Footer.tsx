@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Mail, Code2, Heart, ArrowUp } from 'lucide-react';
+import { Github, Linkedin, Code2, Heart, ArrowUp } from 'lucide-react';
 
 const socialLinks = [
   {
@@ -13,11 +13,6 @@ const socialLinks = [
     icon: Linkedin,
     href: 'https://www.linkedin.com/in/akshat-banga-6574aa170/',
     label: 'LinkedIn',
-  },
-  {
-    icon: Mail,
-    href: 'mailto:akshat@example.com',
-    label: 'Email',
   },
 ];
 

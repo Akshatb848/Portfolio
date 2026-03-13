@@ -1,0 +1,22 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+      ]
+    },
+    {
+      "source": "/Akshat_Banga_Resume.pdf",
+      "headers": [
+        { "key": "Content-Disposition", "value": "attachment; filename=\"Akshat_Banga_Resume.pdf\"" },
+        { "key": "Content-Type", "value": "application/pdf" }
+      ]
+    }
+  ]
+}
