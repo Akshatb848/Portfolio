@@ -4,16 +4,27 @@ import { useRef, useState } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import {
   Github,
-  Star,
-  GitFork,
   ChevronRight,
   BookOpen,
+  Activity,
+  ShieldCheck,
+  Bot,
+  BarChart3,
+  ShoppingCart,
+  Languages,
+  Wind,
+  Users,
+  Music,
+  Plane,
+  Landmark,
 } from 'lucide-react';
 import { ProjectVideo } from '@/components/ProjectVideo';
+import { site } from '@/lib/site';
 
 /**
  * All projects sourced from real GitHub repositories at github.com/Akshatb848
  * Repository descriptions, tech stacks, and links are accurate as of March 2026.
+ * Demo videos only render when the file exists in /public/videos (checked at build time).
  */
 const projects = [
   {
@@ -21,15 +32,13 @@ const projects = [
     name: 'AI-Tennis-Swing-Analyzer',
     title: 'AI Tennis Swing Analyzer',
     description:
-      'Multi-agent AI platform that analyzes tennis swings using a Streamlit dashboard. Built with a modular agents/core/services architecture, ChromaDB-backed RAG for coaching knowledge retrieval, and 129 commits of active development. Covers Python (78%), TypeScript (17%), and Swift components.',
+      'Multi-agent AI platform that analyzes tennis swings using a Streamlit dashboard. Built with a modular agents/core/services architecture, ChromaDB-backed RAG for coaching knowledge retrieval. Python core with TypeScript and Swift components.',
     tech: ['Python', 'TypeScript', 'Streamlit', 'ChromaDB', 'RAG', 'Agents', 'Docker'],
     category: 'Computer Vision',
     color: 'indigo',
     github: 'https://github.com/Akshatb848/AI-Tennis-Swing-Analyzer',
-    stars: 1,
-    forks: 0,
     language: 'Python',
-    icon: '🎾',
+    icon: Activity,
     featured: true,
     video: '/videos/ai-tennis-demo.mp4',
   },
@@ -43,10 +52,8 @@ const projects = [
     category: 'Generative AI',
     color: 'purple',
     github: 'https://github.com/Akshatb848/AI-Governance-and-Risk-Management',
-    stars: 0,
-    forks: 0,
     language: 'Jupyter Notebook',
-    icon: '🛡️',
+    icon: ShieldCheck,
     featured: true,
     video: '/videos/aegis-demo.mp4',
   },
@@ -55,15 +62,13 @@ const projects = [
     name: 'data-science-agent-platform',
     title: 'Data Science Agent Platform',
     description:
-      'Production-grade agentic AI platform (126 commits, 2 open PRs) automating data science workflows through a modular agents/core/services/dashboard architecture. Built in Python (93%) with Docker support and a RAG setup pipeline (setup_rag.py) for knowledge-grounded analysis.',
+      'Agentic AI platform that automates data science workflows through a modular agents/core/services/dashboard architecture, with Docker support and a RAG pipeline for knowledge-grounded analysis.',
     tech: ['Python', 'Agents', 'RAG', 'FastAPI', 'Docker', 'Streamlit'],
     category: 'Agentic AI',
     color: 'emerald',
     github: 'https://github.com/Akshatb848/data-science-agent-platform',
-    stars: 0,
-    forks: 0,
     language: 'Python',
-    icon: '🤖',
+    icon: Bot,
     featured: true,
     video: '/videos/ds-agent-demo.mp4',
   },
@@ -77,10 +82,8 @@ const projects = [
     category: 'Data & Analytics',
     color: 'sky',
     github: 'https://github.com/Akshatb848/AI-Analytics-Dashboard',
-    stars: 0,
-    forks: 0,
     language: 'Python',
-    icon: '📊',
+    icon: BarChart3,
     featured: true,
     video: '/videos/analytics-demo.mp4',
   },
@@ -94,10 +97,8 @@ const projects = [
     category: 'Generative AI',
     color: 'violet',
     github: 'https://github.com/Akshatb848/LLM-dashboard',
-    stars: 0,
-    forks: 0,
     language: 'JavaScript',
-    icon: '📚',
+    icon: BookOpen,
     featured: true,
     video: '/videos/llm-dashboard-demo.mp4',
   },
@@ -111,10 +112,8 @@ const projects = [
     category: 'Generative AI',
     color: 'amber',
     github: 'https://github.com/Akshatb848/EcomPriceGen-AI-Powered-Pricing-Discount-Calculator',
-    stars: 0,
-    forks: 0,
     language: 'Jupyter Notebook',
-    icon: '🛒',
+    icon: ShoppingCart,
     featured: false,
   },
   {
@@ -128,10 +127,8 @@ const projects = [
     color: 'rose',
     github:
       'https://github.com/Akshatb848/Degraded-Devanagari-and-Bangla-Script-Identification-Using-CNN-Frameworks',
-    stars: 0,
-    forks: 0,
     language: 'Python',
-    icon: '🔤',
+    icon: Languages,
     featured: false,
   },
   {
@@ -144,10 +141,8 @@ const projects = [
     category: 'Machine Learning',
     color: 'teal',
     github: 'https://github.com/Akshatb848/Real-Time-Air-Quality-Prediction-Using-ML-Algorithms',
-    stars: 0,
-    forks: 0,
     language: 'Jupyter Notebook',
-    icon: '🌫️',
+    icon: Wind,
     featured: false,
   },
   {
@@ -160,10 +155,8 @@ const projects = [
     category: 'Machine Learning',
     color: 'cyan',
     github: 'https://github.com/Akshatb848/Market-Segmentation-for-Edtech-Startups',
-    stars: 0,
-    forks: 0,
     language: 'Jupyter Notebook',
-    icon: '📈',
+    icon: Users,
     featured: false,
   },
   {
@@ -176,10 +169,8 @@ const projects = [
     category: 'Deep Learning',
     color: 'fuchsia',
     github: 'https://github.com/Akshatb848/Music-Genre-Classification-USING-KNN-and-CNN',
-    stars: 0,
-    forks: 0,
     language: 'Jupyter Notebook',
-    icon: '🎵',
+    icon: Music,
     featured: false,
   },
   {
@@ -192,10 +183,8 @@ const projects = [
     category: 'Data & Analytics',
     color: 'slate',
     github: 'https://github.com/Akshatb848/NPS-Driven-Strategy-for-Aviation',
-    stars: 0,
-    forks: 0,
     language: 'Jupyter Notebook',
-    icon: '✈️',
+    icon: Plane,
     featured: false,
   },
   {
@@ -208,10 +197,8 @@ const projects = [
     category: 'Enterprise AI',
     color: 'green',
     github: 'https://github.com/Akshatb848/Deloitte-South-Asia-projects',
-    stars: 0,
-    forks: 0,
     language: 'Python',
-    icon: '🏛️',
+    icon: Landmark,
     featured: false,
   },
 ];
@@ -233,73 +220,73 @@ const colorMap: Record<
 > = {
   indigo: {
     border: 'hover:border-indigo-500/40',
-    badge: 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20',
+    badge: 'bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 border-indigo-500/20',
     glow: 'hover:shadow-indigo-500/10',
     dot: 'bg-indigo-500',
   },
   purple: {
     border: 'hover:border-purple-500/40',
-    badge: 'bg-purple-500/10 text-purple-400 border-purple-500/20',
+    badge: 'bg-purple-500/10 text-purple-700 dark:text-purple-400 border-purple-500/20',
     glow: 'hover:shadow-purple-500/10',
     dot: 'bg-purple-500',
   },
   emerald: {
     border: 'hover:border-emerald-500/40',
-    badge: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
+    badge: 'bg-emerald-500/10 text-emerald-800 dark:text-emerald-400 border-emerald-500/20',
     glow: 'hover:shadow-emerald-500/10',
     dot: 'bg-emerald-500',
   },
   sky: {
     border: 'hover:border-sky-500/40',
-    badge: 'bg-sky-500/10 text-sky-400 border-sky-500/20',
+    badge: 'bg-sky-500/10 text-sky-700 dark:text-sky-400 border-sky-500/20',
     glow: 'hover:shadow-sky-500/10',
     dot: 'bg-sky-500',
   },
   violet: {
     border: 'hover:border-violet-500/40',
-    badge: 'bg-violet-500/10 text-violet-400 border-violet-500/20',
+    badge: 'bg-violet-500/10 text-violet-700 dark:text-violet-400 border-violet-500/20',
     glow: 'hover:shadow-violet-500/10',
     dot: 'bg-violet-500',
   },
   amber: {
     border: 'hover:border-amber-500/40',
-    badge: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
+    badge: 'bg-amber-500/10 text-amber-800 dark:text-amber-400 border-amber-500/20',
     glow: 'hover:shadow-amber-500/10',
     dot: 'bg-amber-500',
   },
   rose: {
     border: 'hover:border-rose-500/40',
-    badge: 'bg-rose-500/10 text-rose-400 border-rose-500/20',
+    badge: 'bg-rose-500/10 text-rose-700 dark:text-rose-400 border-rose-500/20',
     glow: 'hover:shadow-rose-500/10',
     dot: 'bg-rose-500',
   },
   teal: {
     border: 'hover:border-teal-500/40',
-    badge: 'bg-teal-500/10 text-teal-400 border-teal-500/20',
+    badge: 'bg-teal-500/10 text-teal-800 dark:text-teal-400 border-teal-500/20',
     glow: 'hover:shadow-teal-500/10',
     dot: 'bg-teal-500',
   },
   cyan: {
     border: 'hover:border-cyan-500/40',
-    badge: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20',
+    badge: 'bg-cyan-500/10 text-cyan-700 dark:text-cyan-400 border-cyan-500/20',
     glow: 'hover:shadow-cyan-500/10',
     dot: 'bg-cyan-500',
   },
   fuchsia: {
     border: 'hover:border-fuchsia-500/40',
-    badge: 'bg-fuchsia-500/10 text-fuchsia-400 border-fuchsia-500/20',
+    badge: 'bg-fuchsia-500/10 text-fuchsia-700 dark:text-fuchsia-400 border-fuchsia-500/20',
     glow: 'hover:shadow-fuchsia-500/10',
     dot: 'bg-fuchsia-500',
   },
   slate: {
     border: 'hover:border-slate-400/40',
-    badge: 'bg-slate-400/10 text-slate-400 border-slate-400/20',
+    badge: 'bg-slate-400/10 text-slate-700 dark:text-slate-400 border-slate-400/20',
     glow: 'hover:shadow-slate-400/10',
     dot: 'bg-slate-400',
   },
   green: {
     border: 'hover:border-green-500/40',
-    badge: 'bg-green-500/10 text-green-400 border-green-500/20',
+    badge: 'bg-green-500/10 text-green-800 dark:text-green-400 border-green-500/20',
     glow: 'hover:shadow-green-500/10',
     dot: 'bg-green-500',
   },
@@ -315,14 +302,17 @@ const langColorMap: Record<string, string> = {
 function ProjectCard({
   project,
   index,
+  hasVideo,
 }: {
   project: (typeof projects)[0];
   index: number;
+  hasVideo: boolean;
 }) {
   const colors = colorMap[project.color] ?? colorMap['indigo'];
+  const Icon = project.icon;
 
   return (
-    <motion.div
+    <motion.article
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
@@ -333,24 +323,26 @@ function ProjectCard({
       {/* Featured badge */}
       {project.featured && (
         <div className="absolute top-4 right-4 flex items-center gap-1 px-2 py-0.5 rounded-full bg-violet-500/10 border border-violet-500/20 z-10">
-          <span className="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse" />
-          <span className="text-xs font-medium text-violet-400">Featured</span>
+          <span className="w-1.5 h-1.5 rounded-full bg-violet-500 dark:bg-violet-400" aria-hidden="true" />
+          <span className="text-xs font-medium text-violet-700 dark:text-violet-300">Featured</span>
         </div>
       )}
 
-      {/* Video preview for featured projects */}
-      {'video' in project && project.video && (
-        <div className="mb-4 -mx-0">
-          <ProjectVideo
-            videoSrc={project.video as string}
-            title={project.title}
-          />
+      {/* Demo clip, only when the file exists */}
+      {hasVideo && 'video' in project && project.video && (
+        <div className="mb-4">
+          <ProjectVideo videoSrc={project.video as string} title={project.title} />
         </div>
       )}
 
       {/* Header */}
-      <div className="flex items-start gap-3 mb-4 pr-16">
-        <span className="text-2xl flex-shrink-0">{project.icon}</span>
+      <div className={`flex items-start gap-3 mb-4 ${project.featured ? 'pr-20' : ''}`}>
+        <span
+          className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 border ${colors.badge}`}
+          aria-hidden="true"
+        >
+          <Icon className="w-5 h-5" />
+        </span>
         <div className="min-w-0">
           <span
             className={`inline-block text-xs font-medium px-2 py-0.5 rounded-md border ${colors.badge} mb-1.5`}
@@ -367,56 +359,43 @@ function ProjectCard({
       </p>
 
       {/* Tech stack */}
-      <div className="flex flex-wrap gap-1.5 mb-5">
+      <ul className="flex flex-wrap gap-1.5 mb-5" aria-label="Tech stack">
         {project.tech.map((t) => (
-          <span
+          <li
             key={t}
             className="text-xs px-2 py-0.5 rounded-md bg-background border border-border/50 text-muted-foreground"
           >
             {t}
-          </span>
+          </li>
         ))}
-      </div>
+      </ul>
 
       {/* Footer */}
-      <div className="flex items-center justify-between pt-4 border-t border-border/50">
-        <div className="flex items-center gap-3 text-xs text-muted-foreground">
-          <span className="flex items-center gap-1.5">
-            <span
-              className="w-2.5 h-2.5 rounded-full inline-block"
-              style={{
-                backgroundColor:
-                  langColorMap[project.language] ?? '#6b7280',
-              }}
-            />
-            {project.language}
-          </span>
-          <span className="flex items-center gap-1">
-            <Star className="w-3 h-3" />
-            {project.stars}
-          </span>
-          <span className="flex items-center gap-1">
-            <GitFork className="w-3 h-3" />
-            {project.forks}
-          </span>
-        </div>
-        <motion.a
+      <div className="flex items-center justify-between gap-3 pt-4 border-t border-border/50">
+        <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
+          <span
+            className="w-2.5 h-2.5 rounded-full inline-block"
+            style={{ backgroundColor: langColorMap[project.language] ?? '#6b7280' }}
+            aria-hidden="true"
+          />
+          {project.language}
+        </span>
+        <a
           href={project.github}
           target="_blank"
           rel="noopener noreferrer"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-foreground text-background hover:opacity-90 transition-opacity"
+          aria-label={`${project.title} on GitHub`}
+          className="flex items-center gap-1.5 min-h-11 px-3.5 text-xs font-semibold rounded-lg bg-foreground text-background hover:opacity-90 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 focus-visible:ring-offset-2 focus-visible:ring-offset-card"
         >
-          <Github className="w-3.5 h-3.5" />
+          <Github className="w-3.5 h-3.5" aria-hidden="true" />
           View on GitHub
-        </motion.a>
+        </a>
       </div>
-    </motion.div>
+    </motion.article>
   );
 }
 
-export function ProjectsSection() {
+export function ProjectsSection({ availableVideos }: { availableVideos: string[] }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
   const [filter, setFilter] = useState('All');
@@ -442,7 +421,7 @@ export function ProjectsSection() {
         >
           <div className="flex items-center gap-3 mb-4">
             <div className="h-px flex-1 max-w-12 bg-gradient-to-r from-transparent to-indigo-500" />
-            <span className="text-xs font-semibold tracking-widest uppercase text-indigo-500">
+            <span className="text-xs font-semibold tracking-widest uppercase text-indigo-700 dark:text-indigo-400">
               Projects
             </span>
           </div>
@@ -451,28 +430,27 @@ export function ProjectsSection() {
               Things I&apos;ve{' '}
               <span className="text-gradient">built & shipped</span>
             </h2>
-            <motion.a
-              href="https://github.com/Akshatb848"
+            <a
+              href={site.github}
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ scale: 1.02 }}
-              className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors flex-shrink-0"
+              className="flex items-center gap-2 min-h-11 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors flex-shrink-0 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
             >
-              <Github className="w-4 h-4" />
+              <Github className="w-4 h-4" aria-hidden="true" />
               All repositories on GitHub
-              <ChevronRight className="w-3.5 h-3.5" />
-            </motion.a>
+              <ChevronRight className="w-3.5 h-3.5" aria-hidden="true" />
+            </a>
           </div>
           <p className="text-sm text-muted-foreground mt-3 flex items-center gap-2">
-            <BookOpen className="w-3.5 h-3.5 text-indigo-400" />
+            <BookOpen className="w-3.5 h-3.5 text-indigo-700 dark:text-indigo-400" aria-hidden="true" />
             All projects are real, open-source repositories from{' '}
             <a
-              href="https://github.com/Akshatb848"
+              href={site.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-indigo-400 hover:underline"
+              className="text-indigo-700 dark:text-indigo-400 underline-offset-2 hover:underline"
             >
-              github.com/Akshatb848
+              github.com/{site.githubUsername}
             </a>
           </p>
         </motion.div>
@@ -483,14 +461,16 @@ export function ProjectsSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.1 }}
           className="flex flex-wrap gap-2 mb-8"
+          role="group"
+          aria-label="Filter projects by category"
         >
           {categories.map((cat) => (
-            <motion.button
+            <button
               key={cat}
+              type="button"
               onClick={() => setFilter(cat)}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className={`px-4 py-1.5 rounded-lg text-sm font-medium border transition-all duration-200 ${
+              aria-pressed={filter === cat}
+              className={`min-h-11 px-4 rounded-lg text-sm font-medium border transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 ${
                 filter === cat
                   ? 'bg-indigo-600 text-white border-indigo-600 shadow-lg shadow-indigo-500/25'
                   : 'border-border/50 text-muted-foreground hover:text-foreground hover:border-border bg-card'
@@ -498,11 +478,11 @@ export function ProjectsSection() {
             >
               {cat}
               {cat !== 'All' && (
-                <span className="ml-1.5 text-xs opacity-60">
+                <span className="ml-1.5 text-xs">
                   ({projects.filter((p) => p.category === cat).length})
                 </span>
               )}
-            </motion.button>
+            </button>
           ))}
         </motion.div>
 
@@ -517,7 +497,12 @@ export function ProjectsSection() {
             className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5"
           >
             {filtered.map((project, i) => (
-              <ProjectCard key={project.id} project={project} index={i} />
+              <ProjectCard
+                key={project.id}
+                project={project}
+                index={i}
+                hasVideo={'video' in project && availableVideos.includes(project.video as string)}
+              />
             ))}
           </motion.div>
         </AnimatePresence>
@@ -530,14 +515,14 @@ export function ProjectsSection() {
           className="mt-10 p-4 rounded-xl bg-card border border-border/50 flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground"
         >
           <span className="flex items-center gap-2">
-            <Github className="w-4 h-4 text-indigo-400" />
-            <strong className="text-foreground">14</strong> public repositories
+            <Github className="w-4 h-4 text-indigo-700 dark:text-indigo-400" aria-hidden="true" />
+            <strong className="text-foreground">{projects.length}</strong> projects shown
           </span>
-          <span className="text-border">·</span>
+          <span className="text-border" aria-hidden="true">·</span>
           <span>
             Primary language: <strong className="text-foreground">Python</strong>
           </span>
-          <span className="text-border">·</span>
+          <span className="text-border" aria-hidden="true">·</span>
           <span>
             Domains:{' '}
             <strong className="text-foreground">GenAI · CV · MLOps · NLP · Analytics</strong>

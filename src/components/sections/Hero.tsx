@@ -1,55 +1,15 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import { ArrowDown, Github, Linkedin, Terminal } from 'lucide-react';
+import { ArrowDown, FileText, Github, Linkedin, Mail, Terminal } from 'lucide-react';
+import { site } from '@/lib/site';
 
 // Three.js background — SSR disabled, loads client-only
 const AiBackground = dynamic(() => import('@/components/AiBackground'), { ssr: false });
 
-const titles = [
-  'AI Engineer',
-  'ML Specialist',
-  'Generative AI Builder',
-  'MLOps Architect',
-  'LLM Engineer',
-];
-
-// ─── Typewriter ───────────────────────────────────────────────────────────────
-function TypewriterText({ texts }: { texts: string[] }) {
-  const [index,   setIndex]   = useState(0);
-  const [display, setDisplay] = useState('');
-  const [deleting, setDeleting] = useState(false);
-  const [charIdx, setCharIdx] = useState(0);
-
-  useEffect(() => {
-    const current = texts[index];
-    let t: ReturnType<typeof setTimeout>;
-    if (!deleting && charIdx < current.length) {
-      t = setTimeout(() => setCharIdx((c) => c + 1), 60);
-    } else if (!deleting && charIdx === current.length) {
-      t = setTimeout(() => setDeleting(true), 2200);
-    } else if (deleting && charIdx > 0) {
-      t = setTimeout(() => setCharIdx((c) => c - 1), 32);
-    } else if (deleting && charIdx === 0) {
-      setDeleting(false);
-      setIndex((i) => (i + 1) % texts.length);
-    }
-    setDisplay(current.slice(0, charIdx));
-    return () => clearTimeout(t);
-  }, [charIdx, index, deleting, texts]);
-
-  return (
-    <span className="text-violet-400 dark:text-violet-300 font-mono">
-      {display}
-      <span className="animate-pulse text-violet-400">|</span>
-    </span>
-  );
-}
-
 // ─── Hero Section ─────────────────────────────────────────────────────────────
-export function HeroSection() {
+export function HeroSection({ resumeUrl }: { resumeUrl: string | null }) {
   const { scrollY } = useScroll();
   const y       = useTransform(scrollY, [0, 500], [0, 120]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
@@ -81,33 +41,30 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-emerald-500/25 bg-emerald-500/8 text-emerald-400 text-xs font-medium mb-10 tracking-wide"
+          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-emerald-500/25 bg-emerald-500/8 text-emerald-800 dark:text-emerald-400 text-xs font-medium mb-10 tracking-wide"
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse" aria-hidden="true" />
           Available for new opportunities
         </motion.div>
 
         {/* Name */}
-        <motion.h1
-          initial={{ opacity: 0, y: 28 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
+        <h1
           className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight mb-3 leading-none"
         >
           <span className="text-foreground">Akshat </span>
           <span className="text-gradient">Banga</span>
-        </motion.h1>
+        </h1>
 
-        {/* Dynamic title */}
-        <motion.div
+        {/* Headline */}
+        <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.35 }}
-          className="flex items-center justify-center gap-2 text-xl sm:text-2xl md:text-3xl font-semibold text-muted-foreground mb-6 h-10"
+          transition={{ duration: 0.7, delay: 0.2 }}
+          className="flex items-center justify-center gap-2 text-lg sm:text-2xl md:text-3xl font-semibold mb-6 font-mono text-violet-700 dark:text-violet-300"
         >
-          <Terminal className="w-5 h-5 text-violet-400 hidden sm:block" />
-          <TypewriterText texts={titles} />
-        </motion.div>
+          <Terminal className="w-5 h-5 hidden sm:block" aria-hidden="true" />
+          {site.headline}
+        </motion.p>
 
         {/* Sub-headline */}
         <motion.p
@@ -116,9 +73,9 @@ export function HeroSection() {
           transition={{ duration: 0.7, delay: 0.45 }}
           className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
         >
-          Building{' '}
-          <span className="text-foreground font-semibold">production-grade machine learning</span>{' '}
-          and generative AI systems with scalable cloud infrastructure.
+          I build{' '}
+          <span className="text-foreground font-semibold">agentic AI, RAG and ML systems</span>{' '}
+          and take them from prototype to production, on a platform serving 400M+ users.
         </motion.p>
 
         {/* CTAs */}
@@ -128,23 +85,29 @@ export function HeroSection() {
           transition={{ duration: 0.7, delay: 0.55 }}
           className="flex flex-wrap items-center justify-center gap-3 mb-12"
         >
-          <motion.button
-            whileHover={{ scale: 1.03, boxShadow: '0 0 24px rgba(139,92,246,0.4)' }}
-            whileTap={{ scale: 0.97 }}
-            onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
-            className="px-6 py-2.5 bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold rounded-lg transition-colors shadow-lg shadow-violet-500/25"
+          <a
+            href="#projects"
+            className="inline-flex items-center min-h-12 px-6 bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold rounded-lg transition-colors shadow-lg shadow-violet-500/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             View Projects
-          </motion.button>
-
-          <motion.button
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
-            className="px-6 py-2.5 text-sm font-semibold text-muted-foreground hover:text-foreground rounded-lg border border-border hover:border-violet-500/40 transition-all duration-200"
+          </a>
+          <a
+            href="#contact"
+            className="inline-flex items-center gap-2 min-h-12 px-6 text-sm font-semibold text-foreground rounded-lg border border-border hover:border-violet-500/50 bg-background/60 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
           >
-            About Me
-          </motion.button>
+            <Mail className="w-4 h-4" aria-hidden="true" />
+            Get in touch
+          </a>
+          {resumeUrl && (
+            <a
+              href={resumeUrl}
+              download
+              className="inline-flex items-center gap-2 min-h-12 px-6 text-sm font-semibold text-muted-foreground hover:text-foreground rounded-lg border border-border hover:border-violet-500/50 bg-background/60 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+            >
+              <FileText className="w-4 h-4" aria-hidden="true" />
+              Résumé
+            </a>
+          )}
         </motion.div>
 
         {/* Social links */}
@@ -152,43 +115,43 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.65 }}
-          className="flex items-center justify-center gap-6 mb-16"
+          className="flex items-center justify-center gap-2 mb-16"
         >
           {[
-            { icon: Github,   href: 'https://github.com/Akshatb848',                          label: 'GitHub'   },
-            { icon: Linkedin, href: 'https://www.linkedin.com/in/akshat-banga-6574aa170/',    label: 'LinkedIn' },
+            { icon: Github,   href: site.github,   label: 'GitHub'   },
+            { icon: Linkedin, href: site.linkedin, label: 'LinkedIn' },
           ].map((link) => (
-            <motion.a
+            <a
               key={link.label}
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ scale: 1.08, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-violet-400 transition-colors"
+              aria-label={link.label}
+              className="flex items-center justify-center gap-2 min-h-11 min-w-11 px-3 rounded-lg text-sm text-muted-foreground hover:text-violet-700 dark:hover:text-violet-300 hover:bg-violet-500/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
             >
-              <link.icon className="w-5 h-5" />
-              <span className="hidden sm:block">{link.label}</span>
-            </motion.a>
+              <link.icon className="w-5 h-5" aria-hidden="true" />
+              <span className="hidden sm:block" aria-hidden="true">{link.label}</span>
+            </a>
           ))}
         </motion.div>
 
         {/* Scroll indicator */}
-        <motion.button
-          onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
+        <motion.a
+          href="#about"
+          aria-label="Scroll to About section"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2 }}
-          className="flex flex-col items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mx-auto"
+          className="flex flex-col items-center gap-2 min-h-11 px-3 w-fit text-muted-foreground hover:text-foreground transition-colors mx-auto rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
         >
-          <span className="text-xs font-medium tracking-widest uppercase opacity-60">Scroll</span>
+          <span className="text-xs font-medium tracking-widest uppercase" aria-hidden="true">Scroll</span>
           <motion.div
             animate={{ y: [0, 6, 0] }}
             transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
           >
-            <ArrowDown className="w-4 h-4" />
+            <ArrowDown className="w-4 h-4" aria-hidden="true" />
           </motion.div>
-        </motion.button>
+        </motion.a>
       </motion.div>
 
       {/* Bottom fade */}

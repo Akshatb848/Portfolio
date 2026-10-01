@@ -7,53 +7,64 @@ A world-class, production-grade personal portfolio website for Akshat Banga, an 
 - **Framework**: Next.js 14 (App Router)
 - **Language**: TypeScript
 - **Styling**: TailwindCSS
-- **Animations**: Framer Motion
-- **UI Components**: ShadCN UI + Radix UI
+- **Animations**: Framer Motion (respects `prefers-reduced-motion`)
+- **3D background**: Three.js
 - **Theme**: next-themes (Dark/Light mode)
+- **Fonts**: `next/font` (Inter, JetBrains Mono)
 - **Icons**: Lucide React
-- **Notifications**: Sonner
 
 ## ✨ Features
 
-- **Particle canvas background** with connected-node animation
-- **Typewriter effect** for dynamic role titles
-- **Scroll-based parallax** on hero section
-- **Dark/Light mode** with smooth transitions
-- **Animated skill bars** with stagger effects
-- **Project filtering** by category
+- **Three.js neural-network hero background**, paused off-screen and static under reduced motion
+- **Contact section** with email, LinkedIn, GitHub and an optional résumé download
+- **Filterable project cards** with optional demo clips
 - **Experience timeline** with expandable achievements
-- **GitHub stats** and pinned repositories
-- **Contact form** with validation and toast notifications
-- **Fully responsive** across all devices
-- **SEO optimized** with metadata
-- **Smooth scrolling** and section navigation
-- **Micro-interactions** throughout
+- **GitHub activity** and featured repositories
+- **Dark/Light mode**, both meeting WCAG AA contrast
+- **Accessible navigation**: anchor links, skip link, keyboard-friendly mobile menu and skill tabs, 44px touch targets
+- **SEO**: Open Graph/Twitter image, Person JSON-LD, generated sitemap
+
+## 📎 Optional assets
+
+These render only when the file exists in `public/` at build time, so nothing shows as a broken link:
+
+- **Résumé**: `public/Akshat_Banga_Resume.pdf` adds résumé buttons to the navbar, hero and contact section.
+- **Project demo clips**: `public/videos/<name>.mp4`, using the paths set in `src/components/sections/Projects.tsx`
+  (`ai-tennis-demo.mp4`, `aegis-demo.mp4`, `ds-agent-demo.mp4`, `analytics-demo.mp4`, `llm-dashboard-demo.mp4`).
+
+Contact details and links live in `src/lib/site.ts`.
 
 ## 🏗️ Project Structure
 
 ```
 src/
 ├── app/
-│   ├── layout.tsx          # Root layout with metadata & theme
-│   ├── page.tsx            # Main page assembling all sections
-│   └── globals.css         # Global styles & CSS variables
+│   ├── layout.tsx            # Root layout, metadata, fonts, JSON-LD
+│   ├── page.tsx              # Assembles sections; detects optional assets
+│   ├── opengraph-image.tsx   # Generated social preview image
+│   ├── twitter-image.tsx
+│   ├── sitemap.ts
+│   └── globals.css           # Global styles & CSS variables
 ├── components/
+│   ├── AiBackground.tsx      # Three.js hero background
+│   ├── ProjectVideo.tsx      # Lazy demo clip player
 │   ├── layout/
-│   │   ├── Navbar.tsx      # Sticky navbar with active section detection
-│   │   └── Footer.tsx      # Footer with social links
+│   │   ├── Navbar.tsx
+│   │   └── Footer.tsx
 │   ├── sections/
-│   │   ├── Hero.tsx        # Hero with particle canvas & typewriter
-│   │   ├── About.tsx       # About with capability cards & stats
-│   │   ├── Skills.tsx      # Interactive skill categories with progress bars
-│   │   ├── Projects.tsx    # Filterable project cards
-│   │   ├── Experience.tsx  # Timeline with expandable achievements
-│   │   ├── GitHub.tsx      # GitHub stats & pinned repos
-│   │   ├── Education.tsx   # Education & certifications
-│   │   └── Contact.tsx     # Contact form & info
+│   │   ├── Hero.tsx
+│   │   ├── About.tsx
+│   │   ├── Skills.tsx
+│   │   ├── Projects.tsx
+│   │   ├── Experience.tsx
+│   │   ├── GitHub.tsx
+│   │   ├── Education.tsx
+│   │   └── Contact.tsx
 │   └── providers/
-│       └── ThemeProvider.tsx
+│       ├── ThemeProvider.tsx
+│       └── MotionProvider.tsx
 └── lib/
-    └── utils.ts            # cn() utility
+    └── site.ts               # Name, headline, email and social links
 ```
 
 ## 🚀 Getting Started
@@ -93,5 +104,6 @@ npm run build
 
 ## 📧 Contact
 
+- **Email**: [akshatbanga848@gmail.com](mailto:akshatbanga848@gmail.com)
 - **LinkedIn**: [akshat-banga](https://www.linkedin.com/in/akshat-banga-6574aa170/)
 - **GitHub**: [@Akshatb848](https://github.com/Akshatb848)

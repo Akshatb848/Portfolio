@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { Play } from 'lucide-react';
 
 interface ProjectVideoProps {
   videoSrc: string;
@@ -37,23 +36,11 @@ export function ProjectVideo({ videoSrc, poster, title }: ProjectVideoProps) {
     return () => observer.disconnect();
   }, [errored]);
 
-  // Fallback placeholder when video unavailable
-  if (errored) {
-    return (
-      <div
-        className="relative w-full aspect-video rounded-xl overflow-hidden bg-gradient-to-br from-violet-900/30 to-indigo-900/30 border border-violet-500/20 flex flex-col items-center justify-center gap-2"
-        aria-label={`${title} demo preview`}
-      >
-        <div className="w-10 h-10 rounded-full bg-violet-500/20 flex items-center justify-center">
-          <Play className="w-5 h-5 text-violet-400" />
-        </div>
-        <span className="text-xs text-violet-300/60 font-mono">demo preview</span>
-      </div>
-    );
-  }
+  // A clip that fails to load is dropped rather than shown as an empty frame
+  if (errored) return null;
 
   return (
-    <div className="relative w-full aspect-video rounded-xl overflow-hidden group shadow-lg shadow-black/30 transition-all duration-300 hover:shadow-violet-500/10 hover:scale-[1.02]">
+    <div className="relative w-full aspect-video rounded-xl overflow-hidden group shadow-lg shadow-black/30 transition-all duration-300 hover:shadow-violet-500/10">
       {/* Loading placeholder shown until video metadata loads */}
       {!loaded && (
         <div className="absolute inset-0 bg-gradient-to-br from-violet-900/40 to-indigo-900/40 flex items-center justify-center">
@@ -64,7 +51,6 @@ export function ProjectVideo({ videoSrc, poster, title }: ProjectVideoProps) {
         ref={videoRef}
         src={videoSrc}
         poster={poster}
-        autoPlay
         loop
         muted
         playsInline

@@ -5,10 +5,10 @@ import { motion, useInView } from 'framer-motion';
 import {
   Github,
   Star,
-  GitFork,
   ExternalLink,
   Code2,
   BookOpen,
+  Layers,
 } from 'lucide-react';
 
 /**
@@ -23,8 +23,6 @@ const pinnedRepos = [
       'Multi-agent AI platform for tennis swing analysis. Modular agents/core/services architecture with ChromaDB RAG, Streamlit dashboard. 129 commits — Python 78%, TypeScript 17%.',
     language: 'Python',
     languageColor: '#3572A5',
-    stars: 1,
-    forks: 0,
     topics: ['streamlit', 'chromadb', 'rag', 'agents'],
     url: 'https://github.com/Akshatb848/AI-Tennis-Swing-Analyzer',
   },
@@ -34,8 +32,6 @@ const pinnedRepos = [
       'AEGIS: End-to-end AI Governance & Risk Management platform with ML and GenAI audits. Multi-agent architecture with SHAP explainability and compliance-ready PDF reports.',
     language: 'Jupyter Notebook',
     languageColor: '#DA5B0B',
-    stars: 0,
-    forks: 0,
     topics: ['langgraph', 'shap', 'rag', 'ai-governance', 'streamlit'],
     url: 'https://github.com/Akshatb848/AI-Governance-and-Risk-Management',
   },
@@ -45,8 +41,6 @@ const pinnedRepos = [
       'Production-grade agentic AI platform (126 commits, 2 open PRs). Modular agents/core/services architecture with RAG pipeline setup and Docker support.',
     language: 'Python',
     languageColor: '#3572A5',
-    stars: 0,
-    forks: 0,
     topics: ['agents', 'rag', 'docker', 'fastapi'],
     url: 'https://github.com/Akshatb848/data-science-agent-platform',
   },
@@ -56,8 +50,6 @@ const pinnedRepos = [
       'Open-source Tableau AI alternative: automated insights, time-series forecasting with Prophet, natural language queries, and executive dashboard studio.',
     language: 'Python',
     languageColor: '#3572A5',
-    stars: 0,
-    forks: 0,
     topics: ['streamlit', 'plotly', 'prophet', 'nlq', 'analytics'],
     url: 'https://github.com/Akshatb848/AI-Analytics-Dashboard',
   },
@@ -67,8 +59,6 @@ const pinnedRepos = [
       'Conference-ready Ministry of Education dashboard featuring RAG-first AI chatbot with strict no-hallucination mode and monthly newsletter retrieval.',
     language: 'JavaScript',
     languageColor: '#F1E05A',
-    stars: 0,
-    forks: 0,
     topics: ['rag', 'llm', 'fastapi', 'education', 'ollama'],
     url: 'https://github.com/Akshatb848/LLM-dashboard',
   },
@@ -78,28 +68,26 @@ const pinnedRepos = [
       'AI e-commerce pricing engine using LLM fine-tuning with LoRA on Zephyr-7B. Natural language interface for discount calculations.',
     language: 'Jupyter Notebook',
     languageColor: '#DA5B0B',
-    stars: 0,
-    forks: 0,
     topics: ['lora', 'llm-finetuning', 'huggingface', 'zephyr', 'peft'],
     url: 'https://github.com/Akshatb848/EcomPriceGen-AI-Powered-Pricing-Discount-Calculator',
   },
 ];
 
 const allRepos = [
-  { name: 'AI-Tennis-Swing-Analyzer', lang: 'Python', stars: 1 },
-  { name: 'data-science-agent-platform', lang: 'Python', stars: 0 },
-  { name: 'Degraded-Devanagari-Bangla-CNN', lang: 'Python', stars: 0 },
-  { name: 'LLM-dashboard', lang: 'JavaScript', stars: 0 },
-  { name: 'Deloitte-South-Asia-projects', lang: 'Python', stars: 0 },
-  { name: 'AI-Analytics-Dashboard', lang: 'Python', stars: 0 },
-  { name: 'Dashboard-demo', lang: 'Python', stars: 0 },
-  { name: 'AI-Governance-and-Risk-Management', lang: 'Jupyter', stars: 0 },
-  { name: 'UNIFIED-MENTOR', lang: 'Jupyter', stars: 0 },
-  { name: 'Market-Segmentation-Edtech', lang: 'Jupyter', stars: 0 },
-  { name: 'EcomPriceGen', lang: 'Jupyter', stars: 0 },
-  { name: 'Real-Time-Air-Quality-Prediction', lang: 'Jupyter', stars: 0 },
-  { name: 'Music-Genre-Classification', lang: 'Jupyter', stars: 0 },
-  { name: 'NPS-Driven-Strategy-Aviation', lang: 'Jupyter', stars: 0 },
+  { name: 'AI-Tennis-Swing-Analyzer', lang: 'Python' },
+  { name: 'data-science-agent-platform', lang: 'Python' },
+  { name: 'Degraded-Devanagari-Bangla-CNN', lang: 'Python' },
+  { name: 'LLM-dashboard', lang: 'JavaScript' },
+  { name: 'Deloitte-South-Asia-projects', lang: 'Python' },
+  { name: 'AI-Analytics-Dashboard', lang: 'Python' },
+  { name: 'Dashboard-demo', lang: 'Python' },
+  { name: 'AI-Governance-and-Risk-Management', lang: 'Jupyter' },
+  { name: 'UNIFIED-MENTOR', lang: 'Jupyter' },
+  { name: 'Market-Segmentation-Edtech', lang: 'Jupyter' },
+  { name: 'EcomPriceGen', lang: 'Jupyter' },
+  { name: 'Real-Time-Air-Quality-Prediction', lang: 'Jupyter' },
+  { name: 'Music-Genre-Classification', lang: 'Jupyter' },
+  { name: 'NPS-Driven-Strategy-Aviation', lang: 'Jupyter' },
 ];
 
 function RepoCard({
@@ -125,7 +113,7 @@ function RepoCard({
       <div className="flex items-start justify-between gap-2 mb-3">
         <div className="flex items-center gap-2 min-w-0">
           <Github className="w-4 h-4 text-muted-foreground flex-shrink-0" />
-          <span className="text-sm font-semibold text-indigo-400 group-hover:text-indigo-300 transition-colors truncate">
+          <span className="text-sm font-semibold text-indigo-700 dark:text-indigo-400 group-hover:text-indigo-800 dark:group-hover:text-indigo-300 transition-colors truncate">
             {repo.name}
           </span>
         </div>
@@ -142,7 +130,7 @@ function RepoCard({
         {repo.topics.slice(0, 3).map((topic) => (
           <span
             key={topic}
-            className="text-xs px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20"
+            className="text-xs px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 border border-indigo-500/20"
           >
             {topic}
           </span>
@@ -157,12 +145,6 @@ function RepoCard({
             style={{ backgroundColor: repo.languageColor }}
           />
           {repo.language}
-        </span>
-        <span className="flex items-center gap-1">
-          <Star className="w-3 h-3" /> {repo.stars}
-        </span>
-        <span className="flex items-center gap-1">
-          <GitFork className="w-3 h-3" /> {repo.forks}
         </span>
       </div>
     </motion.a>
@@ -190,7 +172,7 @@ export function GitHubSection() {
         >
           <div className="flex items-center gap-3 mb-4">
             <div className="h-px flex-1 max-w-12 bg-gradient-to-r from-transparent to-indigo-500" />
-            <span className="text-xs font-semibold tracking-widest uppercase text-indigo-500">
+            <span className="text-xs font-semibold tracking-widest uppercase text-indigo-700 dark:text-indigo-500">
               Open Source
             </span>
           </div>
@@ -204,9 +186,9 @@ export function GitHubSection() {
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.02 }}
-              className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              className="flex items-center gap-2 min-h-11 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
             >
-              <Github className="w-4 h-4" />
+              <Github className="w-4 h-4" aria-hidden="true" />
               @{username}
               <ExternalLink className="w-3.5 h-3.5" />
             </motion.a>
@@ -221,9 +203,9 @@ export function GitHubSection() {
           className="grid sm:grid-cols-3 gap-4 mb-10"
         >
           {[
-            { icon: Code2, label: 'Public Repositories', value: '14', color: 'text-indigo-400' },
-            { icon: Star, label: 'Total Stars', value: '1', color: 'text-yellow-400' },
-            { icon: BookOpen, label: 'Primary Language', value: 'Python', color: 'text-emerald-400' },
+            { icon: Code2, label: 'Public Repositories', value: '14', color: 'text-indigo-700 dark:text-indigo-400' },
+            { icon: Layers, label: 'Featured Projects', value: String(pinnedRepos.length), color: 'text-violet-700 dark:text-violet-400' },
+            { icon: BookOpen, label: 'Primary Language', value: 'Python', color: 'text-emerald-800 dark:text-emerald-400' },
           ].map((stat, i) => (
             <motion.div
               key={stat.label}
@@ -266,7 +248,7 @@ export function GitHubSection() {
                 Stats available at{' '}
                 <a
                   href={`https://github.com/${username}`}
-                  className="text-indigo-400 ml-1 hover:underline"
+                  className="text-indigo-700 dark:text-indigo-400 ml-1 hover:underline"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -320,7 +302,7 @@ export function GitHubSection() {
           transition={{ duration: 0.6, delay: 0.3 }}
         >
           <p className="text-sm font-semibold text-muted-foreground mb-4 flex items-center gap-2">
-            <Star className="w-4 h-4 text-yellow-400" />
+            <Star className="w-4 h-4 text-yellow-800 dark:text-yellow-400" />
             Featured Repositories
           </p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -338,7 +320,7 @@ export function GitHubSection() {
           className="mt-8"
         >
           <p className="text-xs font-semibold text-muted-foreground mb-3 flex items-center gap-2">
-            <Code2 className="w-3.5 h-3.5 text-indigo-400" />
+            <Code2 className="w-3.5 h-3.5 text-indigo-700 dark:text-indigo-400" />
             All {allRepos.length} repositories
           </p>
           <div className="flex flex-wrap gap-2">
@@ -348,16 +330,10 @@ export function GitHubSection() {
                 href={`https://github.com/${username}/${repo.name}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-card border border-border/50 hover:border-indigo-500/30 text-xs text-muted-foreground hover:text-foreground transition-all duration-200"
+                className="flex items-center gap-1.5 min-h-11 px-3 rounded-lg bg-card border border-border/50 hover:border-indigo-500/30 text-xs text-muted-foreground hover:text-foreground transition-all duration-200"
               >
                 <span className="w-2 h-2 rounded-full bg-indigo-400/60" />
                 {repo.name}
-                {repo.stars > 0 && (
-                  <span className="flex items-center gap-0.5 text-yellow-400">
-                    <Star className="w-2.5 h-2.5 fill-current" />
-                    {repo.stars}
-                  </span>
-                )}
               </a>
             ))}
           </div>

@@ -15,7 +15,7 @@ const experiences = [
     location: 'India',
     color: 'indigo',
     description:
-      "Engineering AI systems at India's largest digital services platform, building and deploying machine learning solutions that power services for 400M+ users.",
+      "AIOps role at India's largest digital services platform (400M+ users), building and deploying machine learning solutions for network operations and internal tooling.",
     bullets: [
       'Designing and deploying production ML pipelines for large-scale data processing',
       'Building RAG-based retrieval systems and LLM-powered internal tools',
@@ -108,37 +108,37 @@ const colorMap: Record<string, { dot: string; border: string; badge: string; lin
   indigo: {
     dot: 'bg-indigo-500',
     border: 'border-indigo-500/20 hover:border-indigo-500/40',
-    badge: 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20',
+    badge: 'bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 border-indigo-500/20',
     line: 'from-indigo-500/40',
-    initial: 'bg-indigo-500/15 text-indigo-400',
+    initial: 'bg-indigo-500/15 text-indigo-700 dark:text-indigo-400',
   },
   emerald: {
     dot: 'bg-emerald-500',
     border: 'border-emerald-500/20 hover:border-emerald-500/40',
-    badge: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
+    badge: 'bg-emerald-500/10 text-emerald-800 dark:text-emerald-400 border-emerald-500/20',
     line: 'from-emerald-500/40',
-    initial: 'bg-emerald-500/15 text-emerald-400',
+    initial: 'bg-emerald-500/15 text-emerald-800 dark:text-emerald-400',
   },
   purple: {
     dot: 'bg-purple-500',
     border: 'border-purple-500/20 hover:border-purple-500/40',
-    badge: 'bg-purple-500/10 text-purple-400 border-purple-500/20',
+    badge: 'bg-purple-500/10 text-purple-700 dark:text-purple-400 border-purple-500/20',
     line: 'from-purple-500/40',
-    initial: 'bg-purple-500/15 text-purple-400',
+    initial: 'bg-purple-500/15 text-purple-700 dark:text-purple-400',
   },
   rose: {
     dot: 'bg-rose-500',
     border: 'border-rose-500/20 hover:border-rose-500/40',
-    badge: 'bg-rose-500/10 text-rose-400 border-rose-500/20',
+    badge: 'bg-rose-500/10 text-rose-700 dark:text-rose-400 border-rose-500/20',
     line: 'from-rose-500/40',
-    initial: 'bg-rose-500/15 text-rose-400',
+    initial: 'bg-rose-500/15 text-rose-700 dark:text-rose-400',
   },
   amber: {
     dot: 'bg-amber-500',
     border: 'border-amber-500/20 hover:border-amber-500/40',
-    badge: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
+    badge: 'bg-amber-500/10 text-amber-800 dark:text-amber-400 border-amber-500/20',
     line: 'from-amber-500/40',
-    initial: 'bg-amber-500/15 text-amber-400',
+    initial: 'bg-amber-500/15 text-amber-800 dark:text-amber-400',
   },
 };
 
@@ -181,7 +181,7 @@ function ExperienceCard({ exp, index }: { exp: (typeof experiences)[0]; index: n
             </div>
           </div>
           <div className="flex flex-col items-end gap-1 flex-shrink-0 text-xs text-muted-foreground">
-            {exp.period && <span className="font-medium text-emerald-400">{exp.period}</span>}
+            {exp.period && <span className="font-medium text-emerald-800 dark:text-emerald-400">{exp.period}</span>}
             <span className="flex items-center gap-1">
               <MapPin className="w-3 h-3" /> {exp.location}
             </span>
@@ -195,9 +195,9 @@ function ExperienceCard({ exp, index }: { exp: (typeof experiences)[0]; index: n
             href={exp.githubRepo}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-xs text-violet-400 hover:text-violet-300 transition-colors mb-3 font-mono"
+            className="inline-flex items-center gap-1.5 min-h-11 text-xs text-violet-700 dark:text-violet-400 hover:text-violet-800 dark:hover:text-violet-300 transition-colors mb-1 font-mono"
           >
-            <ExternalLink className="w-3 h-3" />
+            <ExternalLink className="w-3 h-3" aria-hidden="true" />
             View related work on GitHub
           </a>
         )}
@@ -205,6 +205,7 @@ function ExperienceCard({ exp, index }: { exp: (typeof experiences)[0]; index: n
         <AnimatePresence>
           {expanded && (
             <motion.div
+              id={`exp-details-${exp.id}`}
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
@@ -214,7 +215,7 @@ function ExperienceCard({ exp, index }: { exp: (typeof experiences)[0]; index: n
               <ul className="space-y-2 mb-4">
                 {exp.bullets.map((bullet, i) => (
                   <li key={i} className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-violet-400 flex-shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-3.5 h-3.5 text-violet-700 dark:text-violet-400 flex-shrink-0 mt-0.5" />
                     <p className="text-sm text-muted-foreground leading-relaxed">{bullet}</p>
                   </li>
                 ))}
@@ -232,11 +233,14 @@ function ExperienceCard({ exp, index }: { exp: (typeof experiences)[0]; index: n
         </div>
 
         <button
+          type="button"
           onClick={() => setExpanded(!expanded)}
-          className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
+          aria-expanded={expanded}
+          aria-controls={`exp-details-${exp.id}`}
+          className="flex items-center gap-1.5 min-h-11 -mb-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
         >
           {expanded ? 'Hide details' : 'Show details'}
-          <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${expanded ? 'rotate-180' : ''}`} />
+          <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${expanded ? 'rotate-180' : ''}`} aria-hidden="true" />
         </button>
       </div>
     </motion.div>
@@ -262,7 +266,7 @@ export function ExperienceSection() {
         >
           <div className="flex items-center gap-3 mb-4">
             <div className="h-px flex-1 max-w-12 bg-gradient-to-r from-transparent to-violet-500" />
-            <span className="text-xs font-semibold tracking-widest uppercase text-violet-500 font-mono">
+            <span className="text-xs font-semibold tracking-widest uppercase text-violet-700 dark:text-violet-500 font-mono">
               Experience
             </span>
           </div>
@@ -272,7 +276,7 @@ export function ExperienceSection() {
               <span className="text-gradient">made an impact</span>
             </h2>
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Briefcase className="w-4 h-4 text-violet-400" />
+              <Briefcase className="w-4 h-4 text-violet-700 dark:text-violet-400" />
               <span>5 companies across AI &amp; ML roles</span>
             </div>
           </div>

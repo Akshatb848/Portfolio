@@ -105,32 +105,32 @@ const skillCategories = [
 const colorMap: Record<string, { bar: string; badge: string; icon: string; glow: string }> = {
   indigo: {
     bar: 'bg-gradient-to-r from-indigo-500 to-indigo-600',
-    badge: 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20',
-    icon: 'bg-indigo-500/15 text-indigo-400',
+    badge: 'bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 border-indigo-500/20',
+    icon: 'bg-indigo-500/15 text-indigo-700 dark:text-indigo-400',
     glow: 'shadow-indigo-500/20',
   },
   purple: {
     bar: 'bg-gradient-to-r from-purple-500 to-violet-600',
-    badge: 'bg-purple-500/10 text-purple-400 border-purple-500/20',
-    icon: 'bg-purple-500/15 text-purple-400',
+    badge: 'bg-purple-500/10 text-purple-700 dark:text-purple-400 border-purple-500/20',
+    icon: 'bg-purple-500/15 text-purple-700 dark:text-purple-400',
     glow: 'shadow-purple-500/20',
   },
   sky: {
     bar: 'bg-gradient-to-r from-sky-400 to-blue-500',
-    badge: 'bg-sky-500/10 text-sky-400 border-sky-500/20',
-    icon: 'bg-sky-500/15 text-sky-400',
+    badge: 'bg-sky-500/10 text-sky-700 dark:text-sky-400 border-sky-500/20',
+    icon: 'bg-sky-500/15 text-sky-700 dark:text-sky-400',
     glow: 'shadow-sky-500/20',
   },
   emerald: {
     bar: 'bg-gradient-to-r from-emerald-400 to-teal-500',
-    badge: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
-    icon: 'bg-emerald-500/15 text-emerald-400',
+    badge: 'bg-emerald-500/10 text-emerald-800 dark:text-emerald-400 border-emerald-500/20',
+    icon: 'bg-emerald-500/15 text-emerald-800 dark:text-emerald-400',
     glow: 'shadow-emerald-500/20',
   },
   amber: {
     bar: 'bg-gradient-to-r from-amber-400 to-orange-500',
-    badge: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
-    icon: 'bg-amber-500/15 text-amber-400',
+    badge: 'bg-amber-500/10 text-amber-800 dark:text-amber-400 border-amber-500/20',
+    icon: 'bg-amber-500/15 text-amber-800 dark:text-amber-400',
     glow: 'shadow-amber-500/20',
   },
 };
@@ -199,7 +199,7 @@ export function SkillsSection() {
         >
           <div className="flex items-center gap-3 mb-4">
             <div className="h-px flex-1 max-w-12 bg-gradient-to-r from-transparent to-indigo-500" />
-            <span className="text-xs font-semibold tracking-widest uppercase text-indigo-500">
+            <span className="text-xs font-semibold tracking-widest uppercase text-indigo-700 dark:text-indigo-500">
               Technical Skills
             </span>
           </div>
@@ -216,25 +216,40 @@ export function SkillsSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.1 }}
           className="flex flex-wrap gap-2 mb-8"
+          role="tablist"
+          aria-label="Skill categories"
+          onKeyDown={(e) => {
+            if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+            e.preventDefault();
+            const idx = skillCategories.findIndex((c) => c.id === activeCategory);
+            const step = e.key === 'ArrowRight' ? 1 : -1;
+            const next = skillCategories[(idx + step + skillCategories.length) % skillCategories.length];
+            setActiveCategory(next.id);
+            document.getElementById(`skills-tab-${next.id}`)?.focus();
+          }}
         >
           {skillCategories.map((cat) => {
             const catColors = colorMap[cat.color];
             const isActive = activeCategory === cat.id;
             return (
-              <motion.button
+              <button
                 key={cat.id}
+                id={`skills-tab-${cat.id}`}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                aria-controls="skills-panel"
+                tabIndex={isActive ? 0 : -1}
                 onClick={() => setActiveCategory(cat.id)}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium border transition-all duration-200 ${
+                className={`flex items-center gap-2 min-h-11 px-4 rounded-xl text-sm font-medium border transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 ${
                   isActive
                     ? `${catColors.badge} shadow-md ${catColors.glow}`
                     : 'border-border/50 text-muted-foreground hover:border-border hover:text-foreground bg-card'
                 }`}
               >
-                <cat.icon className="w-3.5 h-3.5" />
+                <cat.icon className="w-3.5 h-3.5" aria-hidden="true" />
                 {cat.title}
-              </motion.button>
+              </button>
             );
           })}
         </motion.div>
@@ -248,6 +263,9 @@ export function SkillsSection() {
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3 }}
             className="grid md:grid-cols-2 gap-6"
+            id="skills-panel"
+            role="tabpanel"
+            aria-labelledby={`skills-tab-${activeCategory}`}
           >
             <div className="space-y-6">
               <div className={`p-5 rounded-2xl border bg-card`}>
@@ -304,6 +322,7 @@ export function SkillsSection() {
               {[...techLogos, ...techLogos].map((tech, i) => (
                 <div
                   key={`${tech}-${i}`}
+                  aria-hidden={i >= techLogos.length}
                   className="flex-shrink-0 px-4 py-2 rounded-lg bg-card border border-border/50 text-sm font-medium text-muted-foreground whitespace-nowrap"
                 >
                   {tech}

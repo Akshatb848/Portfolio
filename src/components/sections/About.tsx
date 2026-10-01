@@ -12,13 +12,14 @@ import {
   Users,
   GitBranch,
 } from 'lucide-react';
+import { site } from '@/lib/site';
 
 const highlights = [
   {
     icon: Brain,
     title: 'AI & ML Systems',
     description: 'Production ML models, deep learning architectures, and NLP pipelines.',
-    color: 'text-violet-500',
+    color: 'text-violet-700 dark:text-violet-500',
     bg: 'bg-violet-500/10',
     border: 'border-violet-500/20',
   },
@@ -26,7 +27,7 @@ const highlights = [
     icon: Zap,
     title: 'Generative AI',
     description: 'LLM fine-tuning, RAG pipelines, agentic AI, and multi-agent orchestration.',
-    color: 'text-purple-500',
+    color: 'text-purple-700 dark:text-purple-500',
     bg: 'bg-purple-500/10',
     border: 'border-purple-500/20',
   },
@@ -34,7 +35,7 @@ const highlights = [
     icon: Cloud,
     title: 'Cloud & MLOps',
     description: 'Cloud-native ML on AWS, GCP, and Azure with Kubernetes and Docker.',
-    color: 'text-sky-500',
+    color: 'text-sky-700 dark:text-sky-500',
     bg: 'bg-sky-500/10',
     border: 'border-sky-500/20',
   },
@@ -42,7 +43,7 @@ const highlights = [
     icon: Database,
     title: 'Data Engineering',
     description: 'End-to-end data pipelines and feature stores for ML training and serving.',
-    color: 'text-emerald-500',
+    color: 'text-emerald-800 dark:text-emerald-500',
     bg: 'bg-emerald-500/10',
     border: 'border-emerald-500/20',
   },
@@ -68,7 +69,7 @@ export function AboutSection() {
         >
           <div className="flex items-center gap-3 mb-4">
             <div className="h-px flex-1 max-w-12 bg-gradient-to-r from-transparent to-indigo-500" />
-            <span className="text-xs font-semibold tracking-widest uppercase text-violet-500">
+            <span className="text-xs font-semibold tracking-widest uppercase text-violet-700 dark:text-violet-500">
               About Me
             </span>
           </div>
@@ -93,9 +94,9 @@ export function AboutSection() {
               </p>
               <p>
                 At{' '}
-                <span className="text-foreground font-semibold">Jio Platforms</span>, I engineer
-                AI systems that serve{' '}
-                <span className="text-foreground font-semibold">400M+ users</span> — building
+                <span className="text-foreground font-semibold">Jio Platforms</span>, I work in
+                AIOps on a platform serving{' '}
+                <span className="text-foreground font-semibold">400M+ users</span>, building
                 production ML pipelines, RAG-based retrieval systems, and LLM-powered automation
                 tools on scalable cloud infrastructure.
               </p>
@@ -119,7 +120,7 @@ export function AboutSection() {
             <div className="p-5 rounded-2xl bg-gradient-to-br from-violet-500/10 to-purple-500/10 border border-violet-500/20">
               <div className="flex items-start gap-3">
                 <div className="w-8 h-8 rounded-lg bg-violet-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <Code2 className="w-4 h-4 text-violet-400" />
+                  <Code2 className="w-4 h-4 text-violet-700 dark:text-violet-400" />
                 </div>
                 <div>
                   <p className="text-sm font-semibold text-foreground mb-1">My Approach</p>
@@ -133,27 +134,23 @@ export function AboutSection() {
             </div>
 
             <div className="flex items-center gap-4 pt-1">
-              <motion.button
-                whileHover={{ scale: 1.02, x: 3 }}
-                onClick={() =>
-                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
-                }
-                className="flex items-center gap-2 text-sm font-semibold text-violet-500 hover:text-violet-400 transition-colors"
+              <a
+                href="#contact"
+                className="flex items-center gap-2 min-h-11 text-sm font-semibold text-violet-700 dark:text-violet-400 hover:text-violet-800 dark:hover:text-violet-300 transition-colors rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
               >
                 Let&apos;s work together
-                <ArrowRight className="w-4 h-4" />
-              </motion.button>
-              <span className="text-border">·</span>
-              <motion.a
-                href="https://www.linkedin.com/in/akshat-banga-6574aa170/"
+                <ArrowRight className="w-4 h-4" aria-hidden="true" />
+              </a>
+              <span className="text-border" aria-hidden="true">·</span>
+              <a
+                href={site.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ scale: 1.02, x: 3 }}
-                className="flex items-center gap-2 text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors"
+                className="flex items-center gap-2 min-h-11 text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
               >
                 LinkedIn Profile
-                <ArrowRight className="w-4 h-4" />
-              </motion.a>
+                <ArrowRight className="w-4 h-4" aria-hidden="true" />
+              </a>
             </div>
           </motion.div>
 
@@ -193,7 +190,7 @@ export function AboutSection() {
               className="grid grid-cols-3 gap-3"
             >
               {[
-                { icon: Users, value: '400M+', label: 'Users Served', note: 'at Jio Platforms' },
+                { icon: Users, value: '400M+', label: 'Platform users', note: 'Jio Platforms' },
                 { icon: GitBranch, value: '14', label: 'GitHub Repos', note: 'open source' },
                 { icon: Cloud, value: '3', label: 'Cloud Platforms', note: 'AWS · GCP · Azure' },
               ].map((s) => (
@@ -201,7 +198,7 @@ export function AboutSection() {
                   key={s.label}
                   className="text-center p-3 rounded-xl bg-card border border-border/50"
                 >
-                  <s.icon className="w-4 h-4 text-violet-400 mx-auto mb-1" />
+                  <s.icon className="w-4 h-4 text-violet-700 dark:text-violet-400 mx-auto mb-1" />
                   <div className="text-lg font-black text-foreground">{s.value}</div>
                   <div className="text-xs text-muted-foreground leading-tight">{s.label}</div>
                   <div className="text-xs text-muted-foreground/60 leading-tight">{s.note}</div>
@@ -225,37 +222,37 @@ export function AboutSection() {
               </div>
               <div className="space-y-1 text-xs">
                 <div>
-                  <span className="text-purple-400">class</span>{' '}
-                  <span className="text-yellow-300">AkshatBanga</span>
+                  <span className="text-purple-700 dark:text-purple-400">class</span>{' '}
+                  <span className="text-yellow-800 dark:text-yellow-300">AkshatBanga</span>
                   <span className="text-muted-foreground">:</span>
                 </div>
                 <div className="pl-4">
-                  <span className="text-sky-400">role</span>
+                  <span className="text-sky-700 dark:text-sky-400">role</span>
                   <span className="text-muted-foreground"> = </span>
-                  <span className="text-green-400">&quot;AI Engineer&quot;</span>
+                  <span className="text-green-800 dark:text-green-400">&quot;AI Engineer&quot;</span>
                 </div>
                 <div className="pl-4">
-                  <span className="text-sky-400">focus</span>
+                  <span className="text-sky-700 dark:text-sky-400">focus</span>
                   <span className="text-muted-foreground"> = [</span>
-                  <span className="text-green-400">&quot;GenAI&quot;</span>
+                  <span className="text-green-800 dark:text-green-400">&quot;GenAI&quot;</span>
                   <span className="text-muted-foreground">, </span>
-                  <span className="text-green-400">&quot;MLOps&quot;</span>
+                  <span className="text-green-800 dark:text-green-400">&quot;MLOps&quot;</span>
                   <span className="text-muted-foreground">, </span>
-                  <span className="text-green-400">&quot;LLMs&quot;</span>
+                  <span className="text-green-800 dark:text-green-400">&quot;LLMs&quot;</span>
                   <span className="text-muted-foreground">]</span>
                 </div>
                 <div className="pl-4">
-                  <span className="text-sky-400">companies</span>
+                  <span className="text-sky-700 dark:text-sky-400">companies</span>
                   <span className="text-muted-foreground"> = [</span>
-                  <span className="text-orange-300">&quot;Jio Platforms&quot;</span>
+                  <span className="text-orange-800 dark:text-orange-300">&quot;Jio Platforms&quot;</span>
                   <span className="text-muted-foreground">, </span>
-                  <span className="text-orange-300">&quot;Deloitte&quot;</span>
+                  <span className="text-orange-800 dark:text-orange-300">&quot;Deloitte&quot;</span>
                   <span className="text-muted-foreground">, ...]</span>
                 </div>
                 <div className="pl-4">
-                  <span className="text-sky-400">status</span>
+                  <span className="text-sky-700 dark:text-sky-400">status</span>
                   <span className="text-muted-foreground"> = </span>
-                  <span className="text-green-400">&quot;Open to opportunities&quot;</span>
+                  <span className="text-green-800 dark:text-green-400">&quot;Open to opportunities&quot;</span>
                 </div>
               </div>
             </motion.div>

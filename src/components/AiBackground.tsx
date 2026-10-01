@@ -5,7 +5,7 @@ import * as THREE from 'three';
 
 // ─── Configuration ────────────────────────────────────────────────────────────
 const CFG = {
-  desktop: { count: 200, connDist: 140, speed: 0.12, size: 2.0 },
+  desktop: { count: 150, connDist: 150, speed: 0.12, size: 2.0 },
   tablet:  { count: 130, connDist: 110, speed: 0.10, size: 1.8 },
   mobile:  { count:  70, connDist:  80, speed: 0.08, size: 1.5 },
 } as const;
@@ -134,17 +134,23 @@ export default function AiBackground() {
     let   animId    = 0;
     let   frame     = 0;
 
+    // Only animate while the hero is on screen and the tab is visible.
+    let onScreen = true;
+    const running = () => onScreen && !document.hidden && !prefersReduced;
+
     const animate = () => {
+      if (!running()) {
+        animId = 0;
+        return;
+      }
       animId = requestAnimationFrame(animate);
       frame++;
 
       // Update particle positions
       for (let i = 0; i < count; i++) {
-        if (!prefersReduced) {
-          px[i] += vx[i];
-          py[i] += vy[i];
-          pz[i] += vz[i];
-        }
+        px[i] += vx[i];
+        py[i] += vy[i];
+        pz[i] += vz[i];
         // Bounce
         if (Math.abs(px[i]) > spread.x) vx[i] *= -1;
         if (Math.abs(py[i]) > spread.y) vy[i] *= -1;
@@ -158,39 +164,62 @@ export default function AiBackground() {
 
       // Rebuild connection line segments every 2nd frame for performance
       if (frame % 2 === 0) {
-        let segIdx = 0;
-        for (let i = 0; i < count; i++) {
-          for (let j = i + 1; j < count; j++) {
-            const dx = px[i] - px[j];
-            const dy = py[i] - py[j];
-            const dz = pz[i] - pz[j];
-            const d2 = dx * dx + dy * dy + dz * dz;
-            if (d2 < connDist2) {
-              linePos[segIdx++] = px[i];
-              linePos[segIdx++] = py[i];
-              linePos[segIdx++] = pz[i];
-              linePos[segIdx++] = px[j];
-              linePos[segIdx++] = py[j];
-              linePos[segIdx++] = pz[j];
-            }
-          }
-        }
-        lineGeo.setDrawRange(0, segIdx / 3);
-        linePosAttr.needsUpdate = true;
+        rebuildLines();
       }
 
       // Very slow camera drift
-      if (!prefersReduced) {
-        const t = frame * 0.0006;
-        camera.position.x = Math.sin(t) * 15;
-        camera.position.y = Math.cos(t * 0.7) * 10;
-        camera.lookAt(0, 0, 0);
-      }
+      const t = frame * 0.0006;
+      camera.position.x = Math.sin(t) * 15;
+      camera.position.y = Math.cos(t * 0.7) * 10;
+      camera.lookAt(0, 0, 0);
 
       renderer.render(scene, camera);
     };
 
-    animate();
+    function rebuildLines() {
+      let segIdx = 0;
+      for (let i = 0; i < count; i++) {
+        for (let j = i + 1; j < count; j++) {
+          const dx = px[i] - px[j];
+          const dy = py[i] - py[j];
+          const dz = pz[i] - pz[j];
+          const d2 = dx * dx + dy * dy + dz * dz;
+          if (d2 < connDist2) {
+            linePos[segIdx++] = px[i];
+            linePos[segIdx++] = py[i];
+            linePos[segIdx++] = pz[i];
+            linePos[segIdx++] = px[j];
+            linePos[segIdx++] = py[j];
+            linePos[segIdx++] = pz[j];
+          }
+        }
+      }
+      lineGeo.setDrawRange(0, segIdx / 3);
+      linePosAttr.needsUpdate = true;
+    }
+
+    const start = () => {
+      if (!animId && running()) animate();
+    };
+
+    // First frame is always drawn, so reduced-motion users get a static network.
+    for (let i = 0; i < count; i++) {
+      positions[i * 3] = px[i];
+      positions[i * 3 + 1] = py[i];
+      positions[i * 3 + 2] = pz[i];
+    }
+    posAttr.needsUpdate = true;
+    rebuildLines();
+    renderer.render(scene, camera);
+    start();
+
+    const observer = new IntersectionObserver(([entry]) => {
+      onScreen = entry.isIntersecting;
+      start();
+    });
+    observer.observe(container);
+    const onVisibility = () => start();
+    document.addEventListener('visibilitychange', onVisibility);
 
     // ── Resize handler ─────────────────────────────────────────────────────
     const handleResize = () => {
@@ -199,12 +228,15 @@ export default function AiBackground() {
       camera.aspect = nW / nH;
       camera.updateProjectionMatrix();
       renderer.setSize(nW, nH);
+      if (!running()) renderer.render(scene, camera);
     };
     window.addEventListener('resize', handleResize);
 
     // ── Cleanup ────────────────────────────────────────────────────────────
     return () => {
       cancelAnimationFrame(animId);
+      observer.disconnect();
+      document.removeEventListener('visibilitychange', onVisibility);
       window.removeEventListener('resize', handleResize);
       renderer.dispose();
       particleGeo.dispose();

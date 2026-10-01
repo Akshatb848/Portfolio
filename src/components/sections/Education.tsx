@@ -47,8 +47,8 @@ const certifications = [
 ];
 
 const colorMap: Record<string, { border: string; dot: string; initial: string }> = {
-  indigo: { border: 'hover:border-indigo-500/30', dot: 'bg-indigo-500', initial: 'bg-indigo-500/15 text-indigo-400' },
-  emerald: { border: 'hover:border-emerald-500/30', dot: 'bg-emerald-500', initial: 'bg-emerald-500/15 text-emerald-400' },
+  indigo: { border: 'hover:border-indigo-500/30', dot: 'bg-indigo-500', initial: 'bg-indigo-500/15 text-indigo-700 dark:text-indigo-400' },
+  emerald: { border: 'hover:border-emerald-500/30', dot: 'bg-emerald-500', initial: 'bg-emerald-500/15 text-emerald-800 dark:text-emerald-400' },
 };
 
 const certColorMap: Record<string, string> = {
@@ -80,7 +80,7 @@ export function EducationSection() {
         >
           <div className="flex items-center gap-3 mb-4">
             <div className="h-px flex-1 max-w-12 bg-gradient-to-r from-transparent to-violet-500" />
-            <span className="text-xs font-semibold tracking-widest uppercase text-violet-500 font-mono">
+            <span className="text-xs font-semibold tracking-widest uppercase text-violet-700 dark:text-violet-500 font-mono">
               Education & Certifications
             </span>
           </div>
@@ -99,7 +99,7 @@ export function EducationSection() {
               transition={{ delay: 0.1 }}
               className="flex items-center gap-2 mb-6"
             >
-              <GraduationCap className="w-5 h-5 text-violet-400" />
+              <GraduationCap className="w-5 h-5 text-violet-700 dark:text-violet-400" />
               <h3 className="text-lg font-bold text-foreground">Education</h3>
             </motion.div>
 
@@ -150,9 +150,9 @@ export function EducationSection() {
               transition={{ delay: 0.1 }}
               className="flex items-center gap-2 mb-6"
             >
-              <Award className="w-5 h-5 text-amber-400" />
+              <Award className="w-5 h-5 text-amber-800 dark:text-amber-400" />
               <h3 className="text-lg font-bold text-foreground">Certifications</h3>
-              <span className="ml-auto text-xs px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">
+              <span className="ml-auto text-xs px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-800 dark:text-amber-400 border border-amber-500/20">
                 {certifications.length} certified
               </span>
             </motion.div>
