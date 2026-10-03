@@ -87,9 +87,9 @@ export function Navbar({ resumeUrl }: { resumeUrl: string | null }) {
                 <Code2 className="w-4 h-4 text-white" aria-hidden="true" />
               </span>
               <span className="font-mono font-bold text-sm tracking-tight">
-                <span className="text-foreground">akshat</span>
-                <span className="text-violet-700 dark:text-violet-400">@</span>
-                <span className="text-muted-foreground">net</span>
+                <span className="text-foreground">akshatbanga</span>
+                <span className="text-violet-700 dark:text-violet-400">.</span>
+                <span className="text-muted-foreground">com</span>
               </span>
             </a>
 

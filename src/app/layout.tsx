@@ -13,8 +13,13 @@ export const metadata: Metadata = {
   title: site.title,
   description: site.description,
   keywords: [
+    'AI Generalist',
+    'AI Transformation',
+    'Low-code AI',
+    'No-code AI',
+    'AI Tools',
+    'AI Automation',
     'AI Engineer',
-    'AIOps',
     'Machine Learning',
     'Generative AI',
     'Agentic AI',
@@ -56,14 +61,22 @@ const personJsonLd = {
   name: site.name,
   url: site.url,
   email: `mailto:${site.email}`,
-  jobTitle: 'AI Engineer',
+  jobTitle: 'AI Generalist & Transformation Expert',
   address: { '@type': 'PostalAddress', addressLocality: 'New Delhi', addressCountry: 'IN' },
   alumniOf: [
     { '@type': 'CollegeOrUniversity', name: 'University of Southampton' },
     { '@type': 'CollegeOrUniversity', name: 'Amity University' },
   ],
-  knowsAbout: ['Machine Learning', 'Generative AI', 'Multi-Agent Systems', 'RAG', 'AIOps', 'Cloud Operations'],
-  sameAs: [site.github, site.linkedin],
+  knowsAbout: [
+    'AI Transformation',
+    'Low-code / No-code AI Automation',
+    'AI Tools',
+    'Generative AI',
+    'Multi-Agent Systems',
+    'RAG',
+    'Machine Learning',
+  ],
+  sameAs: [site.github, site.linkedin, site.instagram],
 };
 
 export default function RootLayout({

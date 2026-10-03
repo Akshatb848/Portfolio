@@ -6,10 +6,10 @@ import {
   Brain,
   Zap,
   Cloud,
-  Code2,
   ArrowRight,
-  Database,
+  Workflow,
   Users,
+  Instagram,
 } from 'lucide-react';
 import { site } from '@/lib/site';
 import { SectionHeading } from '@/components/SectionHeading';
@@ -40,9 +40,9 @@ const highlights = [
     border: 'border-sky-500/20',
   },
   {
-    icon: Database,
-    title: 'AIOps & Observability',
-    description: 'Prometheus, Pulse Agent and ELK monitoring with controlled releases and rollbacks.',
+    icon: Workflow,
+    title: 'Low-code / No-code AI',
+    description: 'Automations built from AI tools and n8n workflows that take manual steps out of everyday work.',
     color: 'text-emerald-800 dark:text-emerald-500',
     bg: 'bg-emerald-500/10',
     border: 'border-emerald-500/20',
@@ -80,9 +80,11 @@ export function AboutSection() {
           >
             <div className="space-y-4 text-muted-foreground leading-relaxed">
               <p className="text-lg">
-                I&apos;m <span className="text-foreground font-semibold">Akshat Banga</span>, an AI
-                Engineer in New Delhi working across Generative AI, machine learning, AIOps and cloud
-                operations.
+                I&apos;m <span className="text-foreground font-semibold">Akshat Banga</span>, an{' '}
+                <span className="text-foreground font-semibold">AI Generalist and transformation expert</span>{' '}
+                in New Delhi. I pick the right AI tool for the job and use{' '}
+                <span className="text-foreground font-semibold">low-code / no-code AI</span> to
+                transform manual processes quickly, then write custom code where it pays off.
               </p>
               <p>
                 I build <span className="text-foreground font-semibold">LLM apps, RAG and multi-agent systems</span>:
@@ -94,10 +96,9 @@ export function AboutSection() {
                 manual data-analysis effort by 40%.
               </p>
               <p>
-                At <span className="text-foreground font-semibold">Jio Platforms</span> I supported
-                enterprise cloud reliability for Jio CloudXP and NIC Meghraj 2.0: observability with
-                Prometheus and Pulse Agent, controlled releases, and Kubernetes, ELK and database
-                operations.
+                At <span className="text-foreground font-semibold">Jio Platforms</span> I worked on
+                enterprise cloud platforms (Jio CloudXP and NIC Meghraj 2.0), including controlled
+                releases and Kubernetes and database operations.
               </p>
               <p>
                 Earlier work includes predictive models and BERT pipelines at{' '}
@@ -205,14 +206,14 @@ export function AboutSection() {
                 <div className="pl-4">
                   <span className="text-sky-700 dark:text-sky-400">role</span>
                   <span className="text-muted-foreground"> = </span>
-                  <span className="text-green-800 dark:text-green-400">&quot;AI Engineer&quot;</span>
+                  <span className="text-green-800 dark:text-green-400">&quot;AI Generalist&quot;</span>
                 </div>
                 <div className="pl-4">
                   <span className="text-sky-700 dark:text-sky-400">focus</span>
                   <span className="text-muted-foreground"> = [</span>
-                  <span className="text-green-800 dark:text-green-400">&quot;GenAI&quot;</span>
+                  <span className="text-green-800 dark:text-green-400">&quot;No-code AI&quot;</span>
                   <span className="text-muted-foreground">, </span>
-                  <span className="text-green-800 dark:text-green-400">&quot;AIOps&quot;</span>
+                  <span className="text-green-800 dark:text-green-400">&quot;AI tools&quot;</span>
                   <span className="text-muted-foreground">, </span>
                   <span className="text-green-800 dark:text-green-400">&quot;LLMs&quot;</span>
                   <span className="text-muted-foreground">]</span>
@@ -232,6 +233,37 @@ export function AboutSection() {
                 </div>
               </div>
             </motion.div>
+
+            <motion.a
+              href={site.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, y: 10 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.55 }}
+              className="ig-ring group block rounded-xl p-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            >
+              <span className="flex items-center gap-4 rounded-[11px] bg-card p-4">
+                <span className="ig-gradient relative w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-pink-500/20 group-hover:scale-105 transition-transform">
+                  <Instagram className="w-6 h-6 text-white" aria-hidden="true" />
+                </span>
+                <span className="flex-1 min-w-0">
+                  <span className="block text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                    Creator on Instagram
+                  </span>
+                  <span className="block text-sm font-bold text-foreground truncate">
+                    @{site.instagramHandle}
+                  </span>
+                  <span className="block text-xs text-muted-foreground leading-relaxed">
+                    AI tools and low-code automations that do the busywork for you.
+                  </span>
+                </span>
+                <ArrowRight
+                  className="w-4 h-4 text-muted-foreground group-hover:text-foreground group-hover:translate-x-0.5 transition-[color,transform]"
+                  aria-hidden="true"
+                />
+              </span>
+            </motion.a>
           </div>
         </div>
       </div>

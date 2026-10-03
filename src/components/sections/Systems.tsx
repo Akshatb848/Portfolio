@@ -11,7 +11,7 @@ import { SectionHeading } from '@/components/SectionHeading';
 
 const STEP_MS = 1300;
 
-// ─── Signal chart (AIOps scenario) ───────────────────────────────────────────
+// ─── Signal chart (scenarios with showSignal) ───────────────────────────────────────────
 function SignalChart({ faulty, detected, running }: { faulty: boolean; detected: boolean; running: boolean }) {
   const W = 600;
   const H = 120;
