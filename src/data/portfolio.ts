@@ -169,20 +169,6 @@ export const projects: Project[] = [
     videoKind: 'concept',
   },
   {
-    id: 6,
-    name: 'EcomPriceGen-AI-Powered-Pricing-Discount-Calculator',
-    title: 'EcomPriceGen – LLM-Powered Pricing Calculator',
-    description:
-      'Automated e-commerce pricing engine combining two notebooks: a RAG Agent for product knowledge retrieval and a Smart E-Commerce Platform. Includes a LoRA (Low-Rank Adaptation) fine-tune of EleutherAI GPT-Neo 1.3B on pricing and discount text.',
-    tech: ['Python', 'HuggingFace', 'GPT-Neo', 'LoRA', 'PEFT', 'FAISS', 'RAG', 'Jupyter'],
-    category: 'Generative AI',
-    color: 'amber',
-    github: 'https://github.com/Akshatb848/EcomPriceGen-AI-Powered-Pricing-Discount-Calculator',
-    language: 'Jupyter Notebook',
-    icon: ShoppingCart,
-    featured: false,
-  },
-  {
     id: 7,
     name: 'Degraded-Devanagari-and-Bangla-Script-Identification-Using-CNN-Frameworks',
     title: 'Degraded Indic Script Classifier (99.34% accuracy)',
@@ -413,10 +399,19 @@ export const fallbackRepos: RepoSummary[] = [
   { name: 'AI-Governance-and-Risk-Management', lang: 'Jupyter Notebook' },
   { name: 'UNIFIED-MENTOR', lang: 'Jupyter Notebook' },
   { name: 'Market-Segmentation-for-Edtech-Startups', lang: 'Jupyter Notebook' },
-  { name: 'EcomPriceGen-AI-Powered-Pricing-Discount-Calculator', lang: 'Jupyter Notebook' },
   { name: 'Real-Time-Air-Quality-Prediction-Using-ML-Algorithms', lang: 'Jupyter Notebook' },
   { name: 'Music-Genre-Classification-USING-KNN-and-CNN', lang: 'Jupyter Notebook' },
   { name: 'NPS-Driven-Strategy-for-Aviation', lang: 'Jupyter Notebook' },
+];
+
+/**
+ * Public repositories that should never appear on the site: company code or data, empty
+ * repos, and projects withdrawn from the portfolio. Applied to the live GitHub list too.
+ */
+export const hiddenRepos = [
+  'yournest',
+  'Personal-Assistant',
+  'EcomPriceGen-AI-Powered-Pricing-Discount-Calculator',
 ];
 
 export const languageColors: Record<string, string> = {
@@ -473,7 +468,6 @@ export const skillGroups: SkillGroup[] = [
       { name: 'LangChain', match: ['LangChain'] },
       { name: 'Vector databases', match: ['Qdrant', 'ChromaDB', 'FAISS', 'Vector search'] },
       { name: 'LiteLLM / OpenAI APIs', match: ['LiteLLM', 'OpenAI API'] },
-      { name: 'Fine-tuning (LoRA / PEFT)', match: ['LoRA', 'PEFT'] },
       { name: 'Local LLMs (Ollama)', match: ['Ollama', 'OLLAMA'] },
     ],
   },
@@ -514,7 +508,7 @@ export const skillGroups: SkillGroup[] = [
 ];
 
 /** Résumé skills without a public project or role on this site to point to yet. */
-export const alsoFamiliar = ['AWS', 'XGBoost', 'LSTMs', 'Transformers', 'MLflow', 'Model monitoring', 'Cloud Build', 'Cloud Run', 'MongoDB', 'SQL', 'REST APIs', 'Prompt engineering'];
+export const alsoFamiliar = ['LoRA / PEFT fine-tuning', 'AWS', 'XGBoost', 'LSTMs', 'Transformers', 'MLflow', 'Model monitoring', 'Cloud Build', 'Cloud Run', 'MongoDB', 'SQL', 'REST APIs', 'Prompt engineering'];
 
 export type Evidence = { kind: 'project' | 'role'; label: string; href: string };
 

@@ -1,4 +1,4 @@
-import { fallbackRepos, type RepoSummary } from '@/data/portfolio';
+import { fallbackRepos, hiddenRepos, type RepoSummary } from '@/data/portfolio';
 import { site } from '@/lib/site';
 
 export type GitHubData = {
@@ -45,6 +45,7 @@ export async function getGitHubData(): Promise<GitHubData> {
     const repos = body
       .filter(isApiRepo)
       .filter((r) => !r.fork && !r.archived && r.name !== site.githubUsername)
+      .filter((r) => !hiddenRepos.some((h) => h.toLowerCase() === r.name.toLowerCase()))
       .map<RepoSummary>((r) => ({
         name: r.name,
         lang: r.language ?? 'Other',
