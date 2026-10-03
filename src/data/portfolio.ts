@@ -76,13 +76,14 @@ export type RepoSummary = {
 export const projects: Project[] = [
   {
     id: 13,
-    name: 'ASIS-Strategic-Intelligence-Platform',
+    name: 'Strategic-Consultant',
     title: 'ASIS – Strategic Intelligence Platform',
     description:
       'An 8-agent enterprise decision-intelligence system that generates cited strategic briefs, roadmaps, SWOT analyses, executive summaries and PDF reports. FastAPI backend, Next.js frontend with live progress over SSE, Docker, Terraform, CI/CD and a GCP deployment structure.',
-    tech: ['LangGraph', 'Agents', 'FastAPI', 'Next.js', 'LiteLLM', 'PostgreSQL', 'Redis', 'Qdrant', 'Docker', 'Terraform', 'CI/CD', 'GCP'],
+    tech: ['LangGraph', 'Agents', 'FastAPI', 'Next.js', 'LiteLLM', 'PostgreSQL', 'Redis', 'Docker', 'Terraform', 'CI/CD', 'GCP'],
     category: 'Agentic AI',
     color: 'cyan',
+    github: 'https://github.com/Akshatb848/Strategic-Consultant',
     language: 'Python',
     icon: Compass,
     featured: true,
@@ -108,8 +109,8 @@ export const projects: Project[] = [
     name: 'AI-Governance-and-Risk-Management',
     title: 'AEGIS – AI Governance & Risk Platform',
     description:
-      'Multi-agent audit platform for ML and GenAI/RAG systems covering fairness, drift, explainability, prompt injection and citation checks. Automates PASS/FAIL/REVIEW controls, risk registers, remediation actions and workflow traces, and produces audit-ready PDF packs.',
-    tech: ['Python', 'LangGraph', 'Agents', 'Streamlit', 'SHAP', 'RAG'],
+      'Agent-based audit platform for ML and GenAI/RAG systems covering fairness, drift, explainability, prompt injection and citation checks. Automates PASS/FAIL/REVIEW controls, risk registers, remediation actions and workflow traces, and produces audit-ready PDF packs.',
+    tech: ['Python', 'Agents', 'Streamlit', 'SHAP', 'RAG', 'ReportLab'],
     category: 'Generative AI',
     color: 'purple',
     github: 'https://github.com/Akshatb848/AI-Governance-and-Risk-Management',
@@ -172,8 +173,8 @@ export const projects: Project[] = [
     name: 'EcomPriceGen-AI-Powered-Pricing-Discount-Calculator',
     title: 'EcomPriceGen – LLM-Powered Pricing Calculator',
     description:
-      'Automated e-commerce pricing engine combining two notebooks: a RAG Agent for product knowledge retrieval and a Smart E-Commerce Platform. Fine-tunes HuggingFace\'s Zephyr-7B model with LoRA (Low-Rank Adaptation) for resource-efficient training, accepting natural language discount queries.',
-    tech: ['Python', 'HuggingFace', 'Zephyr-7B', 'LoRA', 'PEFT', 'RAG', 'Jupyter'],
+      'Automated e-commerce pricing engine combining two notebooks: a RAG Agent for product knowledge retrieval and a Smart E-Commerce Platform. Includes a LoRA (Low-Rank Adaptation) fine-tune of EleutherAI GPT-Neo 1.3B on pricing and discount text.',
+    tech: ['Python', 'HuggingFace', 'GPT-Neo', 'LoRA', 'PEFT', 'FAISS', 'RAG', 'Jupyter'],
     category: 'Generative AI',
     color: 'amber',
     github: 'https://github.com/Akshatb848/EcomPriceGen-AI-Powered-Pricing-Discount-Calculator',
@@ -215,7 +216,7 @@ export const projects: Project[] = [
     name: 'Market-Segmentation-for-Edtech-Startups',
     title: 'EdTech Market Segmentation',
     description:
-      'Unsupervised ML project segmenting EdTech users into meaningful groups using K-Means clustering with Elbow Method optimization and PCA dimensionality reduction. Produces four distinct behavioral segments for targeted marketing and personalization strategies.',
+      'Unsupervised ML on Indian district-level education data: K-Means clustering with Elbow Method and PCA, producing three market segments to guide where an EdTech startup should focus.',
     tech: ['Python', 'Scikit-learn', 'K-Means', 'PCA', 'Pandas', 'Seaborn'],
     category: 'Machine Learning',
     color: 'cyan',
@@ -230,7 +231,7 @@ export const projects: Project[] = [
     title: 'Music Genre Classification',
     description:
       'Audio classification system that identifies music genres using both K-Nearest Neighbors (KNN) and Convolutional Neural Network (CNN) architectures. Demonstrates comparison of traditional ML vs deep learning for audio feature classification.',
-    tech: ['Python', 'KNN', 'CNN', 'Librosa', 'PyTorch', 'Jupyter'],
+    tech: ['Python', 'KNN', 'CNN', 'Librosa', 'TensorFlow', 'Keras', 'Jupyter'],
     category: 'Deep Learning',
     color: 'fuchsia',
     github: 'https://github.com/Akshatb848/Music-Genre-Classification-USING-KNN-and-CNN',
