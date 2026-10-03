@@ -22,7 +22,7 @@ export default function OpengraphImage() {
         }}
       >
         <div style={{ display: 'flex', fontSize: 28, color: '#a78bfa', marginBottom: 24 }}>
-          akshatbanga.net
+          {new URL(site.url).host}
         </div>
         <div style={{ display: 'flex', fontSize: 96, fontWeight: 800, letterSpacing: -2 }}>
           {site.name}

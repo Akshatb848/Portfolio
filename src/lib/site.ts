@@ -1,6 +1,6 @@
 export const site = {
   name: 'Akshat Banga',
-  url: 'https://akshatbanga.net',
+  url: 'https://akshatbanga.com',
   title: 'Akshat Banga | AI Engineer · Generative AI · AIOps',
   headline: 'AI Engineer · Generative AI · AIOps',
   description:
