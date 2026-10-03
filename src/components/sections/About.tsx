@@ -86,8 +86,9 @@ export function AboutSection() {
               </p>
               <p>
                 I build <span className="text-foreground font-semibold">LLM apps, RAG and multi-agent systems</span>:
-                most recently a multi-agent dealflow workflow at{' '}
-                <span className="text-foreground font-semibold">YourNest Venture Capital</span>, and
+                currently a multi-agent dealflow workflow at{' '}
+                <span className="text-foreground font-semibold">YourNest Venture Capital</span>{' '}
+                (internship through November 2026), and earlier
                 LangChain multi-agent systems at{' '}
                 <span className="text-foreground font-semibold">Deloitte South Asia</span> that cut
                 manual data-analysis effort by 40%.

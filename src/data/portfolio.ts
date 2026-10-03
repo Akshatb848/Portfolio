@@ -286,7 +286,7 @@ export const experiences: Experience[] = [
     companyInitial: 'YN',
     role: 'Intern – Strategy and AI',
     type: 'Internship',
-    period: 'Jun 2026 – Sep 2026',
+    period: 'Jun 2026 – Nov 2026',
     location: 'Gurugram',
     color: 'violet',
     description:
