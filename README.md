@@ -15,57 +15,38 @@ A world-class, production-grade personal portfolio website for Akshat Banga, an 
 
 ## ✨ Features
 
-- **Three.js neural-network hero background**, paused off-screen and static under reduced motion
+- **Cinematic 3D hero**: a Three.js neural network with signal pulses travelling along its connections, pointer parallax and a scroll-driven camera dolly. It pauses off-screen, stays static under reduced motion, and falls back gracefully without WebGL.
+- **Chapters**: eight numbered chapters shared by the navbar, a fixed chapter rail (wide screens) and section headings, plus a scroll progress bar
+- **Systems in motion**: interactive pipeline simulations (grounded RAG, AIOps incident triage, AI governance audit) with play/pause/step, what-if switches and a live log, each linked to the project or role it is based on
+- **Skill flashcards**: flip cards that list the projects and roles where each skill was used; links jump to the matching project slide or role
+- **Project carousel**: 3D coverflow of featured projects with swipe, keyboard, autoplay (pausable, off under reduced motion), deep links (`/#project-3`) and generative cover art; filterable grid for the rest
+- **Live GitHub panel**: repositories fetched from the GitHub API at build time and refreshed daily, with a bundled snapshot as fallback
 - **Contact section** with email, LinkedIn, GitHub and an optional résumé download
-- **Filterable project cards** with optional demo clips
-- **Experience timeline** with expandable achievements
-- **GitHub activity** and featured repositories
-- **Dark/Light mode**, both meeting WCAG AA contrast
-- **Accessible navigation**: anchor links, skip link, keyboard-friendly mobile menu and skill tabs, 44px touch targets
+- **Dark/Light mode**, both meeting WCAG AA contrast (axe: 0 violations)
+- **Accessible navigation**: anchor links, skip link, keyboard-friendly menu, tabs and carousel, 44px touch targets
 - **SEO**: Open Graph/Twitter image, Person JSON-LD, generated sitemap
+
+## 🔗 Content and sync
+
+All content lives in one place, so every section stays in sync:
+
+- `src/data/portfolio.ts`: projects, experience, education, certifications, skills and the repo snapshot
+- `src/data/simulations.ts`: simulator scenarios
+- `src/data/chapters.ts`: chapter order and labels
+- `src/lib/site.ts`: name, headline, email and social links
+- `src/lib/tones.ts`: shared, contrast-safe colour tokens
+
+Skill flashcards derive their evidence from the tech stacks in `portfolio.ts`, so adding a project updates them automatically.
 
 ## 📎 Optional assets
 
-These render only when the file exists in `public/` at build time, so nothing shows as a broken link:
+These render only when the file exists in `public/` at build time (`scripts/generate-asset-manifest.mjs` runs before `dev` and `build`), so nothing shows as a broken link:
 
 - **Résumé**: `public/Akshat_Banga_Resume.pdf` adds résumé buttons to the navbar, hero and contact section.
-- **Project demo clips**: `public/videos/<name>.mp4`, using the paths set in `src/components/sections/Projects.tsx`
-  (`ai-tennis-demo.mp4`, `aegis-demo.mp4`, `ds-agent-demo.mp4`, `analytics-demo.mp4`, `llm-dashboard-demo.mp4`).
+- **Project demo clips**: `public/videos/<name>.mp4`, using the paths set in `src/data/portfolio.ts`
+  (`ai-tennis-demo.mp4`, `aegis-demo.mp4`, `ds-agent-demo.mp4`, `analytics-demo.mp4`, `llm-dashboard-demo.mp4`). A clip replaces that project's generated cover in the carousel.
 
-Contact details and links live in `src/lib/site.ts`.
-
-## 🏗️ Project Structure
-
-```
-src/
-├── app/
-│   ├── layout.tsx            # Root layout, metadata, fonts, JSON-LD
-│   ├── page.tsx              # Assembles sections; detects optional assets
-│   ├── opengraph-image.tsx   # Generated social preview image
-│   ├── twitter-image.tsx
-│   ├── sitemap.ts
-│   └── globals.css           # Global styles & CSS variables
-├── components/
-│   ├── AiBackground.tsx      # Three.js hero background
-│   ├── ProjectVideo.tsx      # Lazy demo clip player
-│   ├── layout/
-│   │   ├── Navbar.tsx
-│   │   └── Footer.tsx
-│   ├── sections/
-│   │   ├── Hero.tsx
-│   │   ├── About.tsx
-│   │   ├── Skills.tsx
-│   │   ├── Projects.tsx
-│   │   ├── Experience.tsx
-│   │   ├── GitHub.tsx
-│   │   ├── Education.tsx
-│   │   └── Contact.tsx
-│   └── providers/
-│       ├── ThemeProvider.tsx
-│       └── MotionProvider.tsx
-└── lib/
-    └── site.ts               # Name, headline, email and social links
-```
+Optional environment variable: `GITHUB_TOKEN` raises the GitHub API rate limit for the live panel.
 
 ## 🚀 Getting Started
 
