@@ -74,8 +74,8 @@ export function HeroSection({ resumeUrl }: { resumeUrl: string | null }) {
           className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
         >
           I build{' '}
-          <span className="text-foreground font-semibold">agentic AI, RAG and ML systems</span>{' '}
-          and take them from prototype to production, on a platform serving 400M+ users.
+          <span className="text-foreground font-semibold">LLM apps, RAG and multi-agent systems</span>{' '}
+          and run them in production, with hands-on AIOps and cloud-operations experience from Jio Platforms.
         </motion.p>
 
         {/* CTAs */}

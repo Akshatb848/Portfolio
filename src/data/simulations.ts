@@ -52,9 +52,9 @@ export const scenarios: Scenario[] = [
   {
     id: 'aiops',
     title: 'AIOps incident triage',
-    tagline: 'From a noisy metric stream to a ranked root-cause hypothesis and a ticket.',
+    tagline: 'From Prometheus-style telemetry to a ranked root-cause hypothesis and a ticket.',
     color: 'cyan',
-    basedOn: { experienceIds: [1] },
+    basedOn: { experienceIds: [4] },
     showSignal: true,
     toggle: {
       label: 'Inject a latency fault',

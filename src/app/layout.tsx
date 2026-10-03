@@ -56,13 +56,13 @@ const personJsonLd = {
   name: site.name,
   url: site.url,
   email: `mailto:${site.email}`,
-  jobTitle: 'Assistant Manager (AIOps)',
-  worksFor: { '@type': 'Organization', name: 'Jio Platforms Limited' },
+  jobTitle: 'AI Engineer',
+  address: { '@type': 'PostalAddress', addressLocality: 'New Delhi', addressCountry: 'IN' },
   alumniOf: [
     { '@type': 'CollegeOrUniversity', name: 'University of Southampton' },
     { '@type': 'CollegeOrUniversity', name: 'Amity University' },
   ],
-  knowsAbout: ['Machine Learning', 'Generative AI', 'Agentic AI', 'RAG', 'AIOps', 'MLOps'],
+  knowsAbout: ['Machine Learning', 'Generative AI', 'Multi-Agent Systems', 'RAG', 'AIOps', 'Cloud Operations'],
   sameAs: [site.github, site.linkedin],
 };
 

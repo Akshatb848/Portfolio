@@ -30,13 +30,13 @@ function ExperienceCard({ exp, index }: { exp: Experience; index: number }) {
 
       {/* Card */}
       <div className={`flex-1 pb-8 mb-1 p-5 rounded-xl bg-card border ${t.border} ${t.hoverBorder} transition-colors duration-200`}>
-        <div className="flex items-start justify-between gap-4 mb-3">
-          <div className="flex items-start gap-3">
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-4 mb-3">
+          <div className="flex items-start gap-3 min-w-0">
             {/* Company initial badge */}
             <div className={`w-9 h-9 rounded-lg ${t.soft} ${t.text} flex items-center justify-center font-bold text-xs flex-shrink-0`}>
               {exp.companyInitial}
             </div>
-            <div>
+            <div className="min-w-0">
               <h3 className="text-sm font-bold text-foreground leading-tight">{exp.role}</h3>
               <div className="flex flex-wrap items-center gap-2 mt-1">
                 <span className="text-sm text-muted-foreground font-medium">{exp.company}</span>
@@ -46,10 +46,10 @@ function ExperienceCard({ exp, index }: { exp: Experience; index: number }) {
               </div>
             </div>
           </div>
-          <div className="flex flex-col items-end gap-1 flex-shrink-0 text-xs text-muted-foreground">
-            {exp.period && <span className="font-medium text-emerald-800 dark:text-emerald-400">{exp.period}</span>}
+          <div className="flex flex-wrap sm:flex-col items-center sm:items-end gap-x-3 gap-y-1 flex-shrink-0 pl-12 sm:pl-0 text-xs text-muted-foreground">
+            {exp.period && <span className="font-medium text-foreground tabular-nums whitespace-nowrap">{exp.period}</span>}
             <span className="flex items-center gap-1">
-              <MapPin className="w-3 h-3" /> {exp.location}
+              <MapPin className="w-3 h-3" aria-hidden="true" /> {exp.location}
             </span>
           </div>
         </div>

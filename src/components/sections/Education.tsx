@@ -3,7 +3,7 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { GraduationCap, Award, MapPin } from 'lucide-react';
-import { education, certifications } from '@/data/portfolio';
+import { education, certifications, languages } from '@/data/portfolio';
 import { SectionHeading } from '@/components/SectionHeading';
 
 const colorMap: Record<string, { border: string; dot: string; initial: string }> = {
@@ -67,27 +67,22 @@ export function EducationSection() {
                     whileHover={{ y: -2 }}
                     className={`p-5 rounded-xl bg-card border border-border/50 ${colors.border} transition-all duration-200`}
                   >
-                    <div className="flex items-start gap-3 mb-3">
+                    <div className="flex items-start gap-3">
                       <div className={`w-9 h-9 rounded-lg ${colors.initial} flex items-center justify-center font-bold text-xs flex-shrink-0`}>
                         {edu.initial}
                       </div>
                       <div className="flex-1">
                         <h4 className="text-sm font-bold text-foreground">{edu.degree}</h4>
                         <p className="text-sm font-medium text-muted-foreground">{edu.institution}</p>
-                        <div className="flex items-center gap-1 mt-1 text-xs text-muted-foreground">
-                          <MapPin className="w-3 h-3" />
-                          {edu.location}
+                        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-1 text-xs text-muted-foreground">
+                          <span className="font-medium text-foreground tabular-nums">{edu.period}</span>
+                          <span className="flex items-center gap-1">
+                            <MapPin className="w-3 h-3" aria-hidden="true" />
+                            {edu.location}
+                          </span>
                         </div>
                       </div>
                     </div>
-                    <ul className="space-y-1.5">
-                      {edu.highlights.map((h, j) => (
-                        <li key={j} className="flex items-start gap-2">
-                          <div className={`w-1.5 h-1.5 rounded-full ${colors.dot} mt-1.5 flex-shrink-0`} />
-                          <span className="text-xs text-muted-foreground">{h}</span>
-                        </li>
-                      ))}
-                    </ul>
                   </motion.div>
                 );
               })}
@@ -105,7 +100,7 @@ export function EducationSection() {
               <Award className="w-5 h-5 text-amber-800 dark:text-amber-400" />
               <h3 className="text-lg font-bold text-foreground">Certifications</h3>
               <span className="ml-auto text-xs px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-800 dark:text-amber-400 border border-amber-500/20">
-                {certifications.length} certified
+                {certifications.length}
               </span>
             </motion.div>
 
@@ -120,14 +115,26 @@ export function EducationSection() {
                   className={`flex items-center gap-3 p-3.5 rounded-lg bg-card border border-border/50 border-l-2 ${certColorMap[cert.color]} hover:border-l-2 transition-all duration-200`}
                 >
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold text-foreground leading-tight truncate">
+                    <p className="text-sm font-semibold text-foreground leading-snug">
                       {cert.name}
                     </p>
                     <p className="text-xs text-muted-foreground">{cert.issuer}</p>
                   </div>
-                  <div className="w-2 h-2 rounded-full bg-emerald-400 flex-shrink-0" title="Verified" />
                 </motion.div>
               ))}
+            </div>
+
+            {/* Languages */}
+            <div className="mt-8">
+              <h3 className="text-lg font-bold text-foreground mb-3">Languages</h3>
+              <ul className="flex flex-wrap gap-2">
+                {languages.map((l) => (
+                  <li key={l.name} className="px-3 py-2 rounded-lg bg-card border border-border/60 text-sm">
+                    <span className="font-semibold text-foreground">{l.name}</span>
+                    <span className="text-muted-foreground"> · {l.level}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>

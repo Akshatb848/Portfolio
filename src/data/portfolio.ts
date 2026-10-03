@@ -3,8 +3,8 @@
  * carousel, flashcards, timeline, GitHub panel) reads from here, so a change made once
  * shows up everywhere.
  *
- * Projects are real repositories at github.com/Akshatb848; descriptions and tech stacks
- * were verified against the repositories in March 2026.
+ * Experience, education, certifications and the headline projects follow Akshat's résumé
+ * (October 2026). Other projects are public repositories at github.com/Akshatb848.
  */
 import type { LucideIcon } from 'lucide-react';
 import {
@@ -24,6 +24,7 @@ import {
   Zap,
   Layers,
   Cloud,
+  Compass,
 } from 'lucide-react';
 import type { ToneName } from '@/lib/tones';
 
@@ -35,7 +36,8 @@ export type Project = {
   tech: string[];
   category: string;
   color: ToneName;
-  github: string;
+  /** Public repository, when there is one. */
+  github?: string;
   language: string;
   icon: LucideIcon;
   featured: boolean;
@@ -45,6 +47,8 @@ export type Project = {
   /** 'concept' = AI-generated visual (labelled on the site); 'recording' = real screen capture. */
   videoKind?: 'concept' | 'recording';
 };
+
+export type Language = { name: string; level: string };
 
 export type Experience = {
   id: number;
@@ -71,6 +75,19 @@ export type RepoSummary = {
 
 export const projects: Project[] = [
   {
+    id: 13,
+    name: 'ASIS-Strategic-Intelligence-Platform',
+    title: 'ASIS – Strategic Intelligence Platform',
+    description:
+      'An 8-agent enterprise decision-intelligence system that generates cited strategic briefs, roadmaps, SWOT analyses, executive summaries and PDF reports. FastAPI backend, Next.js frontend with live progress over SSE, Docker, Terraform, CI/CD and a GCP deployment structure.',
+    tech: ['LangGraph', 'Agents', 'FastAPI', 'Next.js', 'LiteLLM', 'PostgreSQL', 'Redis', 'Qdrant', 'Docker', 'Terraform', 'CI/CD', 'GCP'],
+    category: 'Agentic AI',
+    color: 'cyan',
+    language: 'Python',
+    icon: Compass,
+    featured: true,
+  },
+  {
     id: 1,
     name: 'AI-Tennis-Swing-Analyzer',
     title: 'AI Tennis Swing Analyzer',
@@ -91,8 +108,8 @@ export const projects: Project[] = [
     name: 'AI-Governance-and-Risk-Management',
     title: 'AEGIS – AI Governance & Risk Platform',
     description:
-      'End-to-end AI Governance & Risk Management platform using a multi-agent architecture. Audits ML models for fairness, drift, and explainability (SHAP), and evaluates GenAI/RAG systems for prompt injection resistance and citation accuracy. Generates compliance-ready PDF reports.',
-    tech: ['Python', 'LangGraph', 'Streamlit', 'SHAP', 'Jupyter', 'RAG'],
+      'Multi-agent audit platform for ML and GenAI/RAG systems covering fairness, drift, explainability, prompt injection and citation checks. Automates PASS/FAIL/REVIEW controls, risk registers, remediation actions and workflow traces, and produces audit-ready PDF packs.',
+    tech: ['Python', 'LangGraph', 'Agents', 'Streamlit', 'SHAP', 'RAG'],
     category: 'Generative AI',
     color: 'purple',
     github: 'https://github.com/Akshatb848/AI-Governance-and-Risk-Management',
@@ -123,7 +140,7 @@ export const projects: Project[] = [
     name: 'AI-Analytics-Dashboard',
     title: 'AI Analytics Dashboard',
     description:
-      'Open-source Tableau AI alternative offering automated statistical insights, time-series forecasting with Facebook Prophet, and natural language queries for plain-English data exploration. Features an executive dashboard studio for saving AI-generated insights as reusable cards.',
+      'AI analytics product with automated insights, anomaly detection, Prophet forecasting, a semantic KPI catalog and natural-language queries. Executive dashboard cards, dynamic visualisations, data export, statistical summaries and stakeholder-ready reporting.',
     tech: ['Python', 'Streamlit', 'Plotly', 'Prophet', 'Pandas', 'NumPy', 'SciPy'],
     category: 'Data & Analytics',
     color: 'sky',
@@ -146,7 +163,7 @@ export const projects: Project[] = [
     github: 'https://github.com/Akshatb848/LLM-dashboard',
     language: 'JavaScript',
     icon: BookOpen,
-    featured: true,
+    featured: false,
     video: '/videos/llm-dashboard-demo.mp4',
     videoKind: 'concept',
   },
@@ -167,17 +184,17 @@ export const projects: Project[] = [
   {
     id: 7,
     name: 'Degraded-Devanagari-and-Bangla-Script-Identification-Using-CNN-Frameworks',
-    title: 'CNN Script Identification (99.34% Accuracy)',
+    title: 'Degraded Indic Script Classifier (99.34% accuracy)',
     description:
-      'Identifies degraded Devanagari and Bangla script characters using four CNN architectures on the Ekush dataset (600K+ images). VGG-16 achieves 99.34%, DenseNet-121 98.89%, ResNet-50 98.60%, AlexNet 97.75%. Dockerized with a Streamlit web interface for live inference.',
-    tech: ['Python', 'TensorFlow', 'Keras', 'VGG-16', 'ResNet-50', 'Streamlit', 'Docker'],
+      'CNN-based OCR for degraded Devanagari and Bangla characters on the Ekush dataset: VGG-16 reaches 99.34% accuracy (DenseNet-121 98.89%, ResNet-50 98.60%, AlexNet 97.75%). Inference is packaged with Streamlit, Docker and Kubernetes assets, a testing structure and modular, deployment-ready services.',
+    tech: ['Python', 'TensorFlow', 'Keras', 'OpenCV', 'VGG-16', 'ResNet-50', 'Streamlit', 'Docker', 'Kubernetes'],
     category: 'Computer Vision',
     color: 'rose',
     github:
       'https://github.com/Akshatb848/Degraded-Devanagari-and-Bangla-Script-Identification-Using-CNN-Frameworks',
     language: 'Python',
     icon: Languages,
-    featured: false,
+    featured: true,
   },
   {
     id: 8,
@@ -265,43 +282,38 @@ export const projectCategories = [
 export const experiences: Experience[] = [
   {
     id: 1,
-    company: 'Jio Platforms Limited',
-    companyInitial: 'JP',
-    role: 'Assistant Manager (AIOps)',
-    type: 'Full-time',
-    period: 'Present',
-    location: 'India',
-    color: 'indigo',
+    company: 'YourNest Venture Capital',
+    companyInitial: 'YN',
+    role: 'Intern – Strategy and AI',
+    type: 'Internship',
+    period: 'Jun 2026 – Sep 2026',
+    location: 'Gurugram',
+    color: 'violet',
     description:
-      "AIOps role at India's largest digital services platform (400M+ users), building and deploying machine learning solutions for network operations and internal tooling.",
+      'Brought multi-agent AI into venture-capital dealflow, from deal ingestion to the final investment verdict.',
     bullets: [
-      'Designing and deploying production ML pipelines for large-scale data processing',
-      'Building RAG-based retrieval systems and LLM-powered internal tools',
-      'Developing AI automation systems for network operations and monitoring',
-      'Implementing MLOps practices for continuous model training and deployment',
-      'Collaborating on generative AI features serving enterprise and consumer products',
+      'Built a multi-agent AI workflow automating the entire dealflow process end-to-end, from deal ingestion to final investment verdict.',
+      'Engineered deterministic scoring models evaluating thesis alignment, market performance, moat, financials and industry readiness.',
     ],
-    tech: ['Python', 'PyTorch', 'LangChain', 'AWS', 'Kubernetes', 'MLflow'],
+    tech: ['Multi-agent AI', 'Agents', 'Scoring models'],
   },
   {
     id: 2,
     company: 'Deloitte South Asia',
     companyInitial: 'DL',
-    role: 'Intern – EDUT – Technology and Transformation',
+    role: 'Intern – EDUT Technology and Transformation',
     type: 'Internship',
-    period: '',
-    location: 'India',
+    period: 'Jan 2026 – Feb 2026',
+    location: 'Gurugram',
     color: 'emerald',
     description:
-      'Technology and Transformation internship within the EDUT practice, delivering AI and ML consulting for enterprise clients across industry verticals.',
+      'AI-driven transformation work with LLMs, RAG pipelines and agentic workflows for enterprise-scale use cases.',
     bullets: [
-      'Built and deployed ML models for enterprise clients in finance, healthcare, and education',
-      'Developed NLP and computer vision solutions for document intelligence use cases',
-      'Created an AI-powered analytics dashboard for India\'s Ministry of Education (MoE EDUT)',
-      'Integrated FAISS vector search with Ollama LLM and FastAPI for RAG-based querying',
-      'Containerized the full analytics stack using Docker for deployment consistency',
+      'Architected AI-driven transformation solutions using LLMs, RAG pipelines and agentic workflows for enterprise-scale use cases.',
+      'Engineered LangChain-based multi-agent systems with vector database integration, reducing manual data-analysis effort by 40%.',
+      'Developed Generative AI prototypes using OpenAI APIs with GCP/Azure-ready deployment patterns for enterprise AI adoption.',
     ],
-    tech: ['Python', 'FAISS', 'Ollama', 'FastAPI', 'Docker', 'Power BI'],
+    tech: ['LangChain', 'RAG', 'Agents', 'Vector search', 'OpenAI API', 'GCP', 'Azure'],
     githubRepo: 'https://github.com/Akshatb848/Deloitte-South-Asia-projects',
   },
   {
@@ -310,98 +322,83 @@ export const experiences: Experience[] = [
     companyInitial: 'UM',
     role: 'Data Science Intern',
     type: 'Internship',
-    period: '',
-    location: 'Remote',
+    period: 'Oct 2025 – Jan 2026',
+    location: 'New Delhi',
     color: 'purple',
-    description:
-      'Data science internship building ML-powered products, developing recommendation and personalization systems for educational technology platforms.',
+    description: 'Predictive modelling and NLP pipelines for business forecasting and text analytics.',
     bullets: [
-      'Designed recommendation engine for personalizing learning content and pathways',
-      'Developed NLP pipelines for automated educational content processing',
-      'Created student performance prediction models for early intervention systems',
-      'Conducted EDA and feature engineering on large student datasets',
+      'Built predictive ML models using Python, TensorFlow and Scikit-learn, achieving 92%+ accuracy on business forecasting tasks.',
+      'Implemented BERT-based NLP pipelines for text classification and sentiment analysis across 100K+ records with validation checks.',
     ],
-    tech: ['Python', 'Scikit-learn', 'Pandas', 'NumPy', 'Matplotlib', 'SQL'],
+    tech: ['Python', 'TensorFlow', 'Scikit-learn', 'BERT', 'NLP'],
     githubRepo: 'https://github.com/Akshatb848/UNIFIED-MENTOR',
   },
   {
     id: 4,
-    company: 'C-DOT (Centre for Development of Telematics)',
-    companyInitial: 'CD',
-    role: 'Research Engineer – AI / ML',
-    type: 'Contract',
-    period: '',
-    location: 'New Delhi, India',
-    color: 'rose',
+    company: 'Jio Platforms Limited',
+    companyInitial: 'JP',
+    role: 'Assistant Manager – AIOps, CloudXP and Jio HCMP',
+    type: 'Full-time',
+    period: 'Oct 2023 – Dec 2024',
+    location: 'Navi Mumbai',
+    color: 'indigo',
     description:
-      'Government of India telecom research institute. Contributed to AI-driven network security and optimization research.',
+      'Cloud operations and observability for Jio CloudXP and NIC Meghraj 2.0, supporting enterprise AI and GenAI-enabled workloads.',
     bullets: [
-      'Developed deep learning models for network intrusion detection and classification',
-      'Built ML-based traffic analysis systems for telecom network optimization',
-      'Implemented unsupervised anomaly detection for critical infrastructure monitoring',
+      'Supported Jio CloudXP and NIC Meghraj 2.0 cloud operations across observability, monitoring, agent reliability and production readiness for enterprise AI and GenAI-enabled workloads.',
+      'Monitored Prometheus, Pulse Agent, Pulse Gateway and service-availability metrics to improve the reliability of cloud platforms used for automation, analytics and AI operations.',
+      'Deployed Pulse Agent, Pulse Gateway and Prometheus updates across sandbox, replica and production servers using controlled release and rollback practices.',
+      'Supported Docker/Kubernetes clusters, LaaS pods, ELK Stack, Cassandra, PostgreSQL and MySQL to strengthen scalable infrastructure for cloud-native and AI operations.',
     ],
-    tech: ['Python', 'TensorFlow', 'OpenCV', 'Scikit-learn', 'Docker', 'Linux'],
+    tech: ['Prometheus', 'Pulse Agent', 'Docker', 'Kubernetes', 'ELK Stack', 'Cassandra', 'PostgreSQL', 'MySQL'],
   },
   {
     id: 5,
-    company: 'Feynn Labs',
-    companyInitial: 'FL',
-    role: 'AI Research Intern',
-    type: 'Internship',
-    period: '',
-    location: 'Remote',
+    company: 'C-DOT | Feynn Labs',
+    companyInitial: 'CF',
+    role: 'ML Trainee / Intern',
+    type: 'Traineeship',
+    period: 'Feb 2022 – Jul 2022',
+    location: 'New Delhi / Remote',
     color: 'amber',
-    description:
-      'Early-stage AI research company. Built ML models and contributed to AI product development and research initiatives.',
+    description: 'Early deep learning and computer vision work.',
     bullets: [
-      'Developed NLP models for text classification and sentiment analysis tasks',
-      'Built computer vision data augmentation pipelines to improve model accuracy',
-      'Contributed to open-source ML projects and internal research tooling',
+      'Built deep learning and computer vision models using PyTorch, TensorFlow and OpenCV for classification and signal-processing workflows.',
     ],
-    tech: ['Python', 'PyTorch', 'HuggingFace', 'Pandas', 'Scikit-learn'],
+    tech: ['PyTorch', 'TensorFlow', 'OpenCV'],
   },
 ];
 
 export const education = [
   {
-    institution: 'University of Southampton',
+    institution: 'University of Southampton, Delhi Campus',
     degree: 'MSc International Management',
-    location: 'Southampton, UK',
+    period: 'Aug 2025 – Sep 2026',
+    location: 'New Delhi, India',
     initial: 'UoS',
     color: 'indigo',
-    highlights: [
-      'Strategic business decision-making with data-driven AI frameworks',
-      'Accounting, financial modelling, and risk management using quantitative methods',
-      'Marketing analytics and customer intelligence powered by machine learning',
-      'International business strategy with focus on digital transformation and AI adoption',
-    ],
   },
   {
     institution: 'Amity University',
-    degree: 'B.Tech Computer Science & Engineering',
-    location: 'Noida, India',
+    degree: 'BTech Computer Science',
+    period: '2019 – 2023',
+    location: 'Gautam Budh Nagar, India',
     initial: 'AU',
     color: 'emerald',
-    highlights: [
-      'Specialization in Artificial Intelligence & Machine Learning',
-      'Final year project: Degraded Devanagari and Bangla Script Identification using CNN frameworks',
-      'Active participant in AI/ML competitions and inter-university hackathons',
-    ],
   },
 ];
 
-/**
- * Certifications verified from LinkedIn profile.
- */
 export const certifications = [
-  { name: 'Deep Learning Specialization', issuer: 'deeplearning.ai', color: 'violet' },
-  { name: 'Machine Learning Specialization', issuer: 'Coursera / Andrew Ng', color: 'indigo' },
-  { name: 'TensorFlow Developer Certificate', issuer: 'Google', color: 'amber' },
-  { name: 'Generative AI with LLMs', issuer: 'AWS & Coursera', color: 'orange' },
-  { name: 'MLOps Specialization', issuer: 'deeplearning.ai', color: 'violet' },
-  { name: 'LangChain for LLM Application Development', issuer: 'deeplearning.ai', color: 'emerald' },
-  { name: 'AWS Certified Machine Learning – Specialty', issuer: 'Amazon Web Services', color: 'orange' },
-  { name: 'Microsoft AI & ML Engineering', issuer: 'Microsoft', color: 'sky' },
+  { name: 'Microsoft AI & ML Engineering Professional Certificate', issuer: 'Microsoft', color: 'sky' },
+  { name: 'Google Cloud Certifications', issuer: 'Google Cloud', color: 'amber' },
+  { name: 'CCNA: Introduction to Networks', issuer: 'Cisco', color: 'indigo' },
+  { name: 'SDLC Certification', issuer: 'Software development lifecycle', color: 'violet' },
+];
+
+export const languages: Language[] = [
+  { name: 'English', level: 'Full professional' },
+  { name: 'Hindi', level: 'Full professional' },
+  { name: 'German', level: 'Limited working' },
 ];
 
 export const fallbackRepos: RepoSummary[] = [
@@ -450,16 +447,16 @@ export const skillGroups: SkillGroup[] = [
     title: 'AI & Machine Learning',
     icon: Brain,
     color: 'indigo',
-    description: 'Core ML and deep learning used across production projects and research.',
+    description: 'Core ML, deep learning, NLP and computer vision.',
     skills: [
       { name: 'Python', match: ['Python'] },
-      { name: 'PyTorch', match: ['PyTorch'] },
       { name: 'TensorFlow / Keras', match: ['TensorFlow', 'Keras'] },
+      { name: 'PyTorch', match: ['PyTorch'] },
       { name: 'Scikit-learn', match: ['Scikit-learn', 'Random Forest', 'K-Means', 'KNN'] },
-      { name: 'Computer Vision', match: ['OpenCV', 'VGG-16', 'ResNet-50', 'CNN'] },
+      { name: 'NLP & BERT', match: ['BERT', 'NLP'] },
+      { name: 'Computer vision & CNNs', match: ['OpenCV', 'VGG-16', 'ResNet-50', 'CNN'] },
+      { name: 'Time series & forecasting', match: ['Prophet'] },
       { name: 'Explainability (SHAP)', match: ['SHAP'] },
-      { name: 'Pandas / NumPy', match: ['Pandas', 'NumPy', 'SciPy'] },
-      { name: 'Time-series (Prophet)', match: ['Prophet'] },
     ],
   },
   {
@@ -467,54 +464,56 @@ export const skillGroups: SkillGroup[] = [
     title: 'Generative AI & Agents',
     icon: Zap,
     color: 'purple',
-    description: 'RAG, fine-tuning and multi-agent systems, from notebook to product.',
+    description: 'LLM apps, RAG and multi-agent systems.',
     skills: [
-      { name: 'RAG systems', match: ['RAG'] },
-      { name: 'Agentic / multi-agent AI', match: ['Agents', 'LangGraph'] },
-      { name: 'LangChain', match: ['LangChain'] },
+      { name: 'Multi-agent systems', match: ['Agents', 'Multi-agent AI'] },
+      { name: 'RAG', match: ['RAG'] },
       { name: 'LangGraph', match: ['LangGraph'] },
+      { name: 'LangChain', match: ['LangChain'] },
+      { name: 'Vector databases', match: ['Qdrant', 'ChromaDB', 'FAISS', 'Vector search'] },
+      { name: 'LiteLLM / OpenAI APIs', match: ['LiteLLM', 'OpenAI API'] },
       { name: 'Fine-tuning (LoRA / PEFT)', match: ['LoRA', 'PEFT'] },
-      { name: 'Hugging Face', match: ['HuggingFace', 'Zephyr-7B'] },
-      { name: 'Vector search', match: ['FAISS', 'ChromaDB', 'Pinecone'] },
       { name: 'Local LLMs (Ollama)', match: ['Ollama', 'OLLAMA'] },
     ],
   },
   {
     id: 'mlops',
-    title: 'MLOps & Deployment',
+    title: 'MLOps & AIOps',
     icon: Layers,
     color: 'sky',
-    description: 'Packaging, serving and operating ML systems.',
+    description: 'Shipping, observing and operating AI systems.',
     skills: [
       { name: 'Docker', match: ['Docker'] },
-      { name: 'FastAPI', match: ['FastAPI'] },
-      { name: 'REST APIs', match: ['REST API', 'FastAPI'] },
-      { name: 'Streamlit apps', match: ['Streamlit'] },
-      { name: 'MLflow', match: ['MLflow'] },
       { name: 'Kubernetes', match: ['Kubernetes'] },
-      { name: 'Nginx', match: ['Nginx'] },
-      { name: 'Linux', match: ['Linux'] },
+      { name: 'FastAPI', match: ['FastAPI'] },
+      { name: 'Streamlit', match: ['Streamlit'] },
+      { name: 'CI/CD', match: ['CI/CD'] },
+      { name: 'Prometheus & Pulse Agent', match: ['Prometheus', 'Pulse Agent'] },
+      { name: 'ELK Stack', match: ['ELK Stack'] },
+      { name: 'Terraform', match: ['Terraform'] },
     ],
   },
   {
     id: 'data',
-    title: 'Data & Cloud',
+    title: 'Cloud & Data',
     icon: Cloud,
     color: 'emerald',
-    description: 'Analytics, visualisation and cloud infrastructure for AI workloads.',
+    description: 'Cloud platforms, databases and analytics.',
     skills: [
-      { name: 'SQL', match: ['SQL'] },
-      { name: 'Data visualisation', match: ['Plotly', 'Matplotlib', 'Seaborn', 'Chart.js', 'Power BI'] },
-      { name: 'AWS', match: ['AWS'] },
-      { name: 'JavaScript / TypeScript', match: ['JavaScript', 'TypeScript'] },
-      { name: 'Statistics', match: ['Statistics', 'PCA', 'SciPy'] },
-      { name: 'Audio ML (Librosa)', match: ['Librosa'] },
+      { name: 'GCP', match: ['GCP'] },
+      { name: 'Azure', match: ['Azure'] },
+      { name: 'PostgreSQL / MySQL', match: ['PostgreSQL', 'MySQL'] },
+      { name: 'Redis', match: ['Redis'] },
+      { name: 'Cassandra', match: ['Cassandra'] },
+      { name: 'Data visualisation', match: ['Plotly', 'Matplotlib', 'Seaborn', 'Chart.js'] },
+      { name: 'Next.js / TypeScript', match: ['Next.js', 'TypeScript', 'JavaScript'] },
+      { name: 'Pandas / NumPy', match: ['Pandas', 'NumPy', 'SciPy'] },
     ],
   },
 ];
 
-/** Skills listed on the résumé that have no public project evidence yet. */
-export const alsoFamiliar = ['GCP', 'Azure', 'Terraform', 'Apache Spark', 'Apache Airflow', 'Redis', 'PostgreSQL', 'MongoDB', 'Pinecone', 'CI/CD'];
+/** Résumé skills without a public project or role on this site to point to yet. */
+export const alsoFamiliar = ['AWS', 'XGBoost', 'LSTMs', 'Transformers', 'MLflow', 'Model monitoring', 'Cloud Build', 'Cloud Run', 'MongoDB', 'SQL', 'REST APIs', 'Prompt engineering'];
 
 export type Evidence = { kind: 'project' | 'role'; label: string; href: string };
 
@@ -534,5 +533,9 @@ export function evidenceFor(skill: Skill): Evidence[] {
   ];
 }
 
-export const featuredProjects = projects.filter((p) => p.featured);
+// Featured order follows the résumé's selected projects, then other highlights.
+const FEATURED_ORDER = [13, 2, 4, 7, 3, 1];
+export const featuredProjects = FEATURED_ORDER.map((id) => projects.find((p) => p.id === id)).filter(
+  (p): p is Project => !!p && p.featured
+);
 export const projectById = (id: number) => projects.find((p) => p.id === id);

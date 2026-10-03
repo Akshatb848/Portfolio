@@ -10,7 +10,6 @@ import {
   ArrowRight,
   Database,
   Users,
-  GitBranch,
 } from 'lucide-react';
 import { site } from '@/lib/site';
 import { SectionHeading } from '@/components/SectionHeading';
@@ -19,7 +18,7 @@ const highlights = [
   {
     icon: Brain,
     title: 'AI & ML Systems',
-    description: 'Production ML models, deep learning architectures, and NLP pipelines.',
+    description: 'Forecasting, NLP with BERT, and computer vision with CNNs.',
     color: 'text-violet-700 dark:text-violet-500',
     bg: 'bg-violet-500/10',
     border: 'border-violet-500/20',
@@ -27,7 +26,7 @@ const highlights = [
   {
     icon: Zap,
     title: 'Generative AI',
-    description: 'LLM fine-tuning, RAG pipelines, agentic AI, and multi-agent orchestration.',
+    description: 'LLM apps, RAG pipelines, LangGraph agents and multi-agent orchestration.',
     color: 'text-purple-700 dark:text-purple-500',
     bg: 'bg-purple-500/10',
     border: 'border-purple-500/20',
@@ -35,15 +34,15 @@ const highlights = [
   {
     icon: Cloud,
     title: 'Cloud & MLOps',
-    description: 'Cloud-native ML on AWS, GCP, and Azure with Kubernetes and Docker.',
+    description: 'GCP, Azure and AWS deployments with Docker, Kubernetes, Terraform and CI/CD.',
     color: 'text-sky-700 dark:text-sky-500',
     bg: 'bg-sky-500/10',
     border: 'border-sky-500/20',
   },
   {
     icon: Database,
-    title: 'Data Engineering',
-    description: 'End-to-end data pipelines and feature stores for ML training and serving.',
+    title: 'AIOps & Observability',
+    description: 'Prometheus, Pulse Agent and ELK monitoring with controlled releases and rollbacks.',
     color: 'text-emerald-800 dark:text-emerald-500',
     bg: 'bg-emerald-500/10',
     border: 'border-emerald-500/20',
@@ -82,48 +81,31 @@ export function AboutSection() {
             <div className="space-y-4 text-muted-foreground leading-relaxed">
               <p className="text-lg">
                 I&apos;m <span className="text-foreground font-semibold">Akshat Banga</span>, an AI
-                Engineer with expertise in machine learning, deep learning, NLP, and computer
-                vision. I architect and deploy AI systems that solve real-world problems at scale.
+                Engineer in New Delhi working across Generative AI, machine learning, AIOps and cloud
+                operations.
               </p>
               <p>
-                At{' '}
-                <span className="text-foreground font-semibold">Jio Platforms</span>, I work in
-                AIOps on a platform serving{' '}
-                <span className="text-foreground font-semibold">400M+ users</span>, building
-                production ML pipelines, RAG-based retrieval systems, and LLM-powered automation
-                tools on scalable cloud infrastructure.
+                I build <span className="text-foreground font-semibold">LLM apps, RAG and multi-agent systems</span>:
+                most recently a multi-agent dealflow workflow at{' '}
+                <span className="text-foreground font-semibold">YourNest Venture Capital</span>, and
+                LangChain multi-agent systems at{' '}
+                <span className="text-foreground font-semibold">Deloitte South Asia</span> that cut
+                manual data-analysis effort by 40%.
               </p>
               <p>
-                My background spans enterprise AI consulting at{' '}
-                <span className="text-foreground font-semibold">Deloitte South Asia</span>, ML
-                engineering at{' '}
-                <span className="text-foreground font-semibold">Unified Mentor</span>, and AI
-                research at{' '}
-                <span className="text-foreground font-semibold">C-DOT</span> (Government of India)
-                and{' '}
-                <span className="text-foreground font-semibold">Feynn Labs</span>.
+                At <span className="text-foreground font-semibold">Jio Platforms</span> I supported
+                enterprise cloud reliability for Jio CloudXP and NIC Meghraj 2.0: observability with
+                Prometheus and Pulse Agent, controlled releases, and Kubernetes, ELK and database
+                operations.
               </p>
               <p>
-                I specialize in building production-grade AI applications from scratch using{' '}
-                <span className="text-foreground font-semibold">agentic AI architectures</span>{' '}
-                combined with scalable cloud-native deployment.
+                Earlier work includes predictive models and BERT pipelines at{' '}
+                <span className="text-foreground font-semibold">Unified Mentor</span>, and deep
+                learning and computer vision at{' '}
+                <span className="text-foreground font-semibold">C-DOT</span> and{' '}
+                <span className="text-foreground font-semibold">Feynn Labs</span>. I recently completed
+                an MSc in International Management at the University of Southampton.
               </p>
-            </div>
-
-            <div className="p-5 rounded-2xl bg-gradient-to-br from-violet-500/10 to-purple-500/10 border border-violet-500/20">
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-violet-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <Code2 className="w-4 h-4 text-violet-700 dark:text-violet-400" />
-                </div>
-                <div>
-                  <p className="text-sm font-semibold text-foreground mb-1">My Approach</p>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    &ldquo;I specialize in building production-grade AI applications from scratch
-                    using agentic AI architectures combined with scalable cloud-native
-                    deployment.&rdquo;
-                  </p>
-                </div>
-              </div>
             </div>
 
             <div className="flex items-center gap-4 pt-1">
@@ -183,9 +165,9 @@ export function AboutSection() {
               className="grid grid-cols-3 gap-3"
             >
               {[
-                { icon: Users, value: '400M+', label: 'Platform users', note: 'Jio Platforms' },
-                { icon: GitBranch, value: '14', label: 'GitHub Repos', note: 'open source' },
-                { icon: Cloud, value: '3', label: 'Cloud Platforms', note: 'AWS · GCP · Azure' },
+                { icon: Zap, value: '40%', label: 'Less manual analysis', note: 'Deloitte, multi-agent' },
+                { icon: Brain, value: '99.34%', label: 'OCR accuracy', note: 'VGG-16, Indic scripts' },
+                { icon: Users, value: '8', label: 'Agents in ASIS', note: 'decision intelligence' },
               ].map((s) => (
                 <div
                   key={s.label}
@@ -229,7 +211,7 @@ export function AboutSection() {
                   <span className="text-muted-foreground"> = [</span>
                   <span className="text-green-800 dark:text-green-400">&quot;GenAI&quot;</span>
                   <span className="text-muted-foreground">, </span>
-                  <span className="text-green-800 dark:text-green-400">&quot;MLOps&quot;</span>
+                  <span className="text-green-800 dark:text-green-400">&quot;AIOps&quot;</span>
                   <span className="text-muted-foreground">, </span>
                   <span className="text-green-800 dark:text-green-400">&quot;LLMs&quot;</span>
                   <span className="text-muted-foreground">]</span>
@@ -237,7 +219,7 @@ export function AboutSection() {
                 <div className="pl-4">
                   <span className="text-sky-700 dark:text-sky-400">companies</span>
                   <span className="text-muted-foreground"> = [</span>
-                  <span className="text-orange-800 dark:text-orange-300">&quot;Jio Platforms&quot;</span>
+                  <span className="text-orange-800 dark:text-orange-300">&quot;YourNest VC&quot;</span>
                   <span className="text-muted-foreground">, </span>
                   <span className="text-orange-800 dark:text-orange-300">&quot;Deloitte&quot;</span>
                   <span className="text-muted-foreground">, ...]</span>

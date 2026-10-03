@@ -58,16 +58,18 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           />
           {project.language}
         </span>
+{project.github && (
         <a
-          href={project.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`${project.title} on GitHub`}
-          className="flex items-center gap-1.5 min-h-11 px-3.5 text-xs font-semibold rounded-lg border border-border hover:border-foreground/40 text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
-        >
-          <Github className="w-3.5 h-3.5" aria-hidden="true" />
-          Code
-        </a>
+            href={project.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${project.title} on GitHub`}
+            className="flex items-center gap-1.5 min-h-11 px-3.5 text-xs font-semibold rounded-lg border border-border hover:border-foreground/40 text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+          >
+            <Github className="w-3.5 h-3.5" aria-hidden="true" />
+            Code
+          </a>
+        )}
       </div>
     </motion.article>
   );
@@ -117,7 +119,7 @@ export function ProjectsSection({
         >
           <p className="text-sm text-muted-foreground mt-3 flex items-center gap-2">
             <BookOpen className="w-3.5 h-3.5 text-indigo-700 dark:text-indigo-400" aria-hidden="true" />
-            Every project is a public repository. Swipe, use the arrows, or pick one below.
+            Swipe, use the arrows, or pick a project below. Most link to their public repository.
           </p>
         </SectionHeading>
 

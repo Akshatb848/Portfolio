@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { motion, useReducedMotion, type PanInfo } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Github, Pause, Play } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Github, Mail, Pause, Play } from 'lucide-react';
 import { featuredProjects, languageColors, type Project } from '@/data/portfolio';
 import { tone } from '@/lib/tones';
 import { ProjectCover } from '@/components/ProjectCover';
@@ -117,17 +117,29 @@ function Slide({
             </li>
           ))}
         </ul>
-        <a
-          href={project.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`${project.title} on GitHub`}
-          tabIndex={isActive ? undefined : -1}
-          className="mt-auto self-start flex items-center gap-2 min-h-11 px-4 text-sm font-semibold rounded-lg bg-foreground text-background hover:opacity-90 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 focus-visible:ring-offset-2 focus-visible:ring-offset-card"
-        >
-          <Github className="w-4 h-4" aria-hidden="true" />
-          View on GitHub
-        </a>
+        {project.github ? (
+          <a
+            href={project.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${project.title} on GitHub`}
+            tabIndex={isActive ? undefined : -1}
+            className="mt-auto self-start flex items-center gap-2 min-h-11 px-4 text-sm font-semibold rounded-lg bg-foreground text-background hover:opacity-90 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+          >
+            <Github className="w-4 h-4" aria-hidden="true" />
+            View on GitHub
+          </a>
+        ) : (
+          <a
+            href="#contact"
+            aria-label={`Ask about ${project.title}`}
+            tabIndex={isActive ? undefined : -1}
+            className="mt-auto self-start flex items-center gap-2 min-h-11 px-4 text-sm font-semibold rounded-lg border border-border text-foreground hover:border-foreground/40 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+          >
+            <Mail className="w-4 h-4" aria-hidden="true" />
+            Ask for a walkthrough
+          </a>
+        )}
       </article>
     </motion.div>
   );
