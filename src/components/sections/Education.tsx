@@ -3,48 +3,8 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { GraduationCap, Award, MapPin } from 'lucide-react';
-
-const education = [
-  {
-    institution: 'University of Southampton',
-    degree: 'MSc International Management',
-    location: 'Southampton, UK',
-    initial: 'UoS',
-    color: 'indigo',
-    highlights: [
-      'Strategic business decision-making with data-driven AI frameworks',
-      'Accounting, financial modelling, and risk management using quantitative methods',
-      'Marketing analytics and customer intelligence powered by machine learning',
-      'International business strategy with focus on digital transformation and AI adoption',
-    ],
-  },
-  {
-    institution: 'Amity University',
-    degree: 'B.Tech Computer Science & Engineering',
-    location: 'Noida, India',
-    initial: 'AU',
-    color: 'emerald',
-    highlights: [
-      'Specialization in Artificial Intelligence & Machine Learning',
-      'Final year project: Degraded Devanagari and Bangla Script Identification using CNN frameworks',
-      'Active participant in AI/ML competitions and inter-university hackathons',
-    ],
-  },
-];
-
-/**
- * Certifications verified from LinkedIn profile.
- */
-const certifications = [
-  { name: 'Deep Learning Specialization', issuer: 'deeplearning.ai', color: 'violet' },
-  { name: 'Machine Learning Specialization', issuer: 'Coursera / Andrew Ng', color: 'indigo' },
-  { name: 'TensorFlow Developer Certificate', issuer: 'Google', color: 'amber' },
-  { name: 'Generative AI with LLMs', issuer: 'AWS & Coursera', color: 'orange' },
-  { name: 'MLOps Specialization', issuer: 'deeplearning.ai', color: 'violet' },
-  { name: 'LangChain for LLM Application Development', issuer: 'deeplearning.ai', color: 'emerald' },
-  { name: 'AWS Certified Machine Learning – Specialty', issuer: 'Amazon Web Services', color: 'orange' },
-  { name: 'Microsoft AI & ML Engineering', issuer: 'Microsoft', color: 'sky' },
-];
+import { education, certifications } from '@/data/portfolio';
+import { SectionHeading } from '@/components/SectionHeading';
 
 const colorMap: Record<string, { border: string; dot: string; initial: string }> = {
   indigo: { border: 'hover:border-indigo-500/30', dot: 'bg-indigo-500', initial: 'bg-indigo-500/15 text-indigo-700 dark:text-indigo-400' },
@@ -72,23 +32,15 @@ export function EducationSection() {
       </div>
 
       <div className="container-max" ref={ref}>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="mb-12"
-        >
-          <div className="flex items-center gap-3 mb-4">
-            <div className="h-px flex-1 max-w-12 bg-gradient-to-r from-transparent to-violet-500" />
-            <span className="text-xs font-semibold tracking-widest uppercase text-violet-700 dark:text-violet-500 font-mono">
-              Education & Certifications
-            </span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight">
-            Academic background &{' '}
-            <span className="text-gradient">credentials</span>
-          </h2>
-        </motion.div>
+        <SectionHeading
+          chapter="education"
+          eyebrow="Education & certifications"
+          title={
+            <>
+              Academic background &amp; <span className="text-gradient">credentials</span>
+            </>
+          }
+        />
 
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Education */}

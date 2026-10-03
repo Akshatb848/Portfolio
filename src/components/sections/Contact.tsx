@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Linkedin, Github, FileText, Copy, Check, ArrowUpRight } from 'lucide-react';
 import { site } from '@/lib/site';
+import { SectionHeading } from '@/components/SectionHeading';
 
 export function ContactSection({ resumeUrl }: { resumeUrl: string | null }) {
   const [copied, setCopied] = useState(false);
@@ -36,17 +37,17 @@ export function ContactSection({ resumeUrl }: { resumeUrl: string | null }) {
           transition={{ duration: 0.6 }}
           className="max-w-3xl mx-auto text-center"
         >
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="h-px w-12 bg-gradient-to-r from-transparent to-violet-500" />
-            <span className="text-xs font-semibold tracking-widest uppercase text-violet-700 dark:text-violet-400 font-mono">
-              Contact
-            </span>
-            <div className="h-px w-12 bg-gradient-to-l from-transparent to-violet-500" />
-          </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight mb-4">
-            Let&apos;s <span className="text-gradient">work together</span>
-          </h2>
-          <p className="text-base text-muted-foreground mb-10 max-w-xl mx-auto leading-relaxed">
+          <SectionHeading
+            chapter="contact"
+            eyebrow="Contact"
+            center
+            title={
+              <>
+                Let&apos;s <span className="text-gradient">work together</span>
+              </>
+            }
+          />
+          <p className="text-base text-muted-foreground -mt-6 mb-10 max-w-xl mx-auto leading-relaxed">
             Open to AI engineering roles and collaborations on agentic AI, RAG and AIOps systems.
             Email is the fastest way to reach me.
           </p>

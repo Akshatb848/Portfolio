@@ -1,13 +1,17 @@
-import fs from 'node:fs';
-import path from 'node:path';
 import dynamic from 'next/dynamic';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { HeroSection } from '@/components/sections/Hero';
-import { site } from '@/lib/site';
+import assets from '@/data/assets.generated.json';
+import { getGitHubData } from '@/lib/github';
+import { ScrollProgress } from '@/components/ScrollProgress';
+import { ChapterRail } from '@/components/ChapterRail';
 
 const AboutSection = dynamic(() =>
   import('@/components/sections/About').then((m) => ({ default: m.AboutSection }))
+);
+const SystemsSection = dynamic(() =>
+  import('@/components/sections/Systems').then((m) => ({ default: m.SystemsSection }))
 );
 const SkillsSection = dynamic(() =>
   import('@/components/sections/Skills').then((m) => ({ default: m.SkillsSection }))
@@ -28,28 +32,29 @@ const ContactSection = dynamic(() =>
   import('@/components/sections/Contact').then((m) => ({ default: m.ContactSection }))
 );
 
-// Resolved at build time: optional assets only render when the file is in /public,
-// so a missing résumé or demo clip never shows up as a broken link or empty frame.
-const publicDir = path.join(process.cwd(), 'public');
-const hasPublicFile = (p: string) => fs.existsSync(path.join(publicDir, p));
+// Rebuild the page daily so the GitHub section stays current.
+export const revalidate = 86400;
 
-export default function Home() {
-  const resumeUrl = hasPublicFile(site.resumePath) ? site.resumePath : null;
-  const videosDir = path.join(publicDir, 'videos');
-  const availableVideos = fs.existsSync(videosDir)
-    ? fs.readdirSync(videosDir).map((f) => `/videos/${f}`)
-    : [];
+export default async function Home() {
+  const github = await getGitHubData();
+  // Optional assets only render when the file was in /public at build time
+  // (see scripts/generate-asset-manifest.mjs), so nothing shows as a broken link.
+  const resumeUrl = assets.resume;
+  const availableVideos = assets.videos;
 
   return (
     <>
+      <ScrollProgress />
       <Navbar resumeUrl={resumeUrl} />
+      <ChapterRail />
       <main id="main-content" className="relative min-h-screen bg-background overflow-x-hidden">
         <HeroSection resumeUrl={resumeUrl} />
         <AboutSection />
+        <SystemsSection />
         <SkillsSection />
         <ProjectsSection availableVideos={availableVideos} />
         <ExperienceSection />
-        <GitHubSection />
+        <GitHubSection data={github} />
         <EducationSection />
         <ContactSection resumeUrl={resumeUrl} />
       </main>

@@ -13,6 +13,7 @@ import {
   GitBranch,
 } from 'lucide-react';
 import { site } from '@/lib/site';
+import { SectionHeading } from '@/components/SectionHeading';
 
 const highlights = [
   {
@@ -61,23 +62,15 @@ export function AboutSection() {
       </div>
 
       <div className="container-max" ref={ref}>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="mb-16"
-        >
-          <div className="flex items-center gap-3 mb-4">
-            <div className="h-px flex-1 max-w-12 bg-gradient-to-r from-transparent to-indigo-500" />
-            <span className="text-xs font-semibold tracking-widest uppercase text-violet-700 dark:text-violet-500">
-              About Me
-            </span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight">
-            Building AI that{' '}
-            <span className="text-gradient">actually works</span>
-          </h2>
-        </motion.div>
+        <SectionHeading
+          chapter="about"
+          eyebrow="About me"
+          title={
+            <>
+              Building AI that <span className="text-gradient">actually works</span>
+            </>
+          }
+        />
 
         <div className="grid lg:grid-cols-2 gap-16 items-start">
           <motion.div

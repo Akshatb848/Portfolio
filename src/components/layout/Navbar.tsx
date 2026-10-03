@@ -4,21 +4,15 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from 'next-themes';
 import { Moon, Sun, Menu, X, Code2, FileText } from 'lucide-react';
+import { chapters } from '@/data/chapters';
+import { useActiveChapter } from '@/lib/useActiveChapter';
 
-const navLinks = [
-  { href: '#about', label: 'About' },
-  { href: '#skills', label: 'Skills' },
-  { href: '#projects', label: 'Projects' },
-  { href: '#experience', label: 'Experience' },
-  { href: '#github', label: 'GitHub' },
-  { href: '#education', label: 'Education' },
-  { href: '#contact', label: 'Contact' },
-];
+const navLinks = chapters.map((c) => ({ href: `#${c.id}`, label: c.label }));
 
 export function Navbar({ resumeUrl }: { resumeUrl: string | null }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('');
+  const activeSection = useActiveChapter();
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
@@ -29,24 +23,10 @@ export function Navbar({ resumeUrl }: { resumeUrl: string | null }) {
   }, []);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-
-      // Track active section
-      const sections = navLinks.map((link) => link.href.substring(1));
-      const current = sections.find((section) => {
-        const el = document.getElementById(section);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom >= 100;
-        }
-        return false;
-      });
-      setActiveSection(current ?? '');
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   // Mobile menu: Escape closes it and returns focus to the toggle; Tab stays inside it.
@@ -114,7 +94,7 @@ export function Navbar({ resumeUrl }: { resumeUrl: string | null }) {
             </a>
 
             {/* Desktop Nav */}
-            <div className="hidden lg:flex items-center gap-1">
+            <div className="hidden xl:flex items-center gap-0.5">
               {navLinks.map((link) => {
                 const active = activeSection === link.href.substring(1);
                 return (
@@ -174,7 +154,7 @@ export function Navbar({ resumeUrl }: { resumeUrl: string | null }) {
               <button
                 ref={menuButtonRef}
                 type="button"
-                className="lg:hidden w-11 h-11 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+                className="xl:hidden w-11 h-11 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
                 onClick={() => setMobileOpen(!mobileOpen)}
                 aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
                 aria-expanded={mobileOpen}
@@ -201,7 +181,7 @@ export function Navbar({ resumeUrl }: { resumeUrl: string | null }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="fixed top-16 left-0 right-0 z-40 bg-background/95 backdrop-blur-xl border-b border-border shadow-xl lg:hidden"
+            className="fixed top-16 left-0 right-0 z-40 max-h-[calc(100dvh-4rem)] overflow-y-auto bg-background/95 backdrop-blur-xl border-b border-border shadow-xl xl:hidden"
           >
             <nav aria-label="Mobile" className="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1">
               {navLinks.map((link) => (

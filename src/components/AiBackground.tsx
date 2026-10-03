@@ -5,13 +5,10 @@ import * as THREE from 'three';
 
 // ─── Configuration ────────────────────────────────────────────────────────────
 const CFG = {
-  desktop: { count: 150, connDist: 150, speed: 0.12, size: 2.0 },
-  tablet:  { count: 130, connDist: 110, speed: 0.10, size: 1.8 },
-  mobile:  { count:  70, connDist:  80, speed: 0.08, size: 1.5 },
+  desktop: { count: 150, connDist: 150, speed: 0.12, size: 2.0, signals: 28 },
+  tablet:  { count: 110, connDist: 120, speed: 0.10, size: 1.8, signals: 18 },
+  mobile:  { count:  70, connDist:  90, speed: 0.08, size: 1.6, signals: 12 },
 } as const;
-
-// Neural-palette: violet → indigo → cyan
-const COLORS = [0x7c3aed, 0x6366f1, 0x22d3ee, 0xa78bfa, 0x38bdf8];
 
 function getConfig(w: number) {
   if (w < 640) return CFG.mobile;
@@ -19,6 +16,12 @@ function getConfig(w: number) {
   return CFG.desktop;
 }
 
+/**
+ * Hero backdrop: a drifting 3D neural network with signal pulses travelling along its
+ * connections. The camera follows the pointer (parallax) and dollies forward as the page
+ * scrolls. Paused off-screen and in hidden tabs; a single static frame under reduced
+ * motion; renders nothing if WebGL is unavailable.
+ */
 export default function AiBackground() {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -26,29 +29,31 @@ export default function AiBackground() {
     const container = containerRef.current;
     if (!container) return;
 
-    // Respect reduced-motion preference
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
     const cfg = getConfig(window.innerWidth);
     const W = container.clientWidth;
     const H = container.clientHeight;
 
-    // ── Scene / Camera / Renderer ──────────────────────────────────────────
-    const scene    = new THREE.Scene();
-    const camera   = new THREE.PerspectiveCamera(60, W / H, 0.1, 2000);
-    camera.position.set(0, 0, 320);
-
-    const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
+    let renderer: THREE.WebGLRenderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true, powerPreference: 'low-power' });
+    } catch {
+      return; // No WebGL: the gradient backdrop behind the canvas still renders.
+    }
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     renderer.setSize(W, H);
     renderer.setClearColor(0x000000, 0);
     container.appendChild(renderer.domElement);
 
-    // ── Particles ──────────────────────────────────────────────────────────
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, W / H, 0.1, 2000);
+    camera.position.set(0, 0, 320);
+    const group = new THREE.Group();
+    scene.add(group);
+
+    // ── Nodes ──────────────────────────────────────────────────────────────
     const count = cfg.count;
     const spread = { x: 500, y: 350, z: 200 };
-
-    // Per-particle data
     const px = new Float32Array(count);
     const py = new Float32Array(count);
     const pz = new Float32Array(count);
@@ -61,80 +66,141 @@ export default function AiBackground() {
       px[i] = (Math.random() - 0.5) * spread.x * 2;
       py[i] = (Math.random() - 0.5) * spread.y * 2;
       pz[i] = (Math.random() - 0.5) * spread.z * 2;
-      const s = cfg.speed;
-      vx[i] = (Math.random() - 0.5) * s;
-      vy[i] = (Math.random() - 0.5) * s;
-      vz[i] = (Math.random() - 0.5) * s * 0.3;
+      vx[i] = (Math.random() - 0.5) * cfg.speed;
+      vy[i] = (Math.random() - 0.5) * cfg.speed;
+      vz[i] = (Math.random() - 0.5) * cfg.speed * 0.3;
     }
 
     const particleGeo = new THREE.BufferGeometry();
-    const posAttr     = new THREE.BufferAttribute(positions, 3);
+    const posAttr = new THREE.BufferAttribute(positions, 3);
     posAttr.setUsage(THREE.DynamicDrawUsage);
     particleGeo.setAttribute('position', posAttr);
-
     const particleMat = new THREE.PointsMaterial({
-      color: COLORS[0],
+      color: 0x7c3aed,
       size: cfg.size,
       transparent: true,
-      opacity: 0.75,
+      opacity: 0.8,
       sizeAttenuation: true,
       depthWrite: false,
     });
-    const dots = new THREE.Points(particleGeo, particleMat);
-    scene.add(dots);
+    group.add(new THREE.Points(particleGeo, particleMat));
 
-    // ── Connection Lines ────────────────────────────────────────────────────
-    // Pre-allocate max possible segments (count*(count-1)/2)
-    const maxSegs    = Math.floor(count * (count - 1) / 2);
-    const linePos    = new Float32Array(maxSegs * 6);
-    const lineGeo    = new THREE.BufferGeometry();
+    // ── Connections ────────────────────────────────────────────────────────
+    const maxSegs = Math.floor((count * (count - 1)) / 2);
+    const linePos = new Float32Array(maxSegs * 6);
+    const pairs = new Int32Array(maxSegs * 2);
+    let pairCount = 0;
+    const lineGeo = new THREE.BufferGeometry();
     const linePosAttr = new THREE.BufferAttribute(linePos, 3);
     linePosAttr.setUsage(THREE.DynamicDrawUsage);
     lineGeo.setAttribute('position', linePosAttr);
     lineGeo.setDrawRange(0, 0);
-
     const lineMat = new THREE.LineBasicMaterial({
       color: 0x6366f1,
       transparent: true,
-      opacity: 0.15,
+      opacity: 0.16,
       depthWrite: false,
     });
-    const lines = new THREE.LineSegments(lineGeo, lineMat);
-    scene.add(lines);
+    group.add(new THREE.LineSegments(lineGeo, lineMat));
 
-    // Subtle ambient glow blobs (additive sprites)
-    const spriteTex = (() => {
-      const c = document.createElement('canvas');
-      c.width = c.height = 64;
-      const ctx = c.getContext('2d')!;
-      const g = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
-      g.addColorStop(0,   'rgba(139,92,246,0.6)');
-      g.addColorStop(0.4, 'rgba(99,102,241,0.2)');
-      g.addColorStop(1,   'rgba(0,0,0,0)');
-      ctx.fillStyle = g;
-      ctx.fillRect(0, 0, 64, 64);
-      return new THREE.CanvasTexture(c);
-    })();
-
-    const blobCount = Math.floor(count * 0.12);
-    for (let b = 0; b < blobCount; b++) {
-      const sp  = new THREE.Sprite(new THREE.SpriteMaterial({ map: spriteTex, transparent: true, opacity: 0.08, depthWrite: false }));
-      sp.scale.set(90, 90, 1);
-      sp.position.set(
-        (Math.random() - 0.5) * spread.x * 2,
-        (Math.random() - 0.5) * spread.y * 2,
-        (Math.random() - 0.5) * 80
-      );
-      scene.add(sp);
+    const connDist2 = cfg.connDist * cfg.connDist;
+    function rebuildLines() {
+      let seg = 0;
+      pairCount = 0;
+      for (let i = 0; i < count; i++) {
+        for (let j = i + 1; j < count; j++) {
+          const dx = px[i] - px[j];
+          const dy = py[i] - py[j];
+          const dz = pz[i] - pz[j];
+          if (dx * dx + dy * dy + dz * dz < connDist2) {
+            linePos[seg++] = px[i];
+            linePos[seg++] = py[i];
+            linePos[seg++] = pz[i];
+            linePos[seg++] = px[j];
+            linePos[seg++] = py[j];
+            linePos[seg++] = pz[j];
+            pairs[pairCount * 2] = i;
+            pairs[pairCount * 2 + 1] = j;
+            pairCount++;
+          }
+        }
+      }
+      lineGeo.setDrawRange(0, seg / 3);
+      linePosAttr.needsUpdate = true;
     }
 
-    // ── Animation loop ──────────────────────────────────────────────────────
-    const connDist  = cfg.connDist;
-    const connDist2 = connDist * connDist;
-    let   animId    = 0;
-    let   frame     = 0;
+    // ── Signal pulses travelling node → node along connections ─────────────
+    const sCount = cfg.signals;
+    const sFrom = new Int32Array(sCount);
+    const sTo = new Int32Array(sCount);
+    const sT = new Float32Array(sCount);
+    const sSpeed = new Float32Array(sCount);
+    const sPos = new Float32Array(sCount * 3);
+    const signalGeo = new THREE.BufferGeometry();
+    const sPosAttr = new THREE.BufferAttribute(sPos, 3);
+    sPosAttr.setUsage(THREE.DynamicDrawUsage);
+    signalGeo.setAttribute('position', sPosAttr);
+    const signalMat = new THREE.PointsMaterial({
+      color: 0x22d3ee,
+      size: cfg.size * 2.4,
+      transparent: true,
+      opacity: 0.95,
+      sizeAttenuation: true,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending,
+    });
+    group.add(new THREE.Points(signalGeo, signalMat));
 
-    // Only animate while the hero is on screen and the tab is visible.
+    /** Pick a connected neighbour of `node`, or a random edge if it has none. */
+    function nextHop(node: number): [number, number] {
+      if (pairCount === 0) return [node, node];
+      const start = Math.floor(Math.random() * pairCount);
+      for (let k = 0; k < pairCount; k++) {
+        const p = (start + k) % pairCount;
+        if (pairs[p * 2] === node) return [node, pairs[p * 2 + 1]];
+        if (pairs[p * 2 + 1] === node) return [node, pairs[p * 2]];
+      }
+      const p = Math.floor(Math.random() * pairCount);
+      return [pairs[p * 2], pairs[p * 2 + 1]];
+    }
+
+    function placeSignals(dt: number) {
+      for (let s = 0; s < sCount; s++) {
+        sT[s] += sSpeed[s] * dt;
+        if (sT[s] >= 1) {
+          [sFrom[s], sTo[s]] = nextHop(sTo[s]);
+          sT[s] = 0;
+        }
+        const a = sFrom[s];
+        const b = sTo[s];
+        const t = sT[s];
+        sPos[s * 3] = px[a] + (px[b] - px[a]) * t;
+        sPos[s * 3 + 1] = py[a] + (py[b] - py[a]) * t;
+        sPos[s * 3 + 2] = pz[a] + (pz[b] - pz[a]) * t;
+      }
+      sPosAttr.needsUpdate = true;
+    }
+
+    function writeNodes() {
+      for (let i = 0; i < count; i++) {
+        positions[i * 3] = px[i];
+        positions[i * 3 + 1] = py[i];
+        positions[i * 3 + 2] = pz[i];
+      }
+      posAttr.needsUpdate = true;
+    }
+
+    // ── Pointer parallax + scroll dolly ────────────────────────────────────
+    const pointer = { x: 0, y: 0 };
+    const onPointer = (e: PointerEvent) => {
+      pointer.x = (e.clientX / window.innerWidth - 0.5) * 2;
+      pointer.y = (e.clientY / window.innerHeight - 0.5) * 2;
+    };
+    if (!prefersReduced) window.addEventListener('pointermove', onPointer, { passive: true });
+
+    // ── Loop ───────────────────────────────────────────────────────────────
+    let animId = 0;
+    let frame = 0;
     let onScreen = true;
     const running = () => onScreen && !document.hidden && !prefersReduced;
 
@@ -146,7 +212,6 @@ export default function AiBackground() {
       animId = requestAnimationFrame(animate);
       frame++;
 
-      // Update particle positions
       for (let i = 0; i < count; i++) {
         px[i] += vx[i];
         py[i] += vy[i];
@@ -155,61 +220,40 @@ export default function AiBackground() {
         if (Math.abs(px[i]) > spread.x) vx[i] *= -1;
         if (Math.abs(py[i]) > spread.y) vy[i] *= -1;
         if (Math.abs(pz[i]) > spread.z) vz[i] *= -1;
-
-        positions[i * 3]     = px[i];
-        positions[i * 3 + 1] = py[i];
-        positions[i * 3 + 2] = pz[i];
       }
-      posAttr.needsUpdate = true;
+      writeNodes();
+      if (frame % 2 === 0) rebuildLines();
+      placeSignals(1);
 
-      // Rebuild connection line segments every 2nd frame for performance
-      if (frame % 2 === 0) {
-        rebuildLines();
-      }
-
-      // Very slow camera drift
+      // Camera: slow drift + eased pointer parallax + scroll dolly
       const t = frame * 0.0006;
-      camera.position.x = Math.sin(t) * 15;
-      camera.position.y = Math.cos(t * 0.7) * 10;
+      const scroll = Math.min(window.scrollY / Math.max(H, 1), 1);
+      const tx = Math.sin(t) * 15 + pointer.x * 40;
+      const ty = Math.cos(t * 0.7) * 10 - pointer.y * 28;
+      camera.position.x += (tx - camera.position.x) * 0.04;
+      camera.position.y += (ty - camera.position.y) * 0.04;
+      camera.position.z = 320 - scroll * 140;
+      group.rotation.y = scroll * 0.35;
       camera.lookAt(0, 0, 0);
 
       renderer.render(scene, camera);
     };
-
-    function rebuildLines() {
-      let segIdx = 0;
-      for (let i = 0; i < count; i++) {
-        for (let j = i + 1; j < count; j++) {
-          const dx = px[i] - px[j];
-          const dy = py[i] - py[j];
-          const dz = pz[i] - pz[j];
-          const d2 = dx * dx + dy * dy + dz * dz;
-          if (d2 < connDist2) {
-            linePos[segIdx++] = px[i];
-            linePos[segIdx++] = py[i];
-            linePos[segIdx++] = pz[i];
-            linePos[segIdx++] = px[j];
-            linePos[segIdx++] = py[j];
-            linePos[segIdx++] = pz[j];
-          }
-        }
-      }
-      lineGeo.setDrawRange(0, segIdx / 3);
-      linePosAttr.needsUpdate = true;
-    }
 
     const start = () => {
       if (!animId && running()) animate();
     };
 
     // First frame is always drawn, so reduced-motion users get a static network.
-    for (let i = 0; i < count; i++) {
-      positions[i * 3] = px[i];
-      positions[i * 3 + 1] = py[i];
-      positions[i * 3 + 2] = pz[i];
-    }
-    posAttr.needsUpdate = true;
+    writeNodes();
     rebuildLines();
+    for (let s = 0; s < sCount; s++) {
+      const p = pairCount ? Math.floor(Math.random() * pairCount) : 0;
+      sFrom[s] = pairCount ? pairs[p * 2] : 0;
+      sTo[s] = pairCount ? pairs[p * 2 + 1] : 0;
+      sT[s] = Math.random();
+      sSpeed[s] = 0.008 + Math.random() * 0.012;
+    }
+    placeSignals(0);
     renderer.render(scene, camera);
     start();
 
@@ -221,7 +265,6 @@ export default function AiBackground() {
     const onVisibility = () => start();
     document.addEventListener('visibilitychange', onVisibility);
 
-    // ── Resize handler ─────────────────────────────────────────────────────
     const handleResize = () => {
       const nW = container.clientWidth;
       const nH = container.clientHeight;
@@ -232,29 +275,22 @@ export default function AiBackground() {
     };
     window.addEventListener('resize', handleResize);
 
-    // ── Cleanup ────────────────────────────────────────────────────────────
     return () => {
       cancelAnimationFrame(animId);
       observer.disconnect();
       document.removeEventListener('visibilitychange', onVisibility);
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('pointermove', onPointer);
       renderer.dispose();
       particleGeo.dispose();
       particleMat.dispose();
       lineGeo.dispose();
       lineMat.dispose();
-      spriteTex.dispose();
-      if (container.contains(renderer.domElement)) {
-        container.removeChild(renderer.domElement);
-      }
+      signalGeo.dispose();
+      signalMat.dispose();
+      if (container.contains(renderer.domElement)) container.removeChild(renderer.domElement);
     };
   }, []);
 
-  return (
-    <div
-      ref={containerRef}
-      className="absolute inset-0 z-0 pointer-events-none"
-      aria-hidden="true"
-    />
-  );
+  return <div ref={containerRef} className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true" />;
 }

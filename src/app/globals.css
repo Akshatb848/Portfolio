@@ -60,9 +60,9 @@
   html {
     scroll-behavior: smooth;
   }
-  /* Keep anchored sections clear of the fixed navbar */
-  section[id] {
-    scroll-margin-top: 4rem;
+  /* Keep anchor targets clear of the fixed navbar */
+  [id] {
+    scroll-margin-top: 5rem;
   }
 }
 
@@ -165,4 +165,18 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* 3D flip cards (skill flashcards) */
+.preserve-3d {
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+.flip-face {
+  grid-area: 1 / 1;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+.flip-back {
+  transform: rotateY(180deg);
 }
