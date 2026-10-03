@@ -1,26 +1,16 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Code2, Heart, ArrowUp } from 'lucide-react';
+import { Github, Linkedin, Mail, Code2, Heart, ArrowUp } from 'lucide-react';
+import { site } from '@/lib/site';
 
 const socialLinks = [
-  {
-    icon: Github,
-    href: 'https://github.com/Akshatb848',
-    label: 'GitHub',
-  },
-  {
-    icon: Linkedin,
-    href: 'https://www.linkedin.com/in/akshat-banga-6574aa170/',
-    label: 'LinkedIn',
-  },
+  { icon: Github, href: site.github, label: 'GitHub' },
+  { icon: Linkedin, href: site.linkedin, label: 'LinkedIn' },
+  { icon: Mail, href: `mailto:${site.email}`, label: 'Email' },
 ];
 
 export function Footer() {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   return (
     <footer className="relative border-t border-border/50 bg-background">
       {/* Gradient top border */}
@@ -36,11 +26,11 @@ export function Footer() {
             className="flex items-center gap-2"
           >
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center">
-              <Code2 className="w-4 h-4 text-white" />
+              <Code2 className="w-4 h-4 text-white" aria-hidden="true" />
             </div>
             <span className="font-bold text-sm">
               <span className="text-foreground">Akshat Banga</span>
-              <span className="text-violet-500"> · </span>
+              <span className="text-violet-700 dark:text-violet-400"> · </span>
               <span className="text-muted-foreground">AI Engineer</span>
             </span>
           </motion.div>
@@ -54,18 +44,15 @@ export function Footer() {
             className="flex items-center gap-4"
           >
             {socialLinks.map((link) => (
-              <motion.a
+              <a
                 key={link.label}
                 href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.1, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:text-violet-500 hover:bg-violet-500/10 border border-border/50 hover:border-violet-500/30 transition-all duration-200"
+                {...(link.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                className="w-11 h-11 rounded-lg flex items-center justify-center text-muted-foreground hover:text-violet-700 dark:hover:text-violet-300 hover:bg-violet-500/10 border border-border/50 hover:border-violet-500/30 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
                 aria-label={link.label}
               >
-                <link.icon className="w-4 h-4" />
-              </motion.a>
+                <link.icon className="w-5 h-5" aria-hidden="true" />
+              </a>
             ))}
           </motion.div>
 
@@ -77,23 +64,21 @@ export function Footer() {
             transition={{ delay: 0.2 }}
             className="text-xs text-muted-foreground flex items-center gap-1.5"
           >
-            <span>© 2025 Akshat Banga. Built with</span>
-            <Heart className="w-3 h-3 text-red-400 fill-current" />
+            <span>© {new Date().getFullYear()} Akshat Banga. Built with</span>
+            <Heart className="w-3 h-3 text-red-500 fill-current" aria-label="love" />
             <span>and Next.js, TailwindCSS, Framer Motion</span>
           </motion.p>
         </div>
       </div>
 
       {/* Scroll to top */}
-      <motion.button
-        onClick={scrollToTop}
-        whileHover={{ scale: 1.05, y: -2 }}
-        whileTap={{ scale: 0.95 }}
-        className="absolute bottom-8 right-8 w-9 h-9 rounded-lg flex items-center justify-center text-muted-foreground hover:text-violet-500 hover:bg-violet-500/10 border border-border/50 hover:border-violet-500/30 transition-all duration-200"
-        aria-label="Scroll to top"
+      <a
+        href="#main-content"
+        className="absolute bottom-6 right-4 sm:right-8 w-11 h-11 rounded-lg flex items-center justify-center text-muted-foreground hover:text-violet-700 dark:hover:text-violet-300 hover:bg-violet-500/10 border border-border/50 hover:border-violet-500/30 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+        aria-label="Back to top"
       >
-        <ArrowUp className="w-4 h-4" />
-      </motion.button>
+        <ArrowUp className="w-5 h-5" aria-hidden="true" />
+      </a>
     </footer>
   );
 }

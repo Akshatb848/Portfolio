@@ -1,82 +1,83 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { Play } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 
 interface ProjectVideoProps {
   videoSrc: string;
+  /** Optional WebM (VP9) version, offered first for browsers without H.264. */
+  webmSrc?: string;
   poster?: string;
   title: string;
+  /** Only the active slide plays; others stay on their poster frame. */
+  active?: boolean;
+  /** Shown instead if the clip fails to load. */
+  fallback?: React.ReactNode;
+  /** Clips generated with AI (not screen recordings) carry a visible label. */
+  concept?: boolean;
 }
 
-export function ProjectVideo({ videoSrc, poster, title }: ProjectVideoProps) {
-  const videoRef  = useRef<HTMLVideoElement>(null);
+export function ProjectVideo({
+  videoSrc,
+  webmSrc,
+  poster,
+  title,
+  active = true,
+  fallback = null,
+  concept = false,
+}: ProjectVideoProps) {
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [errored, setErrored] = useState(false);
-  const [loaded,  setLoaded]  = useState(false);
+  const [inView, setInView] = useState(false);
 
-  // Pause when off-screen, resume when visible
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
-
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!video || errored || prefersReduced) return;
-        if (entry.isIntersecting) {
-          video.play().catch(() => setErrored(true));
-        } else {
-          video.pause();
-        }
-      },
-      { threshold: 0.25 }
-    );
-
+    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), {
+      threshold: 0.25,
+    });
     observer.observe(video);
     return () => observer.disconnect();
-  }, [errored]);
+  }, []);
 
-  // Fallback placeholder when video unavailable
-  if (errored) {
-    return (
-      <div
-        className="relative w-full aspect-video rounded-xl overflow-hidden bg-gradient-to-br from-violet-900/30 to-indigo-900/30 border border-violet-500/20 flex flex-col items-center justify-center gap-2"
-        aria-label={`${title} demo preview`}
-      >
-        <div className="w-10 h-10 rounded-full bg-violet-500/20 flex items-center justify-center">
-          <Play className="w-5 h-5 text-violet-400" />
-        </div>
-        <span className="text-xs text-violet-300/60 font-mono">demo preview</span>
-      </div>
-    );
-  }
+  // Play only while active, on screen, and motion is allowed. A blocked autoplay
+  // (e.g. low-power mode) simply leaves the poster frame showing.
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || errored) return;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (active && inView && !reduced) {
+      video.play().catch(() => {});
+    } else {
+      video.pause();
+    }
+  }, [active, inView, errored]);
+
+  if (errored) return <>{fallback}</>;
 
   return (
-    <div className="relative w-full aspect-video rounded-xl overflow-hidden group shadow-lg shadow-black/30 transition-all duration-300 hover:shadow-violet-500/10 hover:scale-[1.02]">
-      {/* Loading placeholder shown until video metadata loads */}
-      {!loaded && (
-        <div className="absolute inset-0 bg-gradient-to-br from-violet-900/40 to-indigo-900/40 flex items-center justify-center">
-          <div className="w-8 h-8 rounded-full border-2 border-violet-500/40 border-t-violet-400 animate-spin" />
-        </div>
-      )}
+    <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-border/60 bg-[#0b0f17]">
       <video
         ref={videoRef}
-        src={videoSrc}
         poster={poster}
-        autoPlay
         loop
         muted
         playsInline
-        preload="metadata"
-        onLoadedMetadata={() => setLoaded(true)}
-        onError={() => setErrored(true)}
-        aria-label={`${title} demo video`}
+        preload={active ? 'auto' : 'none'}
+        aria-label={concept ? `AI-generated concept visual for ${title}` : `${title} demo video`}
         className="w-full h-full object-cover"
-        style={{ opacity: loaded ? 1 : 0, transition: 'opacity 0.4s ease' }}
-      />
-      {/* Subtle gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none" />
+      >
+        {webmSrc && <source src={webmSrc} type="video/webm" />}
+        {/* Errors on <source> do not reach the <video>; the last source failing means none can play. */}
+        <source src={videoSrc} type="video/mp4" onError={() => setErrored(true)} />
+      </video>
+      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+      {concept && (
+        <span className="absolute left-3 bottom-2.5 flex items-center gap-1.5 px-2 py-1 rounded-md bg-black/60 backdrop-blur-sm text-[11px] font-medium text-white">
+          <Sparkles className="w-3 h-3" aria-hidden="true" />
+          Concept visual · AI-generated
+        </span>
+      )}
     </div>
   );
 }

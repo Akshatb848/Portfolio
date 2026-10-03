@@ -2,9 +2,16 @@ import dynamic from 'next/dynamic';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { HeroSection } from '@/components/sections/Hero';
+import assets from '@/data/assets.generated.json';
+import { getGitHubData } from '@/lib/github';
+import { ScrollProgress } from '@/components/ScrollProgress';
+import { ChapterRail } from '@/components/ChapterRail';
 
 const AboutSection = dynamic(() =>
   import('@/components/sections/About').then((m) => ({ default: m.AboutSection }))
+);
+const SystemsSection = dynamic(() =>
+  import('@/components/sections/Systems').then((m) => ({ default: m.SystemsSection }))
 );
 const SkillsSection = dynamic(() =>
   import('@/components/sections/Skills').then((m) => ({ default: m.SkillsSection }))
@@ -21,18 +28,38 @@ const GitHubSection = dynamic(() =>
 const EducationSection = dynamic(() =>
   import('@/components/sections/Education').then((m) => ({ default: m.EducationSection }))
 );
-export default function Home() {
+const ContactSection = dynamic(() =>
+  import('@/components/sections/Contact').then((m) => ({ default: m.ContactSection }))
+);
+
+// Rebuild the page daily so the GitHub section stays current.
+export const revalidate = 86400;
+
+export default async function Home() {
+  const github = await getGitHubData();
+  // Optional assets only render when the file was in /public at build time
+  // (see scripts/generate-asset-manifest.mjs), so nothing shows as a broken link.
+  const resumeUrl = assets.resume;
+  const availableVideos = assets.videos;
+  const availablePosters = assets.posters;
+
   return (
-    <main className="relative min-h-screen bg-background overflow-x-hidden">
-      <Navbar />
-      <HeroSection />
-      <AboutSection />
-      <SkillsSection />
-      <ProjectsSection />
-      <ExperienceSection />
-      <GitHubSection />
-      <EducationSection />
+    <>
+      <ScrollProgress />
+      <Navbar resumeUrl={resumeUrl} />
+      <ChapterRail />
+      <main id="main-content" className="relative min-h-screen bg-background overflow-x-hidden">
+        <HeroSection resumeUrl={resumeUrl} />
+        <AboutSection />
+        <SystemsSection />
+        <SkillsSection />
+        <ProjectsSection availableVideos={availableVideos} availablePosters={availablePosters} />
+        <ExperienceSection />
+        <GitHubSection data={github} />
+        <EducationSection />
+        <ContactSection resumeUrl={resumeUrl} />
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }
