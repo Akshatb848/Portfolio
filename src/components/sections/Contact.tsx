@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Linkedin, Github, FileText, Copy, Check, ArrowUpRight } from 'lucide-react';
+import { Mail, Linkedin, Github, Instagram, FileText, Copy, Check, ArrowUpRight } from 'lucide-react';
 import { site } from '@/lib/site';
 import { SectionHeading } from '@/components/SectionHeading';
 
@@ -22,6 +22,7 @@ export function ContactSection({ resumeUrl }: { resumeUrl: string | null }) {
   const links = [
     { icon: Linkedin, label: 'LinkedIn', detail: 'Connect or message', href: site.linkedin },
     { icon: Github, label: 'GitHub', detail: `@${site.githubUsername}`, href: site.github },
+    { icon: Instagram, label: 'Instagram', detail: `@${site.instagramHandle}`, href: site.instagram },
     ...(resumeUrl
       ? [{ icon: FileText, label: 'Résumé', detail: 'Download PDF', href: resumeUrl }]
       : []),
@@ -48,7 +49,7 @@ export function ContactSection({ resumeUrl }: { resumeUrl: string | null }) {
             }
           />
           <p className="text-base text-muted-foreground -mt-6 mb-10 max-w-xl mx-auto leading-relaxed">
-            Open to AI engineering roles and collaborations on agentic AI, RAG and AIOps systems.
+            Open to AI generalist and AI transformation roles, and to collaborations on low-code / no-code automation, agentic AI and RAG.
             Email is the fastest way to reach me.
           </p>
 
@@ -76,7 +77,7 @@ export function ContactSection({ resumeUrl }: { resumeUrl: string | null }) {
           </div>
 
           {/* Secondary links */}
-          <div className={`grid gap-3 ${links.length === 3 ? 'sm:grid-cols-3' : 'sm:grid-cols-2'}`}>
+          <div className={`grid gap-3 ${links.length === 4 ? 'sm:grid-cols-2 lg:grid-cols-4' : 'sm:grid-cols-3'}`}>
             {links.map((link) => (
               <a
                 key={link.label}

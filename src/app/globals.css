@@ -180,3 +180,22 @@
 .flip-back {
   transform: rotateY(180deg);
 }
+
+/* Instagram creator touches (@the_lazy_automator) */
+.ig-gradient {
+  background: linear-gradient(45deg, #f58529 0%, #dd2a7b 45%, #8134af 75%, #515bd4 100%);
+}
+.ig-ring {
+  background: linear-gradient(120deg, #f58529, #dd2a7b, #8134af, #515bd4, #f58529);
+  background-size: 300% 300%;
+  animation: ig-shift 8s ease-in-out infinite;
+}
+@keyframes ig-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}

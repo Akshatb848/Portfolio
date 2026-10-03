@@ -324,7 +324,7 @@ export const experiences: Experience[] = [
     id: 4,
     company: 'Jio Platforms Limited',
     companyInitial: 'JP',
-    role: 'Assistant Manager – AIOps, CloudXP and Jio HCMP',
+    role: 'Assistant Manager – CloudXP and Jio HCMP',
     type: 'Full-time',
     period: 'Oct 2023 – Dec 2024',
     location: 'Navi Mumbai',
@@ -473,10 +473,10 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     id: 'mlops',
-    title: 'MLOps & AIOps',
+    title: 'MLOps & Cloud Ops',
     icon: Layers,
     color: 'sky',
-    description: 'Shipping, observing and operating AI systems.',
+    description: 'Shipping, monitoring and operating AI systems.',
     skills: [
       { name: 'Docker', match: ['Docker'] },
       { name: 'Kubernetes', match: ['Kubernetes'] },
@@ -508,7 +508,7 @@ export const skillGroups: SkillGroup[] = [
 ];
 
 /** Résumé skills without a public project or role on this site to point to yet. */
-export const alsoFamiliar = ['LoRA / PEFT fine-tuning', 'AWS', 'XGBoost', 'LSTMs', 'Transformers', 'MLflow', 'Model monitoring', 'Cloud Build', 'Cloud Run', 'MongoDB', 'SQL', 'REST APIs', 'Prompt engineering'];
+export const alsoFamiliar = ['Low-code / no-code AI automation', 'n8n workflows', 'AI tools & assistants', 'LoRA / PEFT fine-tuning', 'AWS', 'XGBoost', 'LSTMs', 'Transformers', 'MLflow', 'Model monitoring', 'Cloud Build', 'Cloud Run', 'MongoDB', 'SQL', 'REST APIs', 'Prompt engineering'];
 
 export type Evidence = { kind: 'project' | 'role'; label: string; href: string };
 

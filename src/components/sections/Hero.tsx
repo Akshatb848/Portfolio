@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import { ArrowDown, FileText, Github, Linkedin, Mail, Terminal } from 'lucide-react';
+import { ArrowDown, FileText, Github, Instagram, Linkedin, Mail, Terminal } from 'lucide-react';
 import { site } from '@/lib/site';
 
 // Three.js background — SSR disabled, loads client-only
@@ -73,9 +73,11 @@ export function HeroSection({ resumeUrl }: { resumeUrl: string | null }) {
           transition={{ duration: 0.7, delay: 0.45 }}
           className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
         >
-          I build{' '}
+          An <span className="text-foreground font-semibold">AI tools expert</span> who transforms
+          manual work with{' '}
+          <span className="text-foreground font-semibold">low-code / no-code AI</span>, and builds{' '}
           <span className="text-foreground font-semibold">LLM apps, RAG and multi-agent systems</span>{' '}
-          and run them in production, with hands-on AIOps and cloud-operations experience from Jio Platforms.
+          when a problem needs custom code.
         </motion.p>
 
         {/* CTAs */}
@@ -120,6 +122,7 @@ export function HeroSection({ resumeUrl }: { resumeUrl: string | null }) {
           {[
             { icon: Github,   href: site.github,   label: 'GitHub'   },
             { icon: Linkedin, href: site.linkedin, label: 'LinkedIn' },
+            { icon: Instagram, href: site.instagram, label: 'Instagram' },
           ].map((link) => (
             <a
               key={link.label}

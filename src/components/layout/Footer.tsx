@@ -1,12 +1,13 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Mail, Code2, Heart, ArrowUp } from 'lucide-react';
+import { Github, Linkedin, Instagram, Mail, Code2, Heart, ArrowUp } from 'lucide-react';
 import { site } from '@/lib/site';
 
 const socialLinks = [
   { icon: Github, href: site.github, label: 'GitHub' },
   { icon: Linkedin, href: site.linkedin, label: 'LinkedIn' },
+  { icon: Instagram, href: site.instagram, label: 'Instagram' },
   { icon: Mail, href: `mailto:${site.email}`, label: 'Email' },
 ];
 
@@ -31,7 +32,7 @@ export function Footer() {
             <span className="font-bold text-sm">
               <span className="text-foreground">Akshat Banga</span>
               <span className="text-violet-700 dark:text-violet-400"> · </span>
-              <span className="text-muted-foreground">AI Engineer</span>
+              <span className="text-muted-foreground">AI Generalist</span>
             </span>
           </motion.div>
 

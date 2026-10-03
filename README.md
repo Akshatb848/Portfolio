@@ -1,6 +1,6 @@
-# Akshat Banga — AI Engineer Portfolio
+# Akshat Banga — AI Generalist Portfolio
 
-A world-class, production-grade personal portfolio website for Akshat Banga, an AI Engineer specializing in machine learning, generative AI, and MLOps.
+A world-class, production-grade personal portfolio website for Akshat Banga, an AI Generalist and transformation expert working across low-code / no-code AI, generative AI and machine learning.
 
 ## 🚀 Tech Stack
 
@@ -17,7 +17,7 @@ A world-class, production-grade personal portfolio website for Akshat Banga, an 
 
 - **Cinematic 3D hero**: a Three.js neural network with signal pulses travelling along its connections, pointer parallax and a scroll-driven camera dolly. It pauses off-screen, stays static under reduced motion, and falls back gracefully without WebGL.
 - **Chapters**: eight numbered chapters shared by the navbar, a fixed chapter rail (wide screens) and section headings, plus a scroll progress bar
-- **Systems in motion**: interactive pipeline simulations (grounded RAG, AIOps incident triage, AI governance audit) with play/pause/step, what-if switches and a live log, each linked to the project or role it is based on
+- **Systems in motion**: interactive pipeline simulations (grounded RAG, AI deal-intake automation, AI governance audit) with play/pause/step, what-if switches and a live log, each linked to the project or role it is based on
 - **Skill flashcards**: flip cards that list the projects and roles where each skill was used; links jump to the matching project slide or role
 - **Project carousel**: 3D coverflow of featured projects with swipe, keyboard, autoplay (pausable, off under reduced motion), deep links (`/#project-3`) and generative cover art; filterable grid for the rest
 - **Live GitHub panel**: repositories fetched from the GitHub API at build time and refreshed daily, with a bundled snapshot as fallback
