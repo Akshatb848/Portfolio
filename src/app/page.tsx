@@ -41,6 +41,7 @@ export default async function Home() {
   // (see scripts/generate-asset-manifest.mjs), so nothing shows as a broken link.
   const resumeUrl = assets.resume;
   const availableVideos = assets.videos;
+  const availablePosters = assets.posters;
 
   return (
     <>
@@ -52,7 +53,7 @@ export default async function Home() {
         <AboutSection />
         <SystemsSection />
         <SkillsSection />
-        <ProjectsSection availableVideos={availableVideos} />
+        <ProjectsSection availableVideos={availableVideos} availablePosters={availablePosters} />
         <ExperienceSection />
         <GitHubSection data={github} />
         <EducationSection />

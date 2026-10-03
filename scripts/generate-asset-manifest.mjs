@@ -9,15 +9,20 @@ const publicDir = path.join(root, 'public');
 const resumePath = '/Akshat_Banga_Resume.pdf';
 const videosDir = path.join(publicDir, 'videos');
 
-const manifest = {
-  resume: fs.existsSync(path.join(publicDir, resumePath)) ? resumePath : null,
-  videos: fs.existsSync(videosDir)
+const listVideoDir = (re) =>
+  fs.existsSync(videosDir)
     ? fs
         .readdirSync(videosDir)
-        .filter((f) => /\.(mp4|webm)$/i.test(f))
+        .filter((f) => re.test(f))
         .sort()
         .map((f) => `/videos/${f}`)
-    : [],
+    : [];
+
+const manifest = {
+  resume: fs.existsSync(path.join(publicDir, resumePath)) ? resumePath : null,
+  videos: listVideoDir(/\.(mp4|webm)$/i),
+  // Poster frames: <clip>.jpg next to each clip
+  posters: listVideoDir(/\.jpg$/i),
 };
 
 const out = path.join(root, 'src/data/assets.generated.json');

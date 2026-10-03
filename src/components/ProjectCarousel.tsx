@@ -24,6 +24,8 @@ function Slide({
   offset,
   compact,
   hasVideo,
+  poster,
+  webm,
   index,
   total,
   onSelect,
@@ -32,6 +34,8 @@ function Slide({
   offset: number;
   compact: boolean;
   hasVideo: boolean;
+  poster?: string;
+  webm?: string;
   index: number;
   total: number;
   onSelect: () => void;
@@ -74,7 +78,15 @@ function Slide({
           />
         )}
         {hasVideo && project.video ? (
-          <ProjectVideo videoSrc={project.video} title={project.title} />
+          <ProjectVideo
+            videoSrc={project.video}
+            webmSrc={webm}
+            poster={poster}
+            title={project.title}
+            active={isActive}
+            concept={project.videoKind !== 'recording'}
+            fallback={<ProjectCover project={project} />}
+          />
         ) : (
           <ProjectCover project={project} />
         )}
@@ -121,7 +133,19 @@ function Slide({
   );
 }
 
-export function ProjectCarousel({ availableVideos }: { availableVideos: string[] }) {
+/** A sibling file (poster .jpg, .webm) of a clip, if it was present at build time. */
+const sibling = (video: string | undefined, ext: string, available: string[]) => {
+  const path = video?.replace(/\.\w+$/, ext);
+  return path && available.includes(path) ? path : undefined;
+};
+
+export function ProjectCarousel({
+  availableVideos,
+  availablePosters,
+}: {
+  availableVideos: string[];
+  availablePosters: string[];
+}) {
   const slides = featuredProjects;
   const n = slides.length;
   const [active, setActive] = useState(0);
@@ -222,6 +246,8 @@ export function ProjectCarousel({ availableVideos }: { availableVideos: string[]
             offset={wrapOffset(i, active, n)}
             compact={compact}
             hasVideo={!!p.video && availableVideos.includes(p.video)}
+            poster={sibling(p.video, '.jpg', availablePosters)}
+            webm={sibling(p.video, '.webm', availableVideos)}
             onSelect={() => go(i)}
           />
         ))}

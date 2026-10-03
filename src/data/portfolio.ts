@@ -39,8 +39,11 @@ export type Project = {
   language: string;
   icon: LucideIcon;
   featured: boolean;
-  /** Path under /public; only rendered when the file exists at build time. */
+  /** Path under /public; only rendered when the file exists at build time. A .jpg with the
+   *  same name next to it is used as the poster frame. */
   video?: string;
+  /** 'concept' = AI-generated visual (labelled on the site); 'recording' = real screen capture. */
+  videoKind?: 'concept' | 'recording';
 };
 
 export type Experience = {
@@ -81,6 +84,7 @@ export const projects: Project[] = [
     icon: Activity,
     featured: true,
     video: '/videos/ai-tennis-demo.mp4',
+    videoKind: 'concept',
   },
   {
     id: 2,
@@ -96,6 +100,7 @@ export const projects: Project[] = [
     icon: ShieldCheck,
     featured: true,
     video: '/videos/aegis-demo.mp4',
+    videoKind: 'concept',
   },
   {
     id: 3,
@@ -111,6 +116,7 @@ export const projects: Project[] = [
     icon: Bot,
     featured: true,
     video: '/videos/ds-agent-demo.mp4',
+    videoKind: 'concept',
   },
   {
     id: 4,
@@ -126,6 +132,7 @@ export const projects: Project[] = [
     icon: BarChart3,
     featured: true,
     video: '/videos/analytics-demo.mp4',
+    videoKind: 'concept',
   },
   {
     id: 5,
@@ -141,6 +148,7 @@ export const projects: Project[] = [
     icon: BookOpen,
     featured: true,
     video: '/videos/llm-dashboard-demo.mp4',
+    videoKind: 'concept',
   },
   {
     id: 6,

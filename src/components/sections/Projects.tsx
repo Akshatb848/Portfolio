@@ -73,7 +73,13 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
   );
 }
 
-export function ProjectsSection({ availableVideos }: { availableVideos: string[] }) {
+export function ProjectsSection({
+  availableVideos,
+  availablePosters,
+}: {
+  availableVideos: string[];
+  availablePosters: string[];
+}) {
   const categories = useMemo(
     () => ['All', ...Array.from(new Set(moreProjects.map((p) => p.category)))],
     []
@@ -115,7 +121,7 @@ export function ProjectsSection({ availableVideos }: { availableVideos: string[]
           </p>
         </SectionHeading>
 
-        <ProjectCarousel availableVideos={availableVideos} />
+        <ProjectCarousel availableVideos={availableVideos} availablePosters={availablePosters} />
 
         {/* More projects */}
         <div className="mt-20">

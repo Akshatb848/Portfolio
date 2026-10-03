@@ -43,8 +43,10 @@ Skill flashcards derive their evidence from the tech stacks in `portfolio.ts`, s
 These render only when the file exists in `public/` at build time (`scripts/generate-asset-manifest.mjs` runs before `dev` and `build`), so nothing shows as a broken link:
 
 - **Résumé**: `public/Akshat_Banga_Resume.pdf` adds résumé buttons to the navbar, hero and contact section.
-- **Project demo clips**: `public/videos/<name>.mp4`, using the paths set in `src/data/portfolio.ts`
-  (`ai-tennis-demo.mp4`, `aegis-demo.mp4`, `ds-agent-demo.mp4`, `analytics-demo.mp4`, `llm-dashboard-demo.mp4`). A clip replaces that project's generated cover in the carousel.
+- **Project clips**: `public/videos/<name>.mp4`, plus an optional `<name>.webm` and a `<name>.jpg` poster, using the paths set in `src/data/portfolio.ts`
+  (`ai-tennis-demo`, `aegis-demo`, `ds-agent-demo`, `analytics-demo`, `llm-dashboard-demo`). A clip replaces that project's generated cover in the carousel; only the centre slide plays, and a clip that fails to load falls back to the cover.
+  - `bash scripts/import-concept-clips.sh` downloads the five AI-generated concept clips (Google Veo 3.1 Lite), encodes WebM + MP4 and writes posters. These are labelled "Concept visual · AI-generated" on the site.
+  - For a real screen recording, add the files the same way and set `videoKind: 'recording'` on the project to drop the label.
 
 Optional environment variable: `GITHUB_TOKEN` raises the GitHub API rate limit for the live panel.
 
