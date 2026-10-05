@@ -68,7 +68,7 @@ export function EducationSection() {
                     className={`p-5 rounded-xl bg-card border border-border/50 ${colors.border} transition-all duration-200`}
                   >
                     <div className="flex items-start gap-3">
-                      <div className={`w-9 h-9 rounded-lg ${colors.initial} flex items-center justify-center font-bold text-xs flex-shrink-0`}>
+                      <div className={`w-9 h-9 rounded-lg ${colors.initial} flex items-center justify-center font-bold text-xs shrink-0`}>
                         {edu.initial}
                       </div>
                       <div className="flex-1">

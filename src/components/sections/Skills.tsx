@@ -20,11 +20,11 @@ function EvidenceLink({ item, tabbable }: { item: Evidence; tabbable: boolean })
         const m = item.href.match(/^#project-(\d+)$/);
         if (m) window.dispatchEvent(new CustomEvent(FOCUS_PROJECT_EVENT, { detail: Number(m[1]) }));
       }}
-      className="flex items-center gap-2 min-h-11 px-2 -mx-2 rounded-md text-sm text-foreground hover:bg-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+      className="flex items-center gap-2 min-h-11 px-2 -mx-2 rounded-md text-sm text-foreground hover:bg-accent transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
     >
-      <Icon className="w-3.5 h-3.5 flex-shrink-0 text-muted-foreground" aria-hidden="true" />
+      <Icon className="w-3.5 h-3.5 shrink-0 text-muted-foreground" aria-hidden="true" />
       <span className="truncate">{item.label}</span>
-      <ArrowUpRight className="w-3.5 h-3.5 ml-auto flex-shrink-0 text-muted-foreground" aria-hidden="true" />
+      <ArrowUpRight className="w-3.5 h-3.5 ml-auto shrink-0 text-muted-foreground" aria-hidden="true" />
     </a>
   );
 }
@@ -49,10 +49,10 @@ function Flashcard({ skill, t, index }: { skill: Skill; t: Tone; index: number }
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: index * 0.04 }}
-      className="list-none [perspective:1000px]"
+      className="list-none perspective-[1000px]"
     >
       <motion.div
-        className="relative grid grid-cols-[minmax(0,1fr)] h-full min-h-[13.5rem] preserve-3d"
+        className="relative grid grid-cols-[minmax(0,1fr)] h-full min-h-54 preserve-3d"
         initial={false}
         animate={{ rotateY: flipped ? 180 : 0 }}
         transition={{ type: 'spring', stiffness: 160, damping: 20 }}
@@ -65,7 +65,7 @@ function Flashcard({ skill, t, index }: { skill: Skill; t: Tone; index: number }
           aria-controls={backId}
           aria-hidden={flipped}
           tabIndex={flipped ? -1 : undefined}
-          className={`flip-face min-w-0 w-full h-full flex flex-col text-left p-5 rounded-2xl bg-card border ${t.border} ${t.hoverBorder} hover:shadow-lg ${t.glow} transition-[border-color,box-shadow] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400`}
+          className={`flip-face min-w-0 w-full h-full flex flex-col text-left p-5 rounded-2xl bg-card border ${t.border} ${t.hoverBorder} hover:shadow-lg ${t.glow} transition-[border-color,box-shadow] focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400`}
         >
           <span className={`font-mono text-[11px] tracking-widest uppercase ${t.text}`}>Skill</span>
           <span className="mt-2 text-lg font-bold text-foreground leading-snug">{skill.name}</span>
@@ -101,7 +101,7 @@ function Flashcard({ skill, t, index }: { skill: Skill; t: Tone; index: number }
               onClick={() => setFlipped(false)}
               tabIndex={flipped ? undefined : -1}
               aria-label={`Back to ${skill.name}`}
-              className="flex items-center gap-1 min-h-11 px-3 rounded-lg text-xs font-semibold text-muted-foreground hover:text-foreground hover:bg-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+              className="flex items-center gap-1 min-h-11 px-3 rounded-lg text-xs font-semibold text-muted-foreground hover:text-foreground hover:bg-accent transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
             >
               <RotateCcw className="w-3.5 h-3.5" aria-hidden="true" />
               Flip back
@@ -169,7 +169,7 @@ export function SkillsSection() {
                 aria-controls="skills-panel"
                 tabIndex={on ? 0 : -1}
                 onClick={() => setActiveId(g.id)}
-                className={`flex items-center gap-2 min-h-11 px-4 rounded-xl text-sm font-medium border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 ${
+                className={`flex items-center gap-2 min-h-11 px-4 rounded-xl text-sm font-medium border transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400 ${
                   on ? `${gt.badge} shadow-md ${gt.glow}` : 'border-border/60 text-muted-foreground hover:text-foreground bg-card'
                 }`}
               >

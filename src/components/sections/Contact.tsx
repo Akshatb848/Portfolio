@@ -57,7 +57,7 @@ export function ContactSection({ resumeUrl }: { resumeUrl: string | null }) {
           <div className="flex flex-col sm:flex-row items-stretch justify-center gap-3 mb-8">
             <a
               href={`mailto:${site.email}`}
-              className="inline-flex items-center justify-center gap-2.5 min-h-12 px-6 rounded-xl bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold shadow-lg shadow-violet-500/25 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="inline-flex items-center justify-center gap-2.5 min-h-12 px-6 rounded-xl bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold shadow-lg shadow-violet-500/25 transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               <Mail className="w-4 h-4" aria-hidden="true" />
               {site.email}
@@ -65,7 +65,7 @@ export function ContactSection({ resumeUrl }: { resumeUrl: string | null }) {
             <button
               type="button"
               onClick={copyEmail}
-              className="inline-flex items-center justify-center gap-2 min-h-12 px-5 rounded-xl border border-border bg-card text-sm font-semibold text-muted-foreground hover:text-foreground hover:border-violet-500/40 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+              className="inline-flex items-center justify-center gap-2 min-h-12 px-5 rounded-xl border border-border bg-card text-sm font-semibold text-muted-foreground hover:text-foreground hover:border-violet-500/40 transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
             >
               {copied ? (
                 <Check className="w-4 h-4 text-emerald-600 dark:text-emerald-400" aria-hidden="true" />
@@ -85,9 +85,9 @@ export function ContactSection({ resumeUrl }: { resumeUrl: string | null }) {
                 {...(link.href.startsWith('http')
                   ? { target: '_blank', rel: 'noopener noreferrer' }
                   : { download: true })}
-                className="group flex items-center gap-3 min-h-14 p-4 rounded-xl bg-card border border-border/60 hover:border-violet-500/40 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+                className="group flex items-center gap-3 min-h-14 p-4 rounded-xl bg-card border border-border/60 hover:border-violet-500/40 text-left transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
               >
-                <span className="w-10 h-10 rounded-lg bg-violet-500/10 flex items-center justify-center flex-shrink-0">
+                <span className="w-10 h-10 rounded-lg bg-violet-500/10 flex items-center justify-center shrink-0">
                   <link.icon className="w-5 h-5 text-violet-700 dark:text-violet-400" aria-hidden="true" />
                 </span>
                 <span className="flex-1 min-w-0">

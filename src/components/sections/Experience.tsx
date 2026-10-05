@@ -21,10 +21,10 @@ function ExperienceCard({ exp, index }: { exp: Experience; index: number }) {
       className="relative flex gap-5"
     >
       {/* Timeline */}
-      <div className="flex flex-col items-center flex-shrink-0">
-        <div className={`w-3 h-3 rounded-full ${t.dot} ring-4 ring-background mt-2 flex-shrink-0`} />
+      <div className="flex flex-col items-center shrink-0">
+        <div className={`w-3 h-3 rounded-full ${t.dot} ring-4 ring-background mt-2 shrink-0`} />
         {index < experiences.length - 1 && (
-          <div className={`w-px flex-1 bg-gradient-to-b from-border to-transparent mt-1.5 min-h-[40px]`} />
+          <div className={`w-px flex-1 bg-linear-to-b from-border to-transparent mt-1.5 min-h-[40px]`} />
         )}
       </div>
 
@@ -33,7 +33,7 @@ function ExperienceCard({ exp, index }: { exp: Experience; index: number }) {
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-4 mb-3">
           <div className="flex items-start gap-3 min-w-0">
             {/* Company initial badge */}
-            <div className={`w-9 h-9 rounded-lg ${t.soft} ${t.text} flex items-center justify-center font-bold text-xs flex-shrink-0`}>
+            <div className={`w-9 h-9 rounded-lg ${t.soft} ${t.text} flex items-center justify-center font-bold text-xs shrink-0`}>
               {exp.companyInitial}
             </div>
             <div className="min-w-0">
@@ -46,7 +46,7 @@ function ExperienceCard({ exp, index }: { exp: Experience; index: number }) {
               </div>
             </div>
           </div>
-          <div className="flex flex-wrap sm:flex-col items-center sm:items-end gap-x-3 gap-y-1 flex-shrink-0 pl-12 sm:pl-0 text-xs text-muted-foreground">
+          <div className="flex flex-wrap sm:flex-col items-center sm:items-end gap-x-3 gap-y-1 shrink-0 pl-12 sm:pl-0 text-xs text-muted-foreground">
             {exp.period && <span className="font-medium text-foreground tabular-nums whitespace-nowrap">{exp.period}</span>}
             <span className="flex items-center gap-1">
               <MapPin className="w-3 h-3" aria-hidden="true" /> {exp.location}
@@ -81,7 +81,7 @@ function ExperienceCard({ exp, index }: { exp: Experience; index: number }) {
               <ul className="space-y-2 mb-4">
                 {exp.bullets.map((bullet, i) => (
                   <li key={i} className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-violet-700 dark:text-violet-400 flex-shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-3.5 h-3.5 text-violet-700 dark:text-violet-400 shrink-0 mt-0.5" />
                     <p className="text-sm text-muted-foreground leading-relaxed">{bullet}</p>
                   </li>
                 ))}
@@ -103,7 +103,7 @@ function ExperienceCard({ exp, index }: { exp: Experience; index: number }) {
           onClick={() => setExpanded(!expanded)}
           aria-expanded={expanded}
           aria-controls={`exp-details-${exp.id}`}
-          className="flex items-center gap-1.5 min-h-11 -mb-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+          className="flex items-center gap-1.5 min-h-11 -mb-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
         >
           {expanded ? 'Hide details' : 'Show details'}
           <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${expanded ? 'rotate-180' : ''}`} aria-hidden="true" />

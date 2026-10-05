@@ -30,7 +30,7 @@ export function SectionHeading({
       <div className={`flex items-center gap-3 mb-4 ${center ? 'justify-center' : ''}`}>
         <span className="font-mono text-xs text-muted-foreground tabular-nums">{chapterNumber(chapter)}</span>
         <motion.span
-          className="h-px w-12 bg-gradient-to-r from-violet-500 to-cyan-500 origin-left"
+          className="h-px w-12 bg-linear-to-r from-violet-500 to-cyan-500 origin-left"
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
           viewport={{ once: true }}

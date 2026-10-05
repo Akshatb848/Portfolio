@@ -24,7 +24,7 @@ export function ChapterRail() {
                 href={`#${c.id}`}
                 tabIndex={active ? undefined : -1}
                 aria-current={on ? 'location' : undefined}
-                className="group flex items-center justify-end gap-3 min-h-11 pl-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+                className="group flex items-center justify-end gap-3 min-h-11 pl-3 rounded-lg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
               >
                 <span
                   className={`text-xs font-mono transition-all duration-300 ${
@@ -40,7 +40,7 @@ export function ChapterRail() {
                   {on && (
                     <motion.span
                       layoutId="chapter-dot"
-                      className="absolute -top-[3px] w-3 h-3 rounded-full border-2 border-violet-500 bg-background"
+                      className="absolute top-[-3px] w-3 h-3 rounded-full border-2 border-violet-500 bg-background"
                       transition={{ type: 'spring', stiffness: 400, damping: 32 }}
                     />
                   )}

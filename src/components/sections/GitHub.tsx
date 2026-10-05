@@ -57,7 +57,7 @@ export function GitHubSection({ data }: { data: GitHubData }) {
               href={site.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 min-h-11 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+              className="flex items-center gap-2 min-h-11 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
             >
               <Github className="w-4 h-4" aria-hidden="true" />@{site.githubUsername}
               <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
@@ -137,13 +137,13 @@ export function GitHubSection({ data }: { data: GitHubData }) {
                     href={repoUrl(repo.name, repo.url)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex flex-col h-full p-5 rounded-xl bg-card border border-border/60 hover:border-indigo-500/40 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+                    className="group flex flex-col h-full p-5 rounded-xl bg-card border border-border/60 hover:border-indigo-500/40 transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
                   >
                     <span className="flex items-start justify-between gap-2 mb-2">
                       <span className="text-sm font-semibold text-indigo-700 dark:text-indigo-400 break-all">
                         {repo.name}
                       </span>
-                      <ExternalLink className="w-3.5 h-3.5 flex-shrink-0 text-muted-foreground" aria-hidden="true" />
+                      <ExternalLink className="w-3.5 h-3.5 shrink-0 text-muted-foreground" aria-hidden="true" />
                     </span>
                     {repo.description && (
                       <span className="text-xs text-muted-foreground leading-relaxed mb-3 line-clamp-3">
@@ -177,7 +177,7 @@ export function GitHubSection({ data }: { data: GitHubData }) {
                 href={repoUrl(repo.name, repo.url)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 min-h-11 px-3 rounded-lg bg-card border border-border/60 hover:border-indigo-500/40 text-xs text-muted-foreground hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+                className="flex items-center gap-1.5 min-h-11 px-3 rounded-lg bg-card border border-border/60 hover:border-indigo-500/40 text-xs text-muted-foreground hover:text-foreground transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
               >
                 <span
                   className="w-2 h-2 rounded-full"

@@ -22,14 +22,14 @@ export function HeroSection({ resumeUrl }: { resumeUrl: string | null }) {
       <AiBackground />
 
       {/* Soft gradient blobs layered on top of canvas */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-[1]">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-1">
         <div className="absolute top-1/4 -left-40 w-[500px] h-[500px] bg-violet-600/8 rounded-full blur-[120px]" />
         <div className="absolute top-1/3 -right-40 w-[500px] h-[500px] bg-indigo-600/8 rounded-full blur-[120px]" />
         <div className="absolute -bottom-20 left-1/2 w-[400px] h-[400px] bg-cyan-500/5 rounded-full blur-[120px]" />
       </div>
 
       {/* Subtle grid */}
-      <div className="absolute inset-0 grid-pattern opacity-60 pointer-events-none z-[1]" />
+      <div className="absolute inset-0 grid-pattern opacity-60 pointer-events-none z-1" />
 
       {/* Hero content — z-10 to stay above canvas */}
       <motion.div
@@ -89,13 +89,13 @@ export function HeroSection({ resumeUrl }: { resumeUrl: string | null }) {
         >
           <a
             href="#projects"
-            className="inline-flex items-center min-h-12 px-6 bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold rounded-lg transition-colors shadow-lg shadow-violet-500/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="inline-flex items-center min-h-12 px-6 bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold rounded-lg transition-colors shadow-lg shadow-violet-500/25 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             View Projects
           </a>
           <a
             href="#contact"
-            className="inline-flex items-center gap-2 min-h-12 px-6 text-sm font-semibold text-foreground rounded-lg border border-border hover:border-violet-500/50 bg-background/60 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+            className="inline-flex items-center gap-2 min-h-12 px-6 text-sm font-semibold text-foreground rounded-lg border border-border hover:border-violet-500/50 bg-background/60 transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
           >
             <Mail className="w-4 h-4" aria-hidden="true" />
             Get in touch
@@ -104,7 +104,7 @@ export function HeroSection({ resumeUrl }: { resumeUrl: string | null }) {
             <a
               href={resumeUrl}
               download
-              className="inline-flex items-center gap-2 min-h-12 px-6 text-sm font-semibold text-muted-foreground hover:text-foreground rounded-lg border border-border hover:border-violet-500/50 bg-background/60 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+              className="inline-flex items-center gap-2 min-h-12 px-6 text-sm font-semibold text-muted-foreground hover:text-foreground rounded-lg border border-border hover:border-violet-500/50 bg-background/60 transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
             >
               <FileText className="w-4 h-4" aria-hidden="true" />
               Résumé
@@ -130,7 +130,7 @@ export function HeroSection({ resumeUrl }: { resumeUrl: string | null }) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={link.label}
-              className="flex items-center justify-center gap-2 min-h-11 min-w-11 px-3 rounded-lg text-sm text-muted-foreground hover:text-violet-700 dark:hover:text-violet-300 hover:bg-violet-500/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+              className="flex items-center justify-center gap-2 min-h-11 min-w-11 px-3 rounded-lg text-sm text-muted-foreground hover:text-violet-700 dark:hover:text-violet-300 hover:bg-violet-500/10 transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
             >
               <link.icon className="w-5 h-5" aria-hidden="true" />
               <span className="hidden sm:block" aria-hidden="true">{link.label}</span>
@@ -145,7 +145,7 @@ export function HeroSection({ resumeUrl }: { resumeUrl: string | null }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2 }}
-          className="flex flex-col items-center gap-2 min-h-11 px-3 w-fit text-muted-foreground hover:text-foreground transition-colors mx-auto rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+          className="flex flex-col items-center gap-2 min-h-11 px-3 w-fit text-muted-foreground hover:text-foreground transition-colors mx-auto rounded-lg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
         >
           <span className="text-xs font-medium tracking-widest uppercase" aria-hidden="true">Scroll</span>
           <motion.div
@@ -158,7 +158,7 @@ export function HeroSection({ resumeUrl }: { resumeUrl: string | null }) {
       </motion.div>
 
       {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent pointer-events-none z-10" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-linear-to-t from-background to-transparent pointer-events-none z-10" />
     </section>
   );
 }

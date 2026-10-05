@@ -80,10 +80,10 @@ export function Navbar({ resumeUrl }: { resumeUrl: string | null }) {
             <a
               href="#main-content"
               onClick={() => setMobileOpen(false)}
-              className="flex items-center gap-2 min-h-11 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+              className="flex items-center gap-2 min-h-11 rounded-lg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
               aria-label="Akshat Banga, back to top"
             >
-              <span className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-violet-500/25">
+              <span className="w-8 h-8 rounded-lg bg-linear-to-br from-violet-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-violet-500/25">
                 <Code2 className="w-4 h-4 text-white" aria-hidden="true" />
               </span>
               <span className="font-mono font-bold text-sm tracking-tight">
@@ -102,7 +102,7 @@ export function Navbar({ resumeUrl }: { resumeUrl: string | null }) {
                     key={link.href}
                     href={link.href}
                     aria-current={active ? 'location' : undefined}
-                    className={`relative flex items-center min-h-11 px-3 text-sm font-medium rounded-md transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 ${
+                    className={`relative flex items-center min-h-11 px-3 text-sm font-medium rounded-md transition-colors duration-200 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400 ${
                       active
                         ? 'text-violet-700 dark:text-violet-300'
                         : 'text-muted-foreground hover:text-foreground'
@@ -127,7 +127,7 @@ export function Navbar({ resumeUrl }: { resumeUrl: string | null }) {
                 <a
                   href={resumeUrl}
                   download
-                  className="hidden sm:inline-flex items-center gap-1.5 min-h-11 px-3 text-sm font-semibold rounded-lg text-violet-700 dark:text-violet-300 hover:bg-violet-500/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+                  className="hidden sm:inline-flex items-center gap-1.5 min-h-11 px-3 text-sm font-semibold rounded-lg text-violet-700 dark:text-violet-300 hover:bg-violet-500/10 transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
                 >
                   <FileText className="w-4 h-4" aria-hidden="true" />
                   Résumé
@@ -139,7 +139,7 @@ export function Navbar({ resumeUrl }: { resumeUrl: string | null }) {
                 <button
                   type="button"
                   onClick={() => setTheme(isDark ? 'light' : 'dark')}
-                  className="w-11 h-11 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+                  className="w-11 h-11 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-accent transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
                   aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
                 >
                   {isDark ? (
@@ -154,7 +154,7 @@ export function Navbar({ resumeUrl }: { resumeUrl: string | null }) {
               <button
                 ref={menuButtonRef}
                 type="button"
-                className="xl:hidden w-11 h-11 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+                className="xl:hidden w-11 h-11 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-accent transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
                 onClick={() => setMobileOpen(!mobileOpen)}
                 aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
                 aria-expanded={mobileOpen}
@@ -189,7 +189,7 @@ export function Navbar({ resumeUrl }: { resumeUrl: string | null }) {
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className="flex items-center min-h-12 px-4 text-base font-medium text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+                  className="flex items-center min-h-12 px-4 text-base font-medium text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
                 >
                   {link.label}
                 </a>
@@ -199,7 +199,7 @@ export function Navbar({ resumeUrl }: { resumeUrl: string | null }) {
                   href={resumeUrl}
                   download
                   onClick={() => setMobileOpen(false)}
-                  className="flex items-center gap-2 min-h-12 px-4 text-base font-semibold text-violet-700 dark:text-violet-300 hover:bg-violet-500/10 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+                  className="flex items-center gap-2 min-h-12 px-4 text-base font-semibold text-violet-700 dark:text-violet-300 hover:bg-violet-500/10 rounded-lg transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
                 >
                   <FileText className="w-4 h-4" aria-hidden="true" />
                   Download résumé
