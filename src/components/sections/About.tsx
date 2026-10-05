@@ -18,7 +18,7 @@ const highlights = [
   {
     icon: Brain,
     title: 'AI & ML Systems',
-    description: 'Forecasting, NLP with BERT, and computer vision with CNNs.',
+    description: 'Forecasting, text classification and computer vision with CNNs.',
     color: 'text-violet-700 dark:text-violet-500',
     bg: 'bg-violet-500/10',
     border: 'border-violet-500/20',
@@ -101,7 +101,7 @@ export function AboutSection() {
                 releases and Kubernetes and database operations.
               </p>
               <p>
-                Earlier work includes predictive models and BERT pipelines at{' '}
+                Earlier work includes forecasting and text-classification models at{' '}
                 <span className="text-foreground font-semibold">Unified Mentor</span>, and deep
                 learning and computer vision at{' '}
                 <span className="text-foreground font-semibold">C-DOT</span> and{' '}
@@ -168,7 +168,7 @@ export function AboutSection() {
             >
               {[
                 { icon: Zap, value: '40%', label: 'Less manual analysis', note: 'Deloitte, multi-agent' },
-                { icon: Brain, value: '99.34%', label: 'OCR accuracy', note: 'VGG-16, Indic scripts' },
+                { icon: Brain, value: '149', label: 'Passing tests', note: 'TennisIQ CI' },
                 { icon: Users, value: '8', label: 'Agents in ASIS', note: 'decision intelligence' },
               ].map((s) => (
                 <div
