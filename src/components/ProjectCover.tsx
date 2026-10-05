@@ -70,7 +70,7 @@ export function ProjectCover({ project, className = '' }: { project: Project; cl
       </svg>
       <div className="absolute inset-0 flex items-center justify-center">
         <span
-          className="w-16 h-16 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-white/15 shadow-2xl"
+          className="w-16 h-16 rounded-2xl flex items-center justify-center backdrop-blur-xs border border-white/15 shadow-2xl"
           style={{ background: `${hex}33`, boxShadow: `0 0 40px ${hex}55` }}
         >
           <Icon className="w-8 h-8 text-white" />

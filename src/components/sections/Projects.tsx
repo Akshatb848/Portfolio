@@ -26,7 +26,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
     >
       <div className="flex items-start gap-3 mb-3">
         <span
-          className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 border ${t.badge}`}
+          className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 border ${t.badge}`}
           aria-hidden="true"
         >
           <Icon className="w-5 h-5" />
@@ -64,7 +64,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`${project.title} on GitHub`}
-            className="flex items-center gap-1.5 min-h-11 px-3.5 text-xs font-semibold rounded-lg border border-border hover:border-foreground/40 text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+            className="flex items-center gap-1.5 min-h-11 px-3.5 text-xs font-semibold rounded-lg border border-border hover:border-foreground/40 text-foreground transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
           >
             <Github className="w-3.5 h-3.5" aria-hidden="true" />
             Code
@@ -92,7 +92,7 @@ export function ProjectsSection({
   return (
     <section id="projects" className="section-padding relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <div className="absolute top-0 left-1/4 w-1/2 h-1/3 bg-gradient-to-b from-indigo-500/10 to-transparent blur-3xl" />
+        <div className="absolute top-0 left-1/4 w-1/2 h-1/3 bg-linear-to-b from-indigo-500/10 to-transparent blur-3xl" />
       </div>
 
       <div className="container-max">
@@ -109,7 +109,7 @@ export function ProjectsSection({
               href={site.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 min-h-11 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+              className="flex items-center gap-2 min-h-11 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
             >
               <Github className="w-4 h-4" aria-hidden="true" />
               All repositories
@@ -136,7 +136,7 @@ export function ProjectsSection({
                   type="button"
                   onClick={() => setFilter(cat)}
                   aria-pressed={filter === cat}
-                  className={`min-h-11 px-4 rounded-lg text-sm font-medium border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 ${
+                  className={`min-h-11 px-4 rounded-lg text-sm font-medium border transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400 ${
                     filter === cat
                       ? 'bg-indigo-600 text-white border-indigo-600'
                       : 'border-border/60 text-muted-foreground hover:text-foreground bg-card'

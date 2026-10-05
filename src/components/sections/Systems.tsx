@@ -83,7 +83,7 @@ function Node({ node, state, hex }: { node: SimNode; state: 'done' | 'active' | 
     >
       <div className="flex items-center gap-2">
         <span
-          className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 text-[11px] font-bold ${
+          className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-[11px] font-bold ${
             state === 'pending' ? 'bg-muted text-muted-foreground' : 'text-white'
           } ${warn ? 'bg-amber-600' : ''}`}
           style={state !== 'pending' && !warn ? { backgroundColor: hex } : undefined}
@@ -113,7 +113,7 @@ function Node({ node, state, hex }: { node: SimNode; state: 'done' | 'active' | 
 
 function Connector({ live, hex }: { live: boolean; hex: string }) {
   return (
-    <div className="relative flex-shrink-0 w-px h-5 mx-auto md:w-6 md:h-px md:mx-0 md:self-center bg-border" aria-hidden="true">
+    <div className="relative shrink-0 w-px h-5 mx-auto md:w-6 md:h-px md:mx-0 md:self-center bg-border" aria-hidden="true">
       {live && (
         <motion.span
           className="absolute w-2 h-2 rounded-full -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 md:left-0"
@@ -150,7 +150,7 @@ function BasedOn({ scenario }: { scenario: Scenario }) {
           onClick={() => {
             if (l.projectId) window.dispatchEvent(new CustomEvent(FOCUS_PROJECT_EVENT, { detail: l.projectId }));
           }}
-          className="inline-flex items-center min-h-11 px-3 rounded-lg border border-border bg-background/60 font-medium text-foreground hover:border-foreground/30 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+          className="inline-flex items-center min-h-11 px-3 rounded-lg border border-border bg-background/60 font-medium text-foreground hover:border-foreground/30 transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
         >
           {l.label}
         </a>
@@ -261,7 +261,7 @@ export function SystemsSection() {
                   setToggled(false);
                   reset(true);
                 }}
-                className={`min-h-11 px-4 rounded-xl text-sm font-medium border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 ${
+                className={`min-h-11 px-4 rounded-xl text-sm font-medium border transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400 ${
                   on ? `${st.badge} shadow-md ${st.glow}` : 'border-border/60 text-muted-foreground hover:text-foreground bg-card'
                 }`}
               >
@@ -276,7 +276,7 @@ export function SystemsSection() {
           role="tabpanel"
           aria-labelledby={`sim-tab-${scenarioId}`}
           ref={stageRef}
-          className={`rounded-3xl border ${t.border} bg-card/70 backdrop-blur-sm p-5 sm:p-7 shadow-2xl ${t.glow}`}
+          className={`rounded-3xl border ${t.border} bg-card/70 backdrop-blur-xs p-5 sm:p-7 shadow-2xl ${t.glow}`}
         >
           <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-5 mb-6">
             <div className="max-w-xl">
@@ -294,14 +294,14 @@ export function SystemsSection() {
                 setToggled((v) => !v);
                 reset(true);
               }}
-              className="flex items-center gap-3 min-h-11 px-4 py-2 rounded-xl border border-border bg-background/60 text-left hover:border-foreground/30 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 lg:max-w-xs"
+              className="flex items-center gap-3 min-h-11 px-4 py-2 rounded-xl border border-border bg-background/60 text-left hover:border-foreground/30 transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400 lg:max-w-xs"
             >
               <span
-                className={`relative w-10 h-6 rounded-full flex-shrink-0 transition-colors ${toggled ? 'bg-amber-600' : 'bg-muted'}`}
+                className={`relative w-10 h-6 rounded-full shrink-0 transition-colors ${toggled ? 'bg-amber-600' : 'bg-muted'}`}
                 aria-hidden="true"
               >
                 <motion.span
-                  className="absolute top-1 left-1 w-4 h-4 rounded-full bg-white shadow"
+                  className="absolute top-1 left-1 w-4 h-4 rounded-full bg-white shadow-sm"
                   animate={{ x: toggled ? 16 : 0 }}
                   transition={{ type: 'spring', stiffness: 500, damping: 30 }}
                 />
@@ -334,7 +334,7 @@ export function SystemsSection() {
 
           {/* Console + controls */}
           <div className="mt-6 grid lg:grid-cols-[1fr_auto] gap-4 items-start">
-            <div className="rounded-xl border border-border/60 bg-[#0b0f17] p-4 font-mono text-xs min-h-[9.5rem]">
+            <div className="rounded-xl border border-border/60 bg-[#0b0f17] p-4 font-mono text-xs min-h-38">
               <p className="flex items-center gap-2 text-slate-300 mb-2">
                 <Terminal className="w-3.5 h-3.5" aria-hidden="true" />
                 run.log <span className="text-slate-400">(simulated)</span>
@@ -370,7 +370,7 @@ export function SystemsSection() {
               <button
                 type="button"
                 onClick={() => (done ? reset(true) : setPlaying((p) => !p))}
-                className="flex items-center justify-center gap-2 min-h-11 px-4 rounded-lg bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+                className="flex items-center justify-center gap-2 min-h-11 px-4 rounded-lg bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400 focus-visible:ring-offset-2 focus-visible:ring-offset-card"
               >
                 {playing ? <Pause className="w-4 h-4" aria-hidden="true" /> : <Play className="w-4 h-4" aria-hidden="true" />}
                 {playing ? 'Pause' : done ? 'Run again' : 'Play'}
@@ -382,7 +382,7 @@ export function SystemsSection() {
                   setStep((s) => Math.min(s + 1, nodes.length));
                 }}
                 disabled={done}
-                className="flex items-center justify-center gap-2 min-h-11 px-4 rounded-lg border border-border bg-background/60 text-sm font-semibold text-foreground hover:border-foreground/30 disabled:opacity-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+                className="flex items-center justify-center gap-2 min-h-11 px-4 rounded-lg border border-border bg-background/60 text-sm font-semibold text-foreground hover:border-foreground/30 disabled:opacity-50 transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
               >
                 <StepForward className="w-4 h-4" aria-hidden="true" />
                 Step
@@ -390,7 +390,7 @@ export function SystemsSection() {
               <button
                 type="button"
                 onClick={() => reset(false)}
-                className="flex items-center justify-center gap-2 min-h-11 px-4 rounded-lg border border-border bg-background/60 text-sm font-semibold text-foreground hover:border-foreground/30 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+                className="flex items-center justify-center gap-2 min-h-11 px-4 rounded-lg border border-border bg-background/60 text-sm font-semibold text-foreground hover:border-foreground/30 transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
               >
                 <RotateCcw className="w-4 h-4" aria-hidden="true" />
                 Reset

@@ -107,7 +107,7 @@ function Slide({
         <p className="text-sm text-muted-foreground leading-relaxed mb-4 line-clamp-4 min-h-[5.6rem]">
           {project.description}
         </p>
-        <ul className="flex flex-wrap gap-1.5 mb-4 max-h-[3.5rem] overflow-hidden" aria-label="Tech stack">
+        <ul className="flex flex-wrap gap-1.5 mb-4 max-h-14 overflow-hidden" aria-label="Tech stack">
           {project.tech.map((tech) => (
             <li
               key={tech}
@@ -124,7 +124,7 @@ function Slide({
             rel="noopener noreferrer"
             aria-label={`${project.title} on GitHub`}
             tabIndex={isActive ? undefined : -1}
-            className="mt-auto self-start flex items-center gap-2 min-h-11 px-4 text-sm font-semibold rounded-lg bg-foreground text-background hover:opacity-90 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+            className="mt-auto self-start flex items-center gap-2 min-h-11 px-4 text-sm font-semibold rounded-lg bg-foreground text-background hover:opacity-90 transition-opacity focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400 focus-visible:ring-offset-2 focus-visible:ring-offset-card"
           >
             <Github className="w-4 h-4" aria-hidden="true" />
             View on GitHub
@@ -134,7 +134,7 @@ function Slide({
             href="#contact"
             aria-label={`Ask about ${project.title}`}
             tabIndex={isActive ? undefined : -1}
-            className="mt-auto self-start flex items-center gap-2 min-h-11 px-4 text-sm font-semibold rounded-lg border border-border text-foreground hover:border-foreground/40 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+            className="mt-auto self-start flex items-center gap-2 min-h-11 px-4 text-sm font-semibold rounded-lg border border-border text-foreground hover:border-foreground/40 transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
           >
             <Mail className="w-4 h-4" aria-hidden="true" />
             Ask for a walkthrough
@@ -277,7 +277,7 @@ export function ProjectCarousel({
             type="button"
             onClick={() => go(active - 1)}
             aria-label="Previous project"
-            className="w-11 h-11 rounded-full border border-border bg-card flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-violet-500/50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+            className="w-11 h-11 rounded-full border border-border bg-card flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-violet-500/50 transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
           >
             <ChevronLeft className="w-5 h-5" aria-hidden="true" />
           </button>
@@ -286,7 +286,7 @@ export function ProjectCarousel({
             onClick={() => setUserPaused((v) => !v)}
             aria-label={userPaused || reduced ? 'Start automatic rotation' : 'Stop automatic rotation'}
             disabled={!!reduced}
-            className="w-11 h-11 rounded-full border border-border bg-card flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-violet-500/50 transition-colors disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+            className="w-11 h-11 rounded-full border border-border bg-card flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-violet-500/50 transition-colors disabled:opacity-50 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
           >
             {userPaused || reduced ? (
               <Play className="w-4 h-4" aria-hidden="true" />
@@ -298,7 +298,7 @@ export function ProjectCarousel({
             type="button"
             onClick={() => go(active + 1)}
             aria-label="Next project"
-            className="w-11 h-11 rounded-full border border-border bg-card flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-violet-500/50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+            className="w-11 h-11 rounded-full border border-border bg-card flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-violet-500/50 transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
           >
             <ChevronRight className="w-5 h-5" aria-hidden="true" />
           </button>
@@ -320,12 +320,12 @@ export function ProjectCarousel({
                 }}
                 aria-current={on ? 'true' : undefined}
                 aria-label={`Show ${p.title}`}
-                className={`relative flex items-center justify-center gap-2 min-h-11 min-w-11 px-3 rounded-full border text-xs font-medium transition-colors overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 ${
+                className={`relative flex items-center justify-center gap-2 min-h-11 min-w-11 px-3 rounded-full border text-xs font-medium transition-colors overflow-hidden focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400 ${
                   on ? `${t.badge}` : 'border-border/60 bg-card text-muted-foreground hover:text-foreground'
                 }`}
               >
                 <Icon className="w-3.5 h-3.5" aria-hidden="true" />
-                <span className="hidden sm:inline max-w-[11rem] truncate">{p.title}</span>
+                <span className="hidden sm:inline max-w-44 truncate">{p.title}</span>
                 {on && autoplay && (
                   <motion.span
                     key={`progress-${active}`}

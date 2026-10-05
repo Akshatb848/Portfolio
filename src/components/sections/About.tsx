@@ -56,8 +56,8 @@ export function AboutSection() {
   return (
     <section id="about" className="section-padding relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-1/3 h-1/2 bg-gradient-to-bl from-indigo-500/5 to-transparent rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-1/4 h-1/3 bg-gradient-to-tr from-purple-500/5 to-transparent rounded-full blur-3xl" />
+        <div className="absolute top-0 right-0 w-1/3 h-1/2 bg-linear-to-bl from-indigo-500/5 to-transparent rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-1/4 h-1/3 bg-linear-to-tr from-purple-500/5 to-transparent rounded-full blur-3xl" />
       </div>
 
       <div className="container-max" ref={ref}>
@@ -113,7 +113,7 @@ export function AboutSection() {
             <div className="flex items-center gap-4 pt-1">
               <a
                 href="#contact"
-                className="flex items-center gap-2 min-h-11 text-sm font-semibold text-violet-700 dark:text-violet-400 hover:text-violet-800 dark:hover:text-violet-300 transition-colors rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+                className="flex items-center gap-2 min-h-11 text-sm font-semibold text-violet-700 dark:text-violet-400 hover:text-violet-800 dark:hover:text-violet-300 transition-colors rounded-lg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
               >
                 Let&apos;s work together
                 <ArrowRight className="w-4 h-4" aria-hidden="true" />
@@ -123,7 +123,7 @@ export function AboutSection() {
                 href={site.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 min-h-11 text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+                className="flex items-center gap-2 min-h-11 text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors rounded-lg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
               >
                 LinkedIn Profile
                 <ArrowRight className="w-4 h-4" aria-hidden="true" />
@@ -241,10 +241,10 @@ export function AboutSection() {
               initial={{ opacity: 0, y: 10 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.55 }}
-              className="ig-ring group block rounded-xl p-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="ig-ring group block rounded-xl p-px focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               <span className="flex items-center gap-4 rounded-[11px] bg-card p-4">
-                <span className="ig-gradient relative w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-pink-500/20 group-hover:scale-105 transition-transform">
+                <span className="ig-gradient relative w-12 h-12 rounded-xl flex items-center justify-center shrink-0 shadow-lg shadow-pink-500/20 group-hover:scale-105 transition-transform">
                   <Instagram className="w-6 h-6 text-white" aria-hidden="true" />
                 </span>
                 <span className="flex-1 min-w-0">

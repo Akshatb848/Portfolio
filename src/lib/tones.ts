@@ -127,8 +127,8 @@ export const tones = {
     hex: '#14b8a6',
   },
   cyan: {
-    text: 'text-cyan-700 dark:text-cyan-400',
-    badge: 'bg-cyan-500/10 text-cyan-700 dark:text-cyan-400 border-cyan-500/25',
+    text: 'text-cyan-800 dark:text-cyan-400',
+    badge: 'bg-cyan-500/10 text-cyan-800 dark:text-cyan-400 border-cyan-500/25',
     soft: 'bg-cyan-500/10',
     border: 'border-cyan-500/25',
     hoverBorder: 'hover:border-cyan-500/50',

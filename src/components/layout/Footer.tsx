@@ -15,7 +15,7 @@ export function Footer() {
   return (
     <footer className="relative border-t border-border/50 bg-background">
       {/* Gradient top border */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-500 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-violet-500 to-transparent" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="flex flex-col items-center gap-8">
@@ -26,7 +26,7 @@ export function Footer() {
             viewport={{ once: true }}
             className="flex items-center gap-2"
           >
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-lg bg-linear-to-br from-violet-500 to-purple-600 flex items-center justify-center">
               <Code2 className="w-4 h-4 text-white" aria-hidden="true" />
             </div>
             <span className="font-bold text-sm">
@@ -49,7 +49,7 @@ export function Footer() {
                 key={link.label}
                 href={link.href}
                 {...(link.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                className="w-11 h-11 rounded-lg flex items-center justify-center text-muted-foreground hover:text-violet-700 dark:hover:text-violet-300 hover:bg-violet-500/10 border border-border/50 hover:border-violet-500/30 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+                className="w-11 h-11 rounded-lg flex items-center justify-center text-muted-foreground hover:text-violet-700 dark:hover:text-violet-300 hover:bg-violet-500/10 border border-border/50 hover:border-violet-500/30 transition-colors duration-200 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
                 aria-label={link.label}
               >
                 <link.icon className="w-5 h-5" aria-hidden="true" />
@@ -75,7 +75,7 @@ export function Footer() {
       {/* Scroll to top */}
       <a
         href="#main-content"
-        className="absolute bottom-6 right-4 sm:right-8 w-11 h-11 rounded-lg flex items-center justify-center text-muted-foreground hover:text-violet-700 dark:hover:text-violet-300 hover:bg-violet-500/10 border border-border/50 hover:border-violet-500/30 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+        className="absolute bottom-6 right-4 sm:right-8 w-11 h-11 rounded-lg flex items-center justify-center text-muted-foreground hover:text-violet-700 dark:hover:text-violet-300 hover:bg-violet-500/10 border border-border/50 hover:border-violet-500/30 transition-colors duration-200 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
         aria-label="Back to top"
       >
         <ArrowUp className="w-5 h-5" aria-hidden="true" />
