@@ -83,20 +83,20 @@ export const scenarios: Scenario[] = [
     basedOn: { projectIds: [2] },
     toggle: {
       label: 'Audit a GenAI / RAG system instead',
-      description: 'Swaps the classic ML checks for prompt-injection and citation-accuracy tests.',
+      description: 'Swaps the classic ML checks for prompt-injection and citation-coverage tests.',
     },
     paths: {
       off: [
         { id: 'model', label: 'Model', detail: 'Tabular classifier', log: 'loaded model and holdout set' },
-        { id: 'fair', label: 'Fairness', detail: 'Group parity', log: 'demographic parity gap 0.04 (limit 0.10)', outcome: 'ok' },
-        { id: 'drift', label: 'Drift', detail: 'PSI per feature', log: 'PSI 0.27 on "income", above 0.20', outcome: 'warn' },
+        { id: 'fair', label: 'Fairness', detail: 'Disparate impact', log: 'disparate impact ratio 0.86 (minimum 0.80)', outcome: 'ok' },
+        { id: 'drift', label: 'Drift', detail: 'Mean shift per feature', log: 'mean shift 0.27 on "income", above 0.20', outcome: 'warn' },
         { id: 'shap', label: 'Explainability', detail: 'SHAP values', log: 'top drivers: tenure, income, region' },
         { id: 'report', label: 'Report', detail: 'Compliance PDF', log: 'PDF report generated: 1 warning, 0 failures', outcome: 'ok' },
       ],
       on: [
         { id: 'model', label: 'GenAI system', detail: 'RAG chatbot', log: 'loaded RAG pipeline and test prompts' },
         { id: 'inject', label: 'Prompt injection', detail: 'Adversarial prompts', log: '48 of 50 injection attempts blocked', outcome: 'warn' },
-        { id: 'cite', label: 'Citation accuracy', detail: 'Answer vs source', log: '94% of answers fully supported by sources', outcome: 'ok' },
+        { id: 'cite', label: 'Citation coverage', detail: 'Sentences with a source', log: '94% of answer sentences cite a retrieved source', outcome: 'ok' },
         { id: 'report', label: 'Report', detail: 'Compliance PDF', log: 'PDF report generated: 1 warning, 0 failures', outcome: 'ok' },
       ],
     },

@@ -171,9 +171,9 @@ export const projects: Project[] = [
   {
     id: 7,
     name: 'Degraded-Devanagari-and-Bangla-Script-Identification-Using-CNN-Frameworks',
-    title: 'Degraded Indic Script Classifier (99.34% accuracy)',
+    title: 'Degraded Indic Script Classifier',
     description:
-      'CNN-based OCR for degraded Devanagari and Bangla characters on the Ekush dataset: VGG-16 reaches 99.34% accuracy (DenseNet-121 98.89%, ResNet-50 98.60%, AlexNet 97.75%). Inference is packaged with Streamlit, Docker and Kubernetes assets, a testing structure and modular, deployment-ready services.',
+      'CNN that identifies the script (Devanagari or Bangla) of degraded handwritten character images from the Ekush dataset (7,628 images). Training scripts cover VGG-16, DenseNet-121 and ResNet-50 transfer learning, and inference is packaged with Streamlit, Docker and Kubernetes assets, tests and modular services.',
     tech: ['Python', 'TensorFlow', 'Keras', 'OpenCV', 'VGG-16', 'ResNet-50', 'Streamlit', 'Docker', 'Kubernetes'],
     category: 'Computer Vision',
     color: 'rose',
@@ -186,9 +186,9 @@ export const projects: Project[] = [
   {
     id: 8,
     name: 'Real-Time-Air-Quality-Prediction-Using-ML-Algorithms',
-    title: 'Real-Time Air Quality Prediction',
+    title: 'Air Quality Prediction',
     description:
-      'ML solution for forecasting air quality indicators from real-time chemical sensor data (CO, NMHC, C6H6). Implements Random Forest Regressor (250 estimators) with feature importance ranking from a Random Forest-based selection pipeline.',
+      'Regression study that estimates hourly carbon monoxide levels from multisensor air-quality readings (UCI dataset). A Random Forest tuned with RandomizedSearchCV reaches R² 0.63 on a hold-out split, and the README documents the data-quality caveats.',
     tech: ['Python', 'Scikit-learn', 'Random Forest', 'Pandas', 'Matplotlib', 'Jupyter'],
     category: 'Machine Learning',
     color: 'teal',
@@ -202,7 +202,7 @@ export const projects: Project[] = [
     name: 'Market-Segmentation-for-Edtech-Startups',
     title: 'EdTech Market Segmentation',
     description:
-      'Unsupervised ML on Indian district-level education data: K-Means clustering with Elbow Method and PCA, producing three market segments to guide where an EdTech startup should focus.',
+      'K-Means clustering (k = 3) of 92 Indian districts on 2015-16 education and census indicators, with an elbow plot and PCA view, as a first step toward choosing where an EdTech startup should focus.',
     tech: ['Python', 'Scikit-learn', 'K-Means', 'PCA', 'Pandas', 'Seaborn'],
     category: 'Machine Learning',
     color: 'cyan',
@@ -216,7 +216,7 @@ export const projects: Project[] = [
     name: 'Music-Genre-Classification-USING-KNN-and-CNN',
     title: 'Music Genre Classification',
     description:
-      'Audio classification system that identifies music genres using both K-Nearest Neighbors (KNN) and Convolutional Neural Network (CNN) architectures. Demonstrates comparison of traditional ML vs deep learning for audio feature classification.',
+      'Ten-genre classification on the GTZAN dataset, comparing a tuned K-Nearest Neighbors model on audio descriptors (52.5% test accuracy) with a CNN on Mel spectrograms (53.5%), against a 10% chance baseline.',
     tech: ['Python', 'KNN', 'CNN', 'Librosa', 'TensorFlow', 'Keras', 'Jupyter'],
     category: 'Deep Learning',
     color: 'fuchsia',
@@ -230,8 +230,8 @@ export const projects: Project[] = [
     name: 'NPS-Driven-Strategy-for-Aviation',
     title: 'NPS-Driven Aviation Strategy',
     description:
-      'Data-driven business strategy analysis for the aviation sector using Net Promoter Score (NPS) methodologies. Derives actionable insights from passenger satisfaction data to guide airline operational and customer experience improvements.',
-    tech: ['Python', 'Pandas', 'Matplotlib', 'Seaborn', 'Jupyter', 'Statistics'],
+      'Finds which service touchpoints drive Net Promoter Score across 73K airline survey responses: correlation, VIF and RFE feature selection, then Random Forest and XGBoost models (test R² 0.72) with SHAP to rank touchpoints.',
+    tech: ['Python', 'Scikit-learn', 'XGBoost', 'SHAP', 'Pandas', 'Jupyter'],
     category: 'Data & Analytics',
     color: 'slate',
     github: 'https://github.com/Akshatb848/NPS-Driven-Strategy-for-Aviation',
@@ -312,12 +312,12 @@ export const experiences: Experience[] = [
     period: 'Oct 2025 – Jan 2026',
     location: 'New Delhi',
     color: 'purple',
-    description: 'Predictive modelling and NLP pipelines for business forecasting and text analytics.',
+    description: 'Forecasting, classification and anomaly-detection projects in Python.',
     bullets: [
-      'Built predictive ML models using Python, TensorFlow and Scikit-learn, achieving 92%+ accuracy on business forecasting tasks.',
-      'Implemented BERT-based NLP pipelines for text classification and sentiment analysis across 100K+ records with validation checks.',
+      'Built a next-day TCS stock-price forecaster with engineered technical indicators and time-series cross-validation (RidgeCV, hold-out MAPE 1.23%), benchmarked against Random Forest, XGBoost, CatBoost and an LSTM.',
+      'Built TF-IDF text classification for 8.5K customer-support tickets, a donor-retention classifier (ROC-AUC 0.77) and an Isolation Forest web-traffic anomaly detector, with documented baselines and limitations.',
     ],
-    tech: ['Python', 'TensorFlow', 'Scikit-learn', 'BERT', 'NLP'],
+    tech: ['Python', 'Scikit-learn', 'XGBoost', 'TensorFlow', 'NLP'],
     githubRepo: 'https://github.com/Akshatb848/UNIFIED-MENTOR',
   },
   {
@@ -449,7 +449,7 @@ export const skillGroups: SkillGroup[] = [
       { name: 'TensorFlow / Keras', match: ['TensorFlow', 'Keras'] },
       { name: 'PyTorch', match: ['PyTorch'] },
       { name: 'Scikit-learn', match: ['Scikit-learn', 'Random Forest', 'K-Means', 'KNN'] },
-      { name: 'NLP & BERT', match: ['BERT', 'NLP'] },
+      { name: 'NLP & text classification', match: ['NLP', 'BERT'] },
       { name: 'Computer vision & CNNs', match: ['OpenCV', 'VGG-16', 'ResNet-50', 'CNN'] },
       { name: 'Time series & forecasting', match: ['Prophet'] },
       { name: 'Explainability (SHAP)', match: ['SHAP'] },
