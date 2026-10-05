@@ -165,7 +165,12 @@ export function ProjectCarousel({
   const [userPaused, setUserPaused] = useState(false);
   const [compact, setCompact] = useState(false);
   const [inView, setInView] = useState(false);
-  const reduced = useReducedMotion();
+  // The OS motion preference is unknown during server rendering, so only apply it after
+  // mount; reading it during hydration made the pause button's label mismatch.
+  const prefersReduced = useReducedMotion();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const reduced = mounted && !!prefersReduced;
   const rootRef = useRef<HTMLElement>(null);
 
   const go = useCallback((i: number) => setActive(((i % n) + n) % n), [n]);
