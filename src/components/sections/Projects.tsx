@@ -63,7 +63,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             href={project.github}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={`${project.title} on GitHub`}
+            aria-label={`Code for ${project.title} on GitHub`}
             className="flex items-center gap-1.5 min-h-11 px-3.5 text-xs font-semibold rounded-lg border border-border hover:border-foreground/40 text-foreground transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
           >
             <Github className="w-3.5 h-3.5" aria-hidden="true" />

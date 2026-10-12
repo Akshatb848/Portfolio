@@ -5,6 +5,8 @@ import { ThemeProvider } from '@/components/providers/ThemeProvider';
 import { MotionProvider } from '@/components/providers/MotionProvider';
 import { site } from '@/lib/site';
 import { motionInitScript } from '@/lib/motion';
+import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
 const mono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono', display: 'swap' });
@@ -104,6 +106,9 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <MotionProvider>{children}</MotionProvider>
         </ThemeProvider>
+        {/* Cookieless, privacy-friendly visit and Core Web Vitals metrics (enable in Vercel). */}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

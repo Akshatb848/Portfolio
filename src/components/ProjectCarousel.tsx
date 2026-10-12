@@ -123,7 +123,7 @@ function Slide({
             href={project.github}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={`${project.title} on GitHub`}
+            aria-label={`View ${project.title} on GitHub`}
             tabIndex={isActive ? undefined : -1}
             className="mt-auto self-start flex items-center gap-2 min-h-11 px-4 text-sm font-semibold rounded-lg bg-foreground text-background hover:opacity-90 transition-opacity focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400 focus-visible:ring-offset-2 focus-visible:ring-offset-card"
           >
@@ -133,7 +133,7 @@ function Slide({
         ) : (
           <a
             href="#contact"
-            aria-label={`Ask about ${project.title}`}
+            aria-label={`Ask for a walkthrough of ${project.title}`}
             tabIndex={isActive ? undefined : -1}
             className="mt-auto self-start flex items-center gap-2 min-h-11 px-4 text-sm font-semibold rounded-lg border border-border text-foreground hover:border-foreground/40 transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
           >
