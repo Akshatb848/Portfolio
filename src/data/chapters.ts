@@ -6,6 +6,7 @@ export const chapters = [
   { id: 'about', label: 'About' },
   { id: 'systems', label: 'Systems' },
   { id: 'skills', label: 'Skills' },
+  { id: 'toolkit', label: 'Toolkit' },
   { id: 'projects', label: 'Projects' },
   { id: 'experience', label: 'Experience' },
   { id: 'github', label: 'GitHub' },

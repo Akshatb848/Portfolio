@@ -17,6 +17,9 @@ A world-class, production-grade personal portfolio website for Akshat Banga, an 
 
 - **Cinematic 3D hero**: a Three.js neural network with signal pulses travelling along its connections, pointer parallax and a scroll-driven camera dolly. It pauses off-screen, stays static under reduced motion, and falls back gracefully without WebGL.
 - **Chapters**: eight numbered chapters shared by the navbar, a fixed chapter rail (wide screens) and section headings, plus a scroll progress bar
+- **Pixel-tower hero**: the hero image is rebuilt from thousands of glowing 3D bars (one instanced Three.js draw call) that rise in on load and burst into particles as you scroll. Drop a head-and-shoulders photo at `public/portrait.jpg` (or `.png`/`.webp`) and the hero switches to a 3D relief of it, with the headline beside it on wide screens; without one it shows a generated terrain
+- **AI Toolkit**: floating 3D tiles for the tools used in real projects; pick one to see what it was used for and jump to the evidence
+- **Decoding text and HUD**: section labels and the headline decode from random glyphs, and a corner readout shows the current chapter and progress
 - **Systems in motion**: interactive pipeline simulations (grounded RAG, AI deal-intake automation, AI governance audit) with play/pause/step, what-if switches and a live log, each linked to the project or role it is based on
 - **Skill flashcards**: flip cards that list the projects and roles where each skill was used; links jump to the matching project slide or role
 - **Project carousel**: 3D coverflow of featured projects with swipe, keyboard, autoplay (pausable, off under reduced motion), deep links (`/#project-3`) and generative cover art; filterable grid for the rest

@@ -6,6 +6,7 @@ import assets from '@/data/assets.generated.json';
 import { getGitHubData } from '@/lib/github';
 import { ScrollProgress } from '@/components/ScrollProgress';
 import { ChapterRail } from '@/components/ChapterRail';
+import { HudReadout } from '@/components/HudReadout';
 
 const AboutSection = dynamic(() =>
   import('@/components/sections/About').then((m) => ({ default: m.AboutSection }))
@@ -15,6 +16,9 @@ const SystemsSection = dynamic(() =>
 );
 const SkillsSection = dynamic(() =>
   import('@/components/sections/Skills').then((m) => ({ default: m.SkillsSection }))
+);
+const ToolkitSection = dynamic(() =>
+  import('@/components/sections/Toolkit').then((m) => ({ default: m.ToolkitSection }))
 );
 const ProjectsSection = dynamic(() =>
   import('@/components/sections/Projects').then((m) => ({ default: m.ProjectsSection }))
@@ -48,11 +52,13 @@ export default async function Home() {
       <ScrollProgress />
       <Navbar resumeUrl={resumeUrl} />
       <ChapterRail />
+      <HudReadout />
       <main id="main-content" className="relative min-h-screen bg-background overflow-x-hidden">
-        <HeroSection resumeUrl={resumeUrl} />
+        <HeroSection resumeUrl={resumeUrl} portrait={assets.portrait ?? null} />
         <AboutSection />
         <SystemsSection />
         <SkillsSection />
+        <ToolkitSection />
         <ProjectsSection availableVideos={availableVideos} availablePosters={availablePosters} />
         <ExperienceSection />
         <GitHubSection data={github} />

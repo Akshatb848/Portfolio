@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { chapterNumber, type ChapterId } from '@/data/chapters';
+import { ScrambleText } from '@/components/ScrambleText';
 
 /** Shared cinematic section header: chapter number, eyebrow, title and an optional aside. */
 export function SectionHeading({
@@ -38,7 +39,7 @@ export function SectionHeading({
           aria-hidden="true"
         />
         <span className="text-xs font-semibold tracking-widest uppercase text-violet-700 dark:text-violet-400 font-mono">
-          {eyebrow}
+          <ScrambleText text={eyebrow} />
         </span>
       </div>
       <div
