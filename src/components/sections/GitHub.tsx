@@ -34,7 +34,9 @@ export function GitHubSection({ data }: { data: GitHubData }) {
   const stats = [
     { icon: Code2, label: 'Public repositories', value: String(repos.length) },
     { icon: BookOpen, label: 'Primary language', value: primary },
-    { icon: Clock, label: 'Last push', value: lastPush ? fmtDate(lastPush) : 'See GitHub' },
+    lastPush
+      ? { icon: Clock, label: 'Last push', value: fmtDate(lastPush) }
+      : { icon: Clock, label: 'Languages used', value: String(languages.length) },
   ];
 
   return (

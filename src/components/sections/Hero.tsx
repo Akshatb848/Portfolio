@@ -4,6 +4,8 @@ import { m, useScroll, useTransform, useSpring } from 'framer-motion';
 import { ArrowDown, FileText, Github, Instagram, Linkedin, Mail, Terminal } from 'lucide-react';
 import { site } from '@/lib/site';
 import { ScrambleText } from '@/components/ScrambleText';
+import { BrollVideo } from '@/components/BrollVideo';
+import { assets } from '@/lib/assets';
 
 
 // ─── Hero Section ─────────────────────────────────────────────────────────────
@@ -20,6 +22,14 @@ export function HeroSection({ resumeUrl, portrait }: { resumeUrl: string | null;
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
 
       {/* The pixel-tower field is the page-wide VoxelWorld behind this section (see page.tsx). */}
+
+      {/* Optional b-roll loop (public/broll/hero.webm), blended into the field below the headline */}
+      {assets.broll.hero && (
+        <BrollVideo
+          clip={assets.broll.hero}
+          className="absolute inset-0 w-full h-full opacity-40 mix-blend-screen [mask-image:linear-gradient(to_bottom,transparent_20%,black_70%)]"
+        />
+      )}
 
       {/* Scrim so the headline stays readable over the field */}
       <div

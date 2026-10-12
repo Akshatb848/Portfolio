@@ -1,14 +1,12 @@
 'use client';
 
-import { useRef } from 'react';
-import { m, useScroll, useTransform } from 'framer-motion';
+import { m } from 'framer-motion';
 import { chapterNumber, type ChapterId } from '@/data/chapters';
 import { ScrambleText } from '@/components/ScrambleText';
 
 /**
- * Shared cinematic section header: chapter number, decoding eyebrow, a title that slides up
- * from behind a mask, and a giant outlined chapter word that drifts sideways with scroll
- * (kinetic typography). The drifting word is decorative.
+ * Shared cinematic section header: chapter number, decoding eyebrow and a title that slides
+ * up from behind a mask. The big kinetic type lives in the scene cuts between chapters.
  */
 export function SectionHeading({
   chapter,
@@ -25,22 +23,8 @@ export function SectionHeading({
   children?: React.ReactNode;
   center?: boolean;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
-  const drift = useTransform(scrollYProgress, [0, 1], center ? ['18%', '-18%'] : ['6%', '-26%']);
-
   return (
-    <div ref={ref} className={`relative mb-12 ${center ? 'text-center' : ''}`}>
-      <m.span
-        aria-hidden="true"
-        style={{ x: drift }}
-        className={`outline-word pointer-events-none select-none absolute -top-10 sm:-top-16 whitespace-nowrap text-[22vw] sm:text-[15vw] lg:text-[11rem] font-black uppercase leading-none tracking-tighter -z-10 ${
-          center ? 'left-1/2 -translate-x-1/2' : '-left-2'
-        }`}
-      >
-        {eyebrow}
-      </m.span>
-
+    <div className={`relative mb-12 ${center ? 'text-center' : ''}`}>
       <m.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}

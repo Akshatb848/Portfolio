@@ -69,6 +69,24 @@ function Flashcard({ skill, t, index }: { skill: Skill; t: Tone; index: number }
         >
           <span className={`font-mono text-[11px] tracking-widest uppercase ${t.text}`}>Skill</span>
           <span className="mt-2 text-lg font-bold text-foreground leading-snug">{skill.name}</span>
+          {/* Evidence strip: one cell per project (filled) or role (outlined) that used this skill */}
+          <span className="mt-4 flex flex-wrap gap-1.5" aria-hidden="true">
+            {evidence.map((e, i) => (
+              <m.span
+                key={e.href}
+                className="h-2.5 w-5 rounded-full border"
+                style={
+                  e.kind === 'role'
+                    ? { borderColor: t.hex }
+                    : { backgroundColor: t.hex, borderColor: t.hex, boxShadow: `0 0 8px ${t.hex}66` }
+                }
+                initial={{ scaleX: 0, opacity: 0 }}
+                whileInView={{ scaleX: 1, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.35, delay: 0.2 + i * 0.06 }}
+              />
+            ))}
+          </span>
           <span className="mt-auto pt-6 flex items-end justify-between gap-2">
             <span className="text-sm text-muted-foreground">{summary}</span>
             <span className={`flex items-center gap-1 text-xs font-semibold ${t.text}`}>

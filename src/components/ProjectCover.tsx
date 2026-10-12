@@ -1,5 +1,6 @@
 import type { Project } from '@/data/portfolio';
 import { tone } from '@/lib/tones';
+import { assets } from '@/lib/assets';
 
 // Small deterministic PRNG so each project always gets the same artwork (and SSR matches CSR).
 function mulberry32(seed: number) {
@@ -13,8 +14,9 @@ function mulberry32(seed: number) {
 }
 
 /**
- * Generative cover art: a small network graph in the project's colour, drawn from a seed.
- * Purely decorative (aria-hidden); it stands in until real screenshots or clips exist.
+ * Cover art. Uses the illustrated cover in public/covers/<id>.svg when there is one (slow
+ * drift plus a scanning light sweep), otherwise a generative network graph in the project's
+ * colour, drawn from a seed. Purely decorative (aria-hidden).
  */
 export function ProjectCover({ project, className = '' }: { project: Project; className?: string }) {
   const rand = mulberry32(project.id * 9973);
@@ -39,6 +41,24 @@ export function ProjectCover({ project, className = '' }: { project: Project; cl
     .join('');
   const Icon = project.icon;
   const gid = `cover-${project.id}`;
+  const art = assets.covers[String(project.id)];
+
+  if (art) {
+    return (
+      <div
+        className={`cover-art relative w-full aspect-video overflow-hidden rounded-xl border border-border/60 bg-[#0b0f17] ${className}`}
+        aria-hidden="true"
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element -- static vector art, no optimisation needed */}
+        <img src={art} alt="" loading="lazy" decoding="async" className="cover-drift absolute inset-0 w-full h-full object-cover" />
+        <span className="cover-sweep absolute inset-0" style={{ ['--sweep' as string]: hex }} />
+        <span className="absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-t from-[#0b0f17]/90 to-transparent" />
+        <span className="absolute left-3 bottom-2.5 font-mono text-[10px] tracking-widest uppercase text-white/80">
+          {project.category}
+        </span>
+      </div>
+    );
+  }
 
   return (
     <div

@@ -9,7 +9,7 @@ import { ChapterRail } from '@/components/ChapterRail';
 import { HudReadout } from '@/components/HudReadout';
 import { WorldLayer } from '@/components/WorldLayer';
 import { PointerFX } from '@/components/PointerFX';
-import { Marquee } from '@/components/Marquee';
+import { SceneCut } from '@/components/SceneCut';
 
 const AboutSection = dynamic(() =>
   import('@/components/sections/About').then((m) => ({ default: m.AboutSection }))
@@ -61,21 +61,49 @@ export default async function Home() {
       <main id="main-content" className="relative z-1 min-h-screen overflow-x-hidden">
         <HeroSection resumeUrl={resumeUrl} portrait={assets.portrait ?? null} />
         <AboutSection />
-        <Marquee
-          top={['AI Generalist', 'Low-code / No-code AI', 'Multi-agent systems', 'RAG', 'Automation']}
-          bottom={['LangGraph', 'n8n', 'Claude', 'Hugging Face', 'FastAPI', 'Ollama', 'Streamlit']}
+        <SceneCut
+          to="systems"
+          slot="systems"
+          motif="streams"
+          rows={[
+            ['AI Generalist', 'Low-code / No-code AI', 'Multi-agent', 'RAG', 'Automation'],
+            ['LangGraph', 'n8n', 'Claude', 'Hugging Face', 'FastAPI', 'Ollama'],
+          ]}
         />
         <SystemsSection />
         <SkillsSection />
         <ToolkitSection />
+        <SceneCut
+          to="projects"
+          slot="projects"
+          motif="blueprint"
+          rows={[
+            ['Built', 'Shipped', 'Measured', 'Open source'],
+            ['Agents', 'Dashboards', 'Classifiers', 'Forecasts'],
+          ]}
+        />
         <ProjectsSection availableVideos={availableVideos} availablePosters={availablePosters} />
-        <Marquee
-          top={['Built', 'Shipped', 'Measured', 'Documented', 'Open source']}
-          bottom={['Deloitte', 'YourNest VC', 'Jio Platforms', 'Unified Mentor', 'C-DOT']}
+        <SceneCut
+          to="experience"
+          slot="experience"
+          motif="towers"
+          rows={[
+            ['Deloitte', 'YourNest VC', 'Jio Platforms', 'Unified Mentor', 'C-DOT'],
+            ['Strategy', 'Transformation', 'Delivery', 'Impact'],
+          ]}
         />
         <ExperienceSection />
         <GitHubSection data={github} />
         <EducationSection />
+        <SceneCut
+          to="contact"
+          slot="contact"
+          motif="converge"
+          rows={[
+            ['Hiring?', 'Building?', 'Automating?'],
+            ["Let's talk", 'AI transformation', 'Agents', 'RAG'],
+          ]}
+        />
         <ContactSection resumeUrl={resumeUrl} />
       </main>
       <Footer />
