@@ -112,16 +112,19 @@ function Node({ node, state, hex }: { node: SimNode; state: 'done' | 'active' | 
   );
 }
 
-function Connector({ live, hex }: { live: boolean; hex: string }) {
+function Connector({ live, done, hex }: { live: boolean; done: boolean; hex: string }) {
   return (
-    <div className="relative shrink-0 w-px h-5 mx-auto md:w-6 md:h-px md:mx-0 md:self-center bg-border" aria-hidden="true">
+    <div
+      className="relative shrink-0 w-0.5 h-6 mx-auto md:w-8 md:h-0.5 md:mx-0 md:self-center rounded-full bg-border"
+      aria-hidden="true"
+    >
+      {done && (
+        <span className="flow-line absolute inset-0 rounded-full opacity-80" style={{ ['--flow' as string]: hex }} />
+      )}
       {live && (
-        <m.span
-          className="absolute w-2 h-2 rounded-full -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 md:left-0"
-          style={{ backgroundColor: hex, boxShadow: `0 0 10px ${hex}` }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: [0, 1, 0] }}
-          transition={{ duration: STEP_MS / 1000, repeat: Infinity }}
+        <span
+          className="packet absolute w-2.5 h-2.5 rounded-full -translate-x-1/2 -translate-y-1/2"
+          style={{ backgroundColor: hex, boxShadow: `0 0 12px 2px ${hex}`, ['--dur' as string]: `${STEP_MS / 1000}s` }}
         />
       )}
     </div>
@@ -327,7 +330,7 @@ export function SystemsSection() {
               const state = i < step ? 'done' : i === step ? 'active' : 'pending';
               return (
                 <li key={`${scenarioId}-${toggled}-${node.id}`} className="flex flex-col md:flex-row md:flex-1 min-w-0">
-                  {i > 0 && <Connector live={i === step && playing} hex={t.hex} />}
+                  {i > 0 && <Connector live={i === step && playing} done={i < step} hex={t.hex} />}
                   <Node node={node} state={state} hex={t.hex} />
                 </li>
               );

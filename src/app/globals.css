@@ -381,3 +381,130 @@ html[data-motion='off'] *::after {
 html[data-motion='off'] .fx-tilt {
   transform: none;
 }
+
+/* Illustrated project covers: slow drift plus a light sweep, like a scanner passing over */
+@keyframes cover-drift {
+  from {
+    transform: scale(1.04) translate3d(-1%, 0, 0);
+  }
+  to {
+    transform: scale(1.1) translate3d(1%, -1%, 0);
+  }
+}
+.cover-drift {
+  animation: cover-drift 14s ease-in-out infinite alternate;
+}
+@keyframes cover-sweep {
+  0%,
+  55% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(120%);
+  }
+}
+.cover-sweep {
+  background: linear-gradient(100deg, transparent 35%, color-mix(in srgb, var(--sweep) 28%, transparent) 50%, transparent 65%);
+  mix-blend-mode: screen;
+  animation: cover-sweep 6s ease-in-out infinite;
+}
+
+/* Systems pipeline: data flowing along finished links, and a packet on the live one */
+@keyframes flow-x {
+  to {
+    background-position: 16px 0;
+  }
+}
+@keyframes flow-y {
+  to {
+    background-position: 0 16px;
+  }
+}
+.flow-line {
+  background: repeating-linear-gradient(90deg, var(--flow) 0 6px, transparent 6px 16px);
+  animation: flow-x 0.6s linear infinite;
+}
+@keyframes packet-x {
+  from {
+    left: 0%;
+  }
+  to {
+    left: 100%;
+  }
+}
+@keyframes packet-y {
+  from {
+    top: 0%;
+  }
+  to {
+    top: 100%;
+  }
+}
+.packet {
+  left: 50%;
+  animation: packet-y var(--dur, 0.9s) cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+@media (max-width: 767px) {
+  .flow-line {
+    background: repeating-linear-gradient(180deg, var(--flow) 0 6px, transparent 6px 16px);
+    animation-name: flow-y;
+  }
+}
+@media (min-width: 768px) {
+  .packet {
+    left: 0;
+    top: 50%;
+    animation-name: packet-x;
+  }
+}
+
+/* Scene-cut vector motion graphics */
+@keyframes dash-flow {
+  to {
+    stroke-dashoffset: -260;
+  }
+}
+.dash-flow {
+  stroke-dasharray: 4 22;
+  animation: dash-flow 3s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spin-slow,
+.spin-rev {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: spin 40s linear infinite;
+}
+.spin-rev {
+  animation-direction: reverse;
+  animation-duration: 28s;
+}
+@keyframes node-blink {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.node-blink {
+  animation: node-blink 3s ease-in-out infinite;
+}
+@keyframes tower {
+  from {
+    transform: scaleY(0.35);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+.tower {
+  transform-box: fill-box;
+  transform-origin: bottom;
+  animation: tower 3.2s ease-in-out infinite alternate;
+}
