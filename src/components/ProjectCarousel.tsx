@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { motion, useReducedMotion, type PanInfo } from 'framer-motion';
+import { m, useReducedMotion, type PanInfo } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Github, Mail, Pause, Play } from 'lucide-react';
 import { featuredProjects, languageColors, type Project } from '@/data/portfolio';
 import { tone } from '@/lib/tones';
@@ -46,7 +46,7 @@ function Slide({
   const visible = abs <= (compact ? 1 : 2);
 
   return (
-    <motion.div
+    <m.div
       id={`project-${project.id}`}
       role="group"
       aria-roledescription="slide"
@@ -141,7 +141,7 @@ function Slide({
           </a>
         )}
       </article>
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -246,7 +246,7 @@ export function ProjectCarousel({
       }}
     >
       {/* Stage */}
-      <motion.div
+      <m.div
         className="relative grid items-stretch py-2 touch-pan-y"
         style={{ perspective: 1400 }}
         drag="x"
@@ -268,7 +268,7 @@ export function ProjectCarousel({
             onSelect={() => go(i)}
           />
         ))}
-      </motion.div>
+      </m.div>
 
       {/* Controls */}
       <div className="mt-6 flex flex-col items-center gap-4">
@@ -327,7 +327,7 @@ export function ProjectCarousel({
                 <Icon className="w-3.5 h-3.5" aria-hidden="true" />
                 <span className="hidden sm:inline max-w-44 truncate">{p.title}</span>
                 {on && autoplay && (
-                  <motion.span
+                  <m.span
                     key={`progress-${active}`}
                     className={`absolute left-0 bottom-0 h-0.5 ${t.dot}`}
                     initial={{ width: '0%' }}

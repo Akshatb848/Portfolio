@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { motion, AnimatePresence, useInView, useReducedMotion } from 'framer-motion';
+import { m, AnimatePresence, useInView, useReducedMotion } from 'framer-motion';
 import { AlertTriangle, Check, Pause, Play, RotateCcw, StepForward, Terminal } from 'lucide-react';
 import { scenarios, type Scenario, type SimNode } from '@/data/simulations';
 import { experiences, projectById } from '@/data/portfolio';
@@ -40,7 +40,7 @@ function SignalChart({ faulty, detected, running }: { faulty: boolean; detected:
         {faulty && detected && (
           <rect x={(44 / 59) * W - 6} y="0" width={((52 - 44) / 59) * W + 12} height={H} className="fill-amber-500/15" />
         )}
-        <motion.path
+        <m.path
           d={d}
           fill="none"
           stroke="#06b6d4"
@@ -52,7 +52,7 @@ function SignalChart({ faulty, detected, running }: { faulty: boolean; detected:
         />
       </svg>
       {running && (
-        <motion.span
+        <m.span
           className="absolute top-0 bottom-0 w-px bg-cyan-400/50"
           initial={{ left: '0%' }}
           animate={{ left: '100%' }}
@@ -68,7 +68,7 @@ function SignalChart({ faulty, detected, running }: { faulty: boolean; detected:
 function Node({ node, state, hex }: { node: SimNode; state: 'done' | 'active' | 'pending'; hex: string }) {
   const warn = state === 'done' && node.outcome === 'warn';
   return (
-    <motion.div
+    <m.div
       layout
       className={`relative flex-1 min-w-0 rounded-xl border p-3 transition-colors duration-300 ${
         state === 'pending' ? 'border-border/60 bg-card/60' : 'bg-card'
@@ -92,7 +92,7 @@ function Node({ node, state, hex }: { node: SimNode; state: 'done' | 'active' | 
           {state === 'done' ? (
             warn ? <AlertTriangle className="w-3.5 h-3.5" /> : <Check className="w-3.5 h-3.5" />
           ) : state === 'active' ? (
-            <motion.span
+            <m.span
               className="w-2 h-2 rounded-full bg-white"
               animate={{ opacity: [1, 0.3, 1] }}
               transition={{ duration: 1, repeat: Infinity }}
@@ -107,7 +107,7 @@ function Node({ node, state, hex }: { node: SimNode; state: 'done' | 'active' | 
       <span className="sr-only">
         {state === 'done' ? (warn ? 'Completed with a warning' : 'Completed') : state === 'active' ? 'Running' : 'Waiting'}
       </span>
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -115,7 +115,7 @@ function Connector({ live, hex }: { live: boolean; hex: string }) {
   return (
     <div className="relative shrink-0 w-px h-5 mx-auto md:w-6 md:h-px md:mx-0 md:self-center bg-border" aria-hidden="true">
       {live && (
-        <motion.span
+        <m.span
           className="absolute w-2 h-2 rounded-full -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 md:left-0"
           style={{ backgroundColor: hex, boxShadow: `0 0 10px ${hex}` }}
           initial={{ opacity: 0 }}
@@ -300,7 +300,7 @@ export function SystemsSection() {
                 className={`relative w-10 h-6 rounded-full shrink-0 transition-colors ${toggled ? 'bg-amber-600' : 'bg-muted'}`}
                 aria-hidden="true"
               >
-                <motion.span
+                <m.span
                   className="absolute top-1 left-1 w-4 h-4 rounded-full bg-white shadow-sm"
                   animate={{ x: toggled ? 16 : 0 }}
                   transition={{ type: 'spring', stiffness: 500, damping: 30 }}
@@ -343,7 +343,7 @@ export function SystemsSection() {
                 <ol className="space-y-1">
                   <AnimatePresence initial={false}>
                     {logs.map((n, i) => (
-                      <motion.li
+                      <m.li
                         key={`${scenarioId}-${toggled}-${n.id}`}
                         initial={{ opacity: 0, x: -8 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -357,7 +357,7 @@ export function SystemsSection() {
                       >
                         <span className="text-slate-400">[{String(i + 1).padStart(2, '0')}] </span>
                         {n.log}
-                      </motion.li>
+                      </m.li>
                     ))}
                   </AnimatePresence>
                   {logs.length === 0 && <li className="text-slate-400">Waiting to start…</li>}

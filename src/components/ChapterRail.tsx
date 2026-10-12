@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { chapters, chapterNumber } from '@/data/chapters';
 import { useActiveChapter } from '@/lib/useActiveChapter';
 
@@ -38,7 +38,7 @@ export function ChapterRail() {
                 <span className="relative w-6 flex justify-center" aria-hidden="true">
                   <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground/50 group-hover:bg-foreground transition-colors" />
                   {on && (
-                    <motion.span
+                    <m.span
                       layoutId="chapter-dot"
                       className="absolute top-[-3px] w-3 h-3 rounded-full border-2 border-violet-500 bg-background"
                       transition={{ type: 'spring', stiffness: 400, damping: 32 }}

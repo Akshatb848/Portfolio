@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { m, useScroll, useTransform } from 'framer-motion';
 import { chapterNumber, type ChapterId } from '@/data/chapters';
 import { ScrambleText } from '@/components/ScrambleText';
 
@@ -31,7 +31,7 @@ export function SectionHeading({
 
   return (
     <div ref={ref} className={`relative mb-12 ${center ? 'text-center' : ''}`}>
-      <motion.span
+      <m.span
         aria-hidden="true"
         style={{ x: drift }}
         className={`outline-word pointer-events-none select-none absolute -top-10 sm:-top-16 whitespace-nowrap text-[22vw] sm:text-[15vw] lg:text-[11rem] font-black uppercase leading-none tracking-tighter -z-10 ${
@@ -39,9 +39,9 @@ export function SectionHeading({
         }`}
       >
         {eyebrow}
-      </motion.span>
+      </m.span>
 
-      <motion.div
+      <m.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true, margin: '-80px' }}
@@ -49,7 +49,7 @@ export function SectionHeading({
         className={`flex items-center gap-3 mb-4 ${center ? 'justify-center' : ''}`}
       >
         <span className="font-mono text-xs text-muted-foreground tabular-nums">{chapterNumber(chapter)}</span>
-        <motion.span
+        <m.span
           className="h-px w-12 bg-linear-to-r from-violet-500 to-cyan-500 origin-left"
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
@@ -60,14 +60,14 @@ export function SectionHeading({
         <span className="text-xs font-semibold tracking-widest uppercase text-violet-700 dark:text-violet-400 font-mono">
           <ScrambleText text={eyebrow} />
         </span>
-      </motion.div>
+      </m.div>
       <div
         className={`flex flex-col sm:flex-row sm:items-end gap-4 ${
           center ? 'items-center sm:justify-center' : 'justify-between'
         }`}
       >
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight overflow-hidden pb-1">
-          <motion.span
+          <m.span
             className="block"
             initial={{ y: '110%', rotate: 2 }}
             whileInView={{ y: '0%', rotate: 0 }}
@@ -75,28 +75,28 @@ export function SectionHeading({
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           >
             {title}
-          </motion.span>
+          </m.span>
         </h2>
         {aside && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
             {aside}
-          </motion.div>
+          </m.div>
         )}
       </div>
       {children && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           {children}
-        </motion.div>
+        </m.div>
       )}
     </div>
   );

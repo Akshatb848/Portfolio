@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { useTheme } from 'next-themes';
 import { Moon, Sun, Menu, X, Code2, FileText } from 'lucide-react';
 import { chapters } from '@/data/chapters';
@@ -63,7 +63,7 @@ export function Navbar({ resumeUrl }: { resumeUrl: string | null }) {
 
   return (
     <>
-      <motion.nav
+      <m.nav
         aria-label="Main"
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -109,7 +109,7 @@ export function Navbar({ resumeUrl }: { resumeUrl: string | null }) {
                     }`}
                   >
                     {active && (
-                      <motion.span
+                      <m.span
                         layoutId="activeNav"
                         className="absolute inset-0 rounded-md bg-violet-500/10"
                         transition={{ duration: 0.2 }}
@@ -169,12 +169,12 @@ export function Navbar({ resumeUrl }: { resumeUrl: string | null }) {
             </div>
           </div>
         </div>
-      </motion.nav>
+      </m.nav>
 
       {/* Mobile menu */}
       <AnimatePresence>
         {mobileOpen && (
-          <motion.div
+          <m.div
             id="mobile-menu"
             ref={mobileMenuRef}
             initial={{ opacity: 0, y: -10 }}
@@ -206,7 +206,7 @@ export function Navbar({ resumeUrl }: { resumeUrl: string | null }) {
                 </a>
               )}
             </nav>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Mail, Linkedin, Github, Instagram, FileText, Copy, Check, ArrowUpRight } from 'lucide-react';
 import { site } from '@/lib/site';
 import { SectionHeading } from '@/components/SectionHeading';
@@ -31,7 +31,7 @@ export function ContactSection({ resumeUrl }: { resumeUrl: string | null }) {
   return (
     <section id="contact" className="section-padding relative overflow-hidden">
       <div className="container-max">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
@@ -101,7 +101,7 @@ export function ContactSection({ resumeUrl }: { resumeUrl: string | null }) {
               </a>
             ))}
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

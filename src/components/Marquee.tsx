@@ -1,16 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import {
-  motion,
-  useAnimationFrame,
-  useMotionValue,
-  useReducedMotion,
-  useScroll,
-  useSpring,
-  useTransform,
-  useVelocity,
-} from 'framer-motion';
+import { m, useAnimationFrame, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform, useVelocity } from 'framer-motion';
 
 const wrap = (min: number, max: number, v: number) => {
   const range = max - min;
@@ -53,10 +44,10 @@ function Row({ items, baseVelocity, outline }: { items: string[]; baseVelocity: 
 
   return (
     <div className="overflow-hidden whitespace-nowrap">
-      <motion.div style={{ x, skewX: reduced ? 0 : skew }} className="flex w-max text-5xl sm:text-7xl font-black uppercase tracking-tight leading-tight">
+      <m.div style={{ x, skewX: reduced ? 0 : skew }} className="flex w-max text-5xl sm:text-7xl font-black uppercase tracking-tight leading-tight">
         <div className="flex">{line}</div>
         <div className="flex">{line}</div>
-      </motion.div>
+      </m.div>
     </div>
   );
 }

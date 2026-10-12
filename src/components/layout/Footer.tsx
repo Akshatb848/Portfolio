@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Github, Linkedin, Instagram, Mail, Code2, Heart, ArrowUp } from 'lucide-react';
 import { site } from '@/lib/site';
 
@@ -20,7 +20,7 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="flex flex-col items-center gap-8">
           {/* Logo */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -34,10 +34,10 @@ export function Footer() {
               <span className="text-violet-700 dark:text-violet-400"> · </span>
               <span className="text-muted-foreground">AI Generalist</span>
             </span>
-          </motion.div>
+          </m.div>
 
           {/* Social links */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -55,10 +55,10 @@ export function Footer() {
                 <link.icon className="w-5 h-5" aria-hidden="true" />
               </a>
             ))}
-          </motion.div>
+          </m.div>
 
           {/* Copyright */}
-          <motion.p
+          <m.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -68,7 +68,7 @@ export function Footer() {
             <span>© {new Date().getFullYear()} Akshat Banga. Built with</span>
             <Heart className="w-3 h-3 text-red-500 fill-current" aria-label="love" />
             <span>and Next.js, TailwindCSS, Framer Motion</span>
-          </motion.p>
+          </m.p>
         </div>
       </div>
 

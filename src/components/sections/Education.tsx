@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { m, useInView } from 'framer-motion';
 import { GraduationCap, Award, MapPin } from 'lucide-react';
 import { education, certifications, languages } from '@/data/portfolio';
 import { SectionHeading } from '@/components/SectionHeading';
@@ -45,7 +45,7 @@ export function EducationSection() {
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Education */}
           <div>
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 10 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.1 }}
@@ -53,13 +53,13 @@ export function EducationSection() {
             >
               <GraduationCap className="w-5 h-5 text-violet-700 dark:text-violet-400" />
               <h3 className="text-lg font-bold text-foreground">Education</h3>
-            </motion.div>
+            </m.div>
 
             <div className="space-y-4">
               {education.map((edu, i) => {
                 const colors = colorMap[edu.color];
                 return (
-                  <motion.div
+                  <m.div
                     key={edu.institution}
                     initial={{ opacity: 0, y: 20 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -83,7 +83,7 @@ export function EducationSection() {
                         </div>
                       </div>
                     </div>
-                  </motion.div>
+                  </m.div>
                 );
               })}
             </div>
@@ -91,7 +91,7 @@ export function EducationSection() {
 
           {/* Certifications */}
           <div>
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 10 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.1 }}
@@ -102,11 +102,11 @@ export function EducationSection() {
               <span className="ml-auto text-xs px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-800 dark:text-amber-400 border border-amber-500/20">
                 {certifications.length}
               </span>
-            </motion.div>
+            </m.div>
 
             <div className="space-y-2">
               {certifications.map((cert, i) => (
-                <motion.div
+                <m.div
                   key={cert.name}
                   initial={{ opacity: 0, x: 15 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -120,7 +120,7 @@ export function EducationSection() {
                     </p>
                     <p className="text-xs text-muted-foreground">{cert.issuer}</p>
                   </div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
 
