@@ -81,7 +81,7 @@ export function GitHubSection({ data }: { data: GitHubData }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.06 }}
-              className="p-5 rounded-xl bg-card border border-border/60"
+              className="fx-card p-5 rounded-xl bg-card border border-border/60"
             >
               <s.icon className="w-5 h-5 text-violet-700 dark:text-violet-400 mb-3" aria-hidden="true" />
               <div className="text-2xl font-black text-foreground">{s.value}</div>
@@ -137,7 +137,7 @@ export function GitHubSection({ data }: { data: GitHubData }) {
                     href={repoUrl(repo.name, repo.url)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex flex-col h-full p-5 rounded-xl bg-card border border-border/60 hover:border-indigo-500/40 transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
+                    className="fx-card fx-tilt group flex flex-col h-full p-5 rounded-xl bg-card border border-border/60 hover:border-indigo-500/40 transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
                   >
                     <span className="flex items-start justify-between gap-2 mb-2">
                       <span className="text-sm font-semibold text-indigo-700 dark:text-indigo-400 break-all">

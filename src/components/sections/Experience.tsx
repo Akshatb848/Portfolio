@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { motion, useInView, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 import { Briefcase, MapPin, ChevronDown, CheckCircle2, ExternalLink } from 'lucide-react';
 import { experiences, type Experience } from '@/data/portfolio';
 import { tone } from '@/lib/tones';
@@ -29,7 +29,7 @@ function ExperienceCard({ exp, index }: { exp: Experience; index: number }) {
       </div>
 
       {/* Card */}
-      <div className={`flex-1 pb-8 mb-1 p-5 rounded-xl bg-card border ${t.border} ${t.hoverBorder} transition-colors duration-200`}>
+      <div className={`fx-card fx-tilt flex-1 pb-8 mb-1 p-5 rounded-xl bg-card border ${t.border} ${t.hoverBorder} transition-colors duration-200`}>
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-4 mb-3">
           <div className="flex items-start gap-3 min-w-0">
             {/* Company initial badge */}
@@ -113,6 +113,25 @@ function ExperienceCard({ exp, index }: { exp: Experience; index: number }) {
   );
 }
 
+/** Role cards with a glowing line that draws down the timeline as you scroll. */
+function TimelineList() {
+  const listRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: listRef, offset: ['start 75%', 'end 55%'] });
+  const scaleY = useSpring(scrollYProgress, { stiffness: 120, damping: 30, restDelta: 0.001 });
+  return (
+    <div ref={listRef} className="relative max-w-4xl">
+      <motion.div
+        aria-hidden="true"
+        style={{ scaleY }}
+        className="absolute left-[5.5px] top-3 bottom-10 w-px origin-top bg-linear-to-b from-violet-500 via-cyan-400 to-teal-400 shadow-[0_0_12px_rgb(34_211_238/0.6)]"
+      />
+      {experiences.map((exp, i) => (
+        <ExperienceCard key={exp.id} exp={exp} index={i} />
+      ))}
+    </div>
+  );
+}
+
 export function ExperienceSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
@@ -140,11 +159,7 @@ export function ExperienceSection() {
           }
         />
 
-        <div className="max-w-4xl">
-          {experiences.map((exp, i) => (
-            <ExperienceCard key={exp.id} exp={exp} index={i} />
-          ))}
-        </div>
+        <TimelineList />
       </div>
     </section>
   );

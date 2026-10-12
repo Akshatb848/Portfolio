@@ -323,3 +323,32 @@
     background-position: 100% 50%;
   }
 }
+
+/* Kinetic typography: outlined giant words behind section headings and in marquees */
+.outline-word {
+  color: transparent;
+  -webkit-text-stroke: 1px hsl(var(--foreground) / 0.07);
+}
+.outline-word-strong {
+  color: transparent;
+  -webkit-text-stroke: 1.5px hsl(var(--foreground) / 0.35);
+}
+
+/* Pointer spotlight + 3D tilt (driven by PointerFX via CSS variables) */
+.fx-card {
+  background-image: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 50%),
+    rgb(139 92 246 / calc(0.14 * var(--fx-o, 0))),
+    transparent 45%
+  );
+}
+.fx-tilt {
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.25s ease-out;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .fx-tilt {
+    transform: none;
+  }
+}

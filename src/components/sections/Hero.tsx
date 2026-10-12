@@ -1,13 +1,10 @@
 'use client';
 
-import dynamic from 'next/dynamic';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { ArrowDown, FileText, Github, Instagram, Linkedin, Mail, Terminal } from 'lucide-react';
 import { site } from '@/lib/site';
 import { ScrambleText } from '@/components/ScrambleText';
 
-// Three.js pixel-tower field — SSR disabled, loads client-only
-const PixelField = dynamic(() => import('@/components/PixelField'), { ssr: false });
 
 // ─── Hero Section ─────────────────────────────────────────────────────────────
 export function HeroSection({ resumeUrl, portrait }: { resumeUrl: string | null; portrait: string | null }) {
@@ -20,10 +17,9 @@ export function HeroSection({ resumeUrl, portrait }: { resumeUrl: string | null;
   const springY = useSpring(y, { stiffness: 100, damping: 30 });
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
 
-      {/* Three.js pixel-tower field (z-0, no pointer events); bursts apart on scroll */}
-      <PixelField portrait={portrait} />
+      {/* The pixel-tower field is the page-wide VoxelWorld behind this section (see page.tsx). */}
 
       {/* Scrim so the headline stays readable over the field */}
       <div

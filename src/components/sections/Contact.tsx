@@ -85,7 +85,7 @@ export function ContactSection({ resumeUrl }: { resumeUrl: string | null }) {
                 {...(link.href.startsWith('http')
                   ? { target: '_blank', rel: 'noopener noreferrer' }
                   : { download: true })}
-                className="group flex items-center gap-3 min-h-14 p-4 rounded-xl bg-card border border-border/60 hover:border-violet-500/40 text-left transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
+                className="fx-card fx-tilt group flex items-center gap-3 min-h-14 p-4 rounded-xl bg-card border border-border/60 hover:border-violet-500/40 text-left transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
               >
                 <span className="w-10 h-10 rounded-lg bg-violet-500/10 flex items-center justify-center shrink-0">
                   <link.icon className="w-5 h-5 text-violet-700 dark:text-violet-400" aria-hidden="true" />
