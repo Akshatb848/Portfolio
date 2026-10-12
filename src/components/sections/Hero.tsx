@@ -4,12 +4,16 @@ import dynamic from 'next/dynamic';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { ArrowDown, FileText, Github, Instagram, Linkedin, Mail, Terminal } from 'lucide-react';
 import { site } from '@/lib/site';
+import { ScrambleText } from '@/components/ScrambleText';
 
-// Three.js background — SSR disabled, loads client-only
-const AiBackground = dynamic(() => import('@/components/AiBackground'), { ssr: false });
+// Three.js pixel-tower field — SSR disabled, loads client-only
+const PixelField = dynamic(() => import('@/components/PixelField'), { ssr: false });
 
 // ─── Hero Section ─────────────────────────────────────────────────────────────
-export function HeroSection({ resumeUrl }: { resumeUrl: string | null }) {
+export function HeroSection({ resumeUrl, portrait }: { resumeUrl: string | null; portrait: string | null }) {
+  // With a portrait, wide screens split the hero: text left, pixel-tower face right.
+  const split = Boolean(portrait);
+  const lgLeft = split ? 'lg:justify-start' : '';
   const { scrollY } = useScroll();
   const y       = useTransform(scrollY, [0, 500], [0, 120]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
@@ -18,8 +22,14 @@ export function HeroSection({ resumeUrl }: { resumeUrl: string | null }) {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
 
-      {/* Three.js neural-network background (z-0, no pointer events) */}
-      <AiBackground />
+      {/* Three.js pixel-tower field (z-0, no pointer events); bursts apart on scroll */}
+      <PixelField portrait={portrait} />
+
+      {/* Scrim so the headline stays readable over the field */}
+      <div
+        className={`absolute inset-x-0 top-0 h-[62%] z-1 pointer-events-none bg-linear-to-b from-background via-background/85 to-transparent ${split ? 'lg:inset-y-0 lg:right-auto lg:h-full lg:w-[58%] lg:bg-linear-to-r' : ''}`}
+        aria-hidden="true"
+      />
 
       {/* Soft gradient blobs layered on top of canvas */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-1">
@@ -34,7 +44,7 @@ export function HeroSection({ resumeUrl }: { resumeUrl: string | null }) {
       {/* Hero content — z-10 to stay above canvas */}
       <motion.div
         style={{ y: springY, opacity }}
-        className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
+        className={`relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center ${split ? 'lg:text-left lg:mx-0 lg:mr-auto lg:ml-[7vw] lg:max-w-[46rem] lg:px-0' : ''}`}
       >
         {/* Status badge */}
         <motion.div
@@ -60,10 +70,10 @@ export function HeroSection({ resumeUrl }: { resumeUrl: string | null }) {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="flex items-center justify-center gap-2 text-lg sm:text-2xl md:text-3xl font-semibold mb-6 font-mono text-violet-700 dark:text-violet-300"
+          className={`flex items-center justify-center ${lgLeft} gap-2 text-lg sm:text-2xl md:text-3xl ${split ? 'lg:text-[1.6rem]' : ''} font-semibold mb-6 font-mono text-violet-700 dark:text-violet-300`}
         >
           <Terminal className="w-5 h-5 hidden sm:block" aria-hidden="true" />
-          {site.headline}
+          <ScrambleText text={site.headline} duration={1400} />
         </motion.p>
 
         {/* Sub-headline */}
@@ -71,7 +81,7 @@ export function HeroSection({ resumeUrl }: { resumeUrl: string | null }) {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.45 }}
-          className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
+          className={`text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed ${split ? 'lg:mx-0' : ''}`}
         >
           An <span className="text-foreground font-semibold">AI tools expert</span> who transforms
           manual work with{' '}
@@ -85,7 +95,7 @@ export function HeroSection({ resumeUrl }: { resumeUrl: string | null }) {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.55 }}
-          className="flex flex-wrap items-center justify-center gap-3 mb-12"
+          className={`flex flex-wrap items-center justify-center ${lgLeft} gap-3 mb-12`}
         >
           <a
             href="#projects"
@@ -117,7 +127,7 @@ export function HeroSection({ resumeUrl }: { resumeUrl: string | null }) {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.65 }}
-          className="flex items-center justify-center gap-2 mb-16"
+          className={`flex items-center justify-center ${lgLeft} gap-2 mb-16`}
         >
           {[
             { icon: Github,   href: site.github,   label: 'GitHub'   },

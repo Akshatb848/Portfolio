@@ -23,8 +23,13 @@ const manifest = {
   videos: listVideoDir(/\.(mp4|webm)$/i),
   // Poster frames: <clip>.jpg next to each clip
   posters: listVideoDir(/\.jpg$/i),
+  // Hero pixel-tower portrait: public/portrait.(jpg|jpeg|png|webp)
+  portrait:
+    ['portrait.jpg', 'portrait.jpeg', 'portrait.png', 'portrait.webp']
+      .filter((f) => fs.existsSync(path.join(publicDir, f)))
+      .map((f) => `/${f}`)[0] ?? null,
 };
 
 const out = path.join(root, 'src/data/assets.generated.json');
 fs.writeFileSync(out, JSON.stringify(manifest, null, 2) + '\n');
-console.log(`asset manifest: résumé ${manifest.resume ? 'found' : 'not found'}, ${manifest.videos.length} video(s)`);
+console.log(`asset manifest: résumé ${manifest.resume ? 'found' : 'not found'}, ${manifest.videos.length} video(s), portrait ${manifest.portrait ? 'found' : 'not found'}`);
