@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { motion, useInView, AnimatePresence, useScroll, useSpring } from 'framer-motion';
+import { m, useInView, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 import { Briefcase, MapPin, ChevronDown, CheckCircle2, ExternalLink } from 'lucide-react';
 import { experiences, type Experience } from '@/data/portfolio';
 import { tone } from '@/lib/tones';
@@ -12,7 +12,7 @@ function ExperienceCard({ exp, index }: { exp: Experience; index: number }) {
   const t = tone(exp.color);
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, x: -20 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true, margin: '-50px' }}
@@ -70,7 +70,7 @@ function ExperienceCard({ exp, index }: { exp: Experience; index: number }) {
 
         <AnimatePresence>
           {expanded && (
-            <motion.div
+            <m.div
               id={`exp-details-${exp.id}`}
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
@@ -86,7 +86,7 @@ function ExperienceCard({ exp, index }: { exp: Experience; index: number }) {
                   </li>
                 ))}
               </ul>
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
 
@@ -109,7 +109,7 @@ function ExperienceCard({ exp, index }: { exp: Experience; index: number }) {
           <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${expanded ? 'rotate-180' : ''}`} aria-hidden="true" />
         </button>
       </div>
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -120,7 +120,7 @@ function TimelineList() {
   const scaleY = useSpring(scrollYProgress, { stiffness: 120, damping: 30, restDelta: 0.001 });
   return (
     <div ref={listRef} className="relative max-w-4xl">
-      <motion.div
+      <m.div
         aria-hidden="true"
         style={{ scaleY }}
         className="absolute left-[5.5px] top-3 bottom-10 w-px origin-top bg-linear-to-b from-violet-500 via-cyan-400 to-teal-400 shadow-[0_0_12px_rgb(34_211_238/0.6)]"

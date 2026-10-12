@@ -35,5 +35,11 @@
     "postcss": "$postcss",
     "nanoid@<4": "^3.3.19",
     "postcss-selector-parser@<7": "^6.1.4"
-  }
+  },
+  "browserslist": [
+    "chrome 111",
+    "edge 111",
+    "firefox 111",
+    "safari 16.4"
+  ]
 }

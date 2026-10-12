@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { ArrowUpRight, Briefcase, FolderGit2, RotateCcw } from 'lucide-react';
 import { skillGroups, alsoFamiliar, evidenceFor, projects, type Skill, type Evidence } from '@/data/portfolio';
 import { tone, type Tone } from '@/lib/tones';
@@ -45,13 +45,13 @@ function Flashcard({ skill, t, index }: { skill: Skill; t: Tone; index: number }
     .join(' · ');
 
   return (
-    <motion.li
+    <m.li
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: index * 0.04 }}
       className="list-none perspective-[1000px]"
     >
-      <motion.div
+      <m.div
         className="relative grid grid-cols-[minmax(0,1fr)] h-full min-h-54 preserve-3d"
         initial={false}
         animate={{ rotateY: flipped ? 180 : 0 }}
@@ -108,8 +108,8 @@ function Flashcard({ skill, t, index }: { skill: Skill; t: Tone; index: number }
             </button>
           </div>
         </div>
-      </motion.div>
-    </motion.li>
+      </m.div>
+    </m.li>
   );
 }
 
@@ -183,7 +183,7 @@ export function SkillsSection() {
         <div id="skills-panel" role="tabpanel" aria-labelledby={`skills-tab-${activeId}`}>
           <p className="text-sm text-muted-foreground mb-5">{active.description}</p>
           <AnimatePresence mode="wait">
-            <motion.ul
+            <m.ul
               key={activeId}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -194,7 +194,7 @@ export function SkillsSection() {
               {active.skills.map((skill, i) => (
                 <Flashcard key={skill.name} skill={skill} t={t} index={i} />
               ))}
-            </motion.ul>
+            </m.ul>
           </AnimatePresence>
         </div>
 

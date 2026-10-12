@@ -32,6 +32,11 @@ export function ProjectCover({ project, className = '' }: { project: Project; cl
       if (j > i && Math.hypot(a.x - b.x, a.y - b.y) < 78) edges.push([i, j]);
     })
   );
+  const f = (v: number) => v.toFixed(1);
+  const edgePath = edges.map(([i, j]) => `M${f(nodes[i].x)} ${f(nodes[i].y)}L${f(nodes[j].x)} ${f(nodes[j].y)}`).join('');
+  const nodePath = nodes
+    .map((n) => `M${f(n.x - n.r)} ${f(n.y)}a${f(n.r)} ${f(n.r)} 0 1 0 ${f(n.r * 2)} 0a${f(n.r)} ${f(n.r)} 0 1 0 ${f(-n.r * 2)} 0`)
+    .join('');
   const Icon = project.icon;
   const gid = `cover-${project.id}`;
 
@@ -52,21 +57,9 @@ export function ProjectCover({ project, className = '' }: { project: Project; cl
         </defs>
         <rect width={W} height={H} fill={`url(#${gid}-grid)`} />
         <rect width={W} height={H} fill={`url(#${gid}-glow)`} />
-        {edges.map(([i, j]) => (
-          <line
-            key={`${i}-${j}`}
-            x1={nodes[i].x}
-            y1={nodes[i].y}
-            x2={nodes[j].x}
-            y2={nodes[j].y}
-            stroke={hex}
-            strokeOpacity="0.35"
-            strokeWidth="0.6"
-          />
-        ))}
-        {nodes.map((n, i) => (
-          <circle key={i} cx={n.x} cy={n.y} r={n.r} fill={hex} fillOpacity="0.85" />
-        ))}
+        {/* One path for all edges and one for all nodes keeps the DOM small. */}
+        <path d={edgePath} stroke={hex} strokeOpacity="0.35" strokeWidth="0.6" fill="none" />
+        <path d={nodePath} fill={hex} fillOpacity="0.85" />
       </svg>
       <div className="absolute inset-0 flex items-center justify-center">
         <span

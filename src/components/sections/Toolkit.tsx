@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { m, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { tools, type Tool } from '@/data/toolkit';
 import { tone } from '@/lib/tones';
@@ -126,7 +126,7 @@ function Stage({ selected, setSelected }: { selected: string | null; setSelected
           const a = (i / 28) * Math.PI * 2;
           const d = 180 + (i % 5) * 70;
           return (
-            <motion.span
+            <m.span
               key={i}
               className="absolute w-1 h-1 rounded-full bg-violet-400"
               initial={{ x: 0, y: 0, opacity: 0 }}
@@ -137,7 +137,7 @@ function Stage({ selected, setSelected }: { selected: string | null; setSelected
         })}
       </div>
 
-      <motion.div style={{ rotateX, rotateY }} className="absolute inset-0 [transform-style:preserve-3d] pointer-events-none">
+      <m.div style={{ rotateX, rotateY }} className="absolute inset-0 [transform-style:preserve-3d] pointer-events-none">
         <ul className="contents">
           {tools.map((tool, i) => {
             const angle = (i / tools.length) * Math.PI * 2 - Math.PI / 2;
@@ -145,7 +145,7 @@ function Stage({ selected, setSelected }: { selected: string | null; setSelected
             const y = Math.sin(angle) * ry;
             const z = (i % 3) * 40 - 40;
             return (
-              <motion.li
+              <m.li
                 key={tool.id}
                 className="absolute left-1/2 top-1/2 pointer-events-auto"
                 style={{ translateZ: z }}
@@ -153,7 +153,7 @@ function Stage({ selected, setSelected }: { selected: string | null; setSelected
                 animate={inView ? { x, y, scale: 1, opacity: 1 } : {}}
                 transition={{ type: 'spring', stiffness: 70, damping: 14, delay: 0.15 + i * 0.05 }}
               >
-                <motion.div
+                <m.div
                   className="w-28"
                   animate={{ y: [0, -8, 0] }}
                   transition={{ duration: 4 + (i % 4) * 0.7, repeat: Infinity, ease: 'easeInOut', delay: i * 0.3 }}
@@ -163,12 +163,12 @@ function Stage({ selected, setSelected }: { selected: string | null; setSelected
                     selected={selected === tool.id}
                     onSelect={() => setSelected(selected === tool.id ? null : tool.id)}
                   />
-                </motion.div>
-              </motion.li>
+                </m.div>
+              </m.li>
             );
           })}
         </ul>
-      </motion.div>
+      </m.div>
 
       {/* Clicks pass through to the tiles beside the panel; only its own link is interactive. */}
       <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 px-40 pointer-events-none [&_a]:pointer-events-auto">
@@ -181,6 +181,16 @@ function Stage({ selected, setSelected }: { selected: string | null; setSelected
 export function ToolkitSection() {
   const [selected, setSelected] = useState<string | null>(null);
   const current = tools.find((t) => t.id === selected) ?? null;
+  // Render one layout, not both: the grid server-side and on phones, the 3D stage on wider
+  // screens once mounted (the section is below the fold, so the swap is never seen).
+  const [wide, setWide] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 768px)');
+    const update = () => setWide(mq.matches);
+    update();
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
+  }, []);
 
   return (
     <section id="toolkit" className="section-padding relative overflow-hidden">
@@ -199,11 +209,10 @@ export function ToolkitSection() {
           }
         />
 
-        <div className="hidden md:block">
+        {wide ? (
           <Stage selected={selected} setSelected={setSelected} />
-        </div>
-
-        <div className="md:hidden">
+        ) : (
+        <div>
           <Detail tool={current} />
           <ul className="mt-8 grid grid-cols-3 gap-x-2 gap-y-6">
             {tools.map((tool) => (
@@ -217,6 +226,7 @@ export function ToolkitSection() {
             ))}
           </ul>
         </div>
+        )}
       </div>
     </section>
   );

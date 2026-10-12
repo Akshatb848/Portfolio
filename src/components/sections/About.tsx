@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { m, useInView } from 'framer-motion';
 import {
   Brain,
   Zap,
@@ -73,7 +73,7 @@ export function AboutSection() {
         />
 
         <div className="grid lg:grid-cols-2 gap-16 items-start">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.1 }}
@@ -130,17 +130,17 @@ export function AboutSection() {
                 <ArrowRight className="w-4 h-4" aria-hidden="true" />
               </a>
             </div>
-          </motion.div>
+          </m.div>
 
           <div className="space-y-5">
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 }}
               className="grid grid-cols-2 gap-3"
             >
               {highlights.map((item, i) => (
-                <motion.div
+                <m.div
                   key={item.title}
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={isInView ? { opacity: 1, scale: 1 } : {}}
@@ -157,11 +157,11 @@ export function AboutSection() {
                   <p className="text-xs text-muted-foreground leading-relaxed">
                     {item.description}
                   </p>
-                </motion.div>
+                </m.div>
               ))}
-            </motion.div>
+            </m.div>
 
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 10 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.35 }}
@@ -182,9 +182,9 @@ export function AboutSection() {
                   <div className="text-xs text-muted-foreground/60 leading-tight">{s.note}</div>
                 </div>
               ))}
-            </motion.div>
+            </m.div>
 
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 10 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.45 }}
@@ -233,9 +233,9 @@ export function AboutSection() {
                   <span className="text-green-800 dark:text-green-400">&quot;Open to opportunities&quot;</span>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
 
-            <motion.a
+            <m.a
               href={site.instagram}
               target="_blank"
               rel="noopener noreferrer"
@@ -264,7 +264,7 @@ export function AboutSection() {
                   aria-hidden="true"
                 />
               </span>
-            </motion.a>
+            </m.a>
           </div>
         </div>
       </div>

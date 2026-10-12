@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { m, useScroll, useTransform, useSpring } from 'framer-motion';
 import { ArrowDown, FileText, Github, Instagram, Linkedin, Mail, Terminal } from 'lucide-react';
 import { site } from '@/lib/site';
 import { ScrambleText } from '@/components/ScrambleText';
@@ -38,20 +38,18 @@ export function HeroSection({ resumeUrl, portrait }: { resumeUrl: string | null;
       <div className="absolute inset-0 grid-pattern opacity-60 pointer-events-none z-1" />
 
       {/* Hero content — z-10 to stay above canvas */}
-      <motion.div
+      <m.div
         style={{ y: springY, opacity }}
         className={`relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center ${split ? 'lg:text-left lg:mx-0 lg:mr-auto lg:ml-[7vw] lg:max-w-[46rem] lg:px-0' : ''}`}
       >
         {/* Status badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-emerald-500/25 bg-emerald-500/8 text-emerald-800 dark:text-emerald-400 text-xs font-medium mb-10 tracking-wide"
+        <m.div
+          style={{ animationDelay: '0.1s' }}
+          className="hero-in inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-emerald-500/25 bg-emerald-500/8 text-emerald-800 dark:text-emerald-400 text-xs font-medium mb-10 tracking-wide"
         >
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse" aria-hidden="true" />
           Available for new opportunities
-        </motion.div>
+        </m.div>
 
         {/* Name */}
         <h1
@@ -62,36 +60,30 @@ export function HeroSection({ resumeUrl, portrait }: { resumeUrl: string | null;
         </h1>
 
         {/* Headline */}
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          className={`flex items-center justify-center ${lgLeft} gap-2 text-lg sm:text-2xl md:text-3xl ${split ? 'lg:text-[1.6rem]' : ''} font-semibold mb-6 font-mono text-violet-700 dark:text-violet-300`}
+        <m.p
+          style={{ animationDelay: '0.2s' }}
+          className={`hero-in flex items-center justify-center ${lgLeft} gap-2 text-lg sm:text-2xl md:text-3xl ${split ? 'lg:text-[1.6rem]' : ''} font-semibold mb-6 font-mono text-violet-700 dark:text-violet-300`}
         >
           <Terminal className="w-5 h-5 hidden sm:block" aria-hidden="true" />
           <ScrambleText text={site.headline} duration={1400} />
-        </motion.p>
+        </m.p>
 
         {/* Sub-headline */}
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.45 }}
-          className={`text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed ${split ? 'lg:mx-0' : ''}`}
+        <m.p
+          style={{ animationDelay: '0.45s' }}
+          className={`hero-in text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed ${split ? 'lg:mx-0' : ''}`}
         >
           An <span className="text-foreground font-semibold">AI tools expert</span> who transforms
           manual work with{' '}
           <span className="text-foreground font-semibold">low-code / no-code AI</span>, and builds{' '}
           <span className="text-foreground font-semibold">LLM apps, RAG and multi-agent systems</span>{' '}
           when a problem needs custom code.
-        </motion.p>
+        </m.p>
 
         {/* CTAs */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.55 }}
-          className={`flex flex-wrap items-center justify-center ${lgLeft} gap-3 mb-12`}
+        <m.div
+          style={{ animationDelay: '0.55s' }}
+          className={`hero-in flex flex-wrap items-center justify-center ${lgLeft} gap-3 mb-12`}
         >
           <a
             href="#projects"
@@ -116,14 +108,12 @@ export function HeroSection({ resumeUrl, portrait }: { resumeUrl: string | null;
               Résumé
             </a>
           )}
-        </motion.div>
+        </m.div>
 
         {/* Social links */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.65 }}
-          className={`flex items-center justify-center ${lgLeft} gap-2 mb-16`}
+        <m.div
+          style={{ animationDelay: '0.65s' }}
+          className={`hero-in flex items-center justify-center ${lgLeft} gap-2 mb-16`}
         >
           {[
             { icon: Github,   href: site.github,   label: 'GitHub'   },
@@ -142,26 +132,24 @@ export function HeroSection({ resumeUrl, portrait }: { resumeUrl: string | null;
               <span className="hidden sm:block" aria-hidden="true">{link.label}</span>
             </a>
           ))}
-        </motion.div>
+        </m.div>
 
         {/* Scroll indicator */}
-        <motion.a
+        <m.a
           href="#about"
           aria-label="Scroll to About section"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2 }}
-          className="flex flex-col items-center gap-2 min-h-11 px-3 w-fit text-muted-foreground hover:text-foreground transition-colors mx-auto rounded-lg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
+          style={{ animationDelay: '1.2s' }}
+          className="hero-in flex flex-col items-center gap-2 min-h-11 px-3 w-fit text-muted-foreground hover:text-foreground transition-colors mx-auto rounded-lg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
         >
           <span className="text-xs font-medium tracking-widest uppercase" aria-hidden="true">Scroll</span>
-          <motion.div
+          <m.div
             animate={{ y: [0, 6, 0] }}
             transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
           >
             <ArrowDown className="w-4 h-4" aria-hidden="true" />
-          </motion.div>
-        </motion.a>
-      </motion.div>
+          </m.div>
+        </m.a>
+      </m.div>
 
       {/* Bottom fade */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-linear-to-t from-background to-transparent pointer-events-none z-10" />

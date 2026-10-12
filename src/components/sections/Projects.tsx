@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { Github, ChevronRight, BookOpen } from 'lucide-react';
 import { projects, languageColors, type Project } from '@/data/portfolio';
 import { tone } from '@/lib/tones';
@@ -16,7 +16,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
   const Icon = project.icon;
 
   return (
-    <motion.article
+    <m.article
       id={`project-${project.id}`}
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -71,7 +71,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           </a>
         )}
       </div>
-    </motion.article>
+    </m.article>
   );
 }
 
@@ -148,7 +148,7 @@ export function ProjectsSection({
             </div>
           </div>
           <AnimatePresence mode="wait">
-            <motion.div
+            <m.div
               key={filter}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -159,7 +159,7 @@ export function ProjectsSection({
               {filtered.map((project, i) => (
                 <ProjectCard key={project.id} project={project} index={i} />
               ))}
-            </motion.div>
+            </m.div>
           </AnimatePresence>
         </div>
       </div>

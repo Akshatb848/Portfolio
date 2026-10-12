@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { chapters, type ChapterId } from '@/data/chapters';
 import {
@@ -31,7 +31,7 @@ import {
 const QUALITY = {
   desktop: { cols: 120, rows: 75 },
   tablet: { cols: 96, rows: 62 },
-  mobile: { cols: 70, rows: 48 },
+  mobile: { cols: 56, rows: 40 },
 } as const;
 const quality = (w: number) => (w < 640 ? QUALITY.mobile : w < 1024 ? QUALITY.tablet : QUALITY.desktop);
 
@@ -191,8 +191,71 @@ const fragmentShader = /* glsl */ `
   }
 `;
 
+/** True when WebGL would run without hardware acceleration (or not at all). */
+function softwareOnly(): boolean {
+  try {
+    const canvas = document.createElement('canvas');
+    const gl = canvas.getContext('webgl', { failIfMajorPerformanceCaveat: true });
+    if (!gl) return true;
+    const dbg = gl.getExtension('WEBGL_debug_renderer_info');
+    const name = String(dbg ? gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER));
+    gl.getExtension('WEBGL_lose_context')?.loseContext();
+    return /swiftshader|llvmpipe|software|basic render/i.test(name);
+  } catch {
+    return true;
+  }
+}
+
+/**
+ * Still image of the hero terrain for devices without GPU rendering; fades out on scroll.
+ * Drawn into a 2D canvas so the decorative backdrop is never the page's LCP element.
+ */
+function Poster() {
+  const ref = useRef<HTMLCanvasElement>(null);
+  useEffect(() => {
+    const canvas = ref.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const imgs = { dark: new Image(), light: new Image() };
+    imgs.dark.src = '/world-poster-dark.webp';
+    imgs.light.src = '/world-poster-light.webp';
+    const draw = () => {
+      const img = document.documentElement.classList.contains('dark') ? imgs.dark : imgs.light;
+      if (!img.complete || !img.naturalWidth) return;
+      const dpr = Math.min(window.devicePixelRatio, 2);
+      const w = canvas.clientWidth;
+      const h = canvas.clientHeight;
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      // cover-fit, anchored to the top
+      const scale = Math.max(canvas.width / img.naturalWidth, canvas.height / img.naturalHeight);
+      const dw = img.naturalWidth * scale;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, (canvas.width - dw) / 2, 0, dw, img.naturalHeight * scale);
+    };
+    imgs.dark.onload = draw;
+    imgs.light.onload = draw;
+    const onScroll = () => {
+      canvas.style.opacity = String(Math.max(0, 1 - window.scrollY / (window.innerHeight * 0.7)));
+    };
+    onScroll();
+    const themeObserver = new MutationObserver(draw);
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', draw);
+    return () => {
+      themeObserver.disconnect();
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', draw);
+    };
+  }, []);
+  return <canvas ref={ref} className="absolute inset-x-0 bottom-[4vh] h-[42vh] w-full" />;
+}
+
 export default function VoxelWorld({ portrait }: { portrait: string | null }) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [fallback, setFallback] = useState(false);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -205,6 +268,12 @@ export default function VoxelWorld({ portrait }: { portrait: string | null }) {
     const n = cols * rows;
 
     const start = async () => {
+      // `?world=force` skips the GPU check (for testing the full scene on any machine).
+      const forced = new URLSearchParams(window.location.search).get('world') === 'force';
+      if (!forced && softwareOnly()) {
+        setFallback(true);
+        return;
+      }
       // ── Shapes ────────────────────────────────────────────────────────────────
       let heroShape = terrain(cols, rows);
       let heroIsPortrait = false;
@@ -217,7 +286,12 @@ export default function VoxelWorld({ portrait }: { portrait: string | null }) {
         }
       }
       if (disposed) return;
-      const shapes: Shape[] = ORDER.map((id) => (id === 'hero' ? heroShape : SHAPES[id](n)));
+      // Shapes are built on first use, so start-up only pays for the hero and the next one.
+      const built: (Shape | undefined)[] = [heroShape];
+      const shapeAt = (i: number): Shape => {
+        const id = ORDER[i];
+        return (built[i] ??= id === 'hero' ? heroShape : SHAPES[id](n));
+      };
 
       let renderer: THREE.WebGLRenderer;
       try {
@@ -225,7 +299,13 @@ export default function VoxelWorld({ portrait }: { portrait: string | null }) {
       } catch {
         return;
       }
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+      // Without a GPU, Chrome draws WebGL on the CPU (SwiftShader/llvmpipe), so every frame
+      // would block the page. Show a still frame there instead and re-render only on scroll.
+      const gl = renderer.getContext();
+      const dbg = gl.getExtension('WEBGL_debug_renderer_info');
+      const rendererName = String(dbg ? gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER));
+      const software = /swiftshader|llvmpipe|software|basic render/i.test(rendererName);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, software ? 1 : 1.5));
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.setClearColor(0x000000, 0);
       renderer.domElement.setAttribute('aria-hidden', 'true');
@@ -241,8 +321,8 @@ export default function VoxelWorld({ portrait }: { portrait: string | null }) {
       geo.index = box.index;
       geo.setAttribute('position', box.getAttribute('position'));
       geo.setAttribute('normal', box.getAttribute('normal'));
-      const fromAttr = new THREE.InstancedBufferAttribute(new Float32Array(shapes[0]), 4);
-      const toAttr = new THREE.InstancedBufferAttribute(new Float32Array(shapes[1]), 4);
+      const fromAttr = new THREE.InstancedBufferAttribute(new Float32Array(shapeAt(0)), 4);
+      const toAttr = new THREE.InstancedBufferAttribute(new Float32Array(shapeAt(1)), 4);
       fromAttr.setUsage(THREE.DynamicDrawUsage);
       toAttr.setUsage(THREE.DynamicDrawUsage);
       geo.setAttribute('aFrom', fromAttr);
@@ -306,12 +386,12 @@ export default function VoxelWorld({ portrait }: { portrait: string | null }) {
       const setPair = (a: number, b: number) => {
         const dark = isDark();
         if (a !== fromIdx) {
-          (fromAttr.array as Float32Array).set(shapes[a]);
+          (fromAttr.array as Float32Array).set(shapeAt(a));
           fromAttr.needsUpdate = true;
           fromIdx = a;
         }
         if (b !== toIdx) {
-          (toAttr.array as Float32Array).set(shapes[b]);
+          (toAttr.array as Float32Array).set(shapeAt(b));
           toAttr.needsUpdate = true;
           toIdx = b;
         }
@@ -382,7 +462,7 @@ export default function VoxelWorld({ portrait }: { portrait: string | null }) {
       let frames = 0;
       let slow = 0;
       let last = 0;
-      let degraded = false;
+      let degraded = software;
       const loop = (now: number) => {
         if (degraded) return;
         raf = requestAnimationFrame(loop);
@@ -406,9 +486,15 @@ export default function VoxelWorld({ portrait }: { portrait: string | null }) {
         render(now);
       };
 
+      let pending = 0;
       const onScroll = () => {
         applyProgress();
-        if (prefersReduced || degraded) render(performance.now());
+        if ((prefersReduced || degraded) && !pending) {
+          pending = requestAnimationFrame(() => {
+            pending = 0;
+            render(performance.now());
+          });
+        }
       };
       const onResize = () => {
         camera.aspect = window.innerWidth / window.innerHeight;
@@ -424,10 +510,14 @@ export default function VoxelWorld({ portrait }: { portrait: string | null }) {
         pointer.y = (e.clientY / window.innerHeight) * 2 - 1;
       };
       // Layout shifts as lazy sections load, so re-measure when the page height changes.
+      let roTimer = 0;
       const ro = new ResizeObserver(() => {
-        measure();
-        applyProgress();
-        if (prefersReduced || degraded) render(performance.now());
+        window.clearTimeout(roTimer);
+        roTimer = window.setTimeout(() => {
+          measure();
+          applyProgress();
+          if (prefersReduced || degraded) render(performance.now());
+        }, 250);
       });
       ro.observe(document.body);
       const themeObserver = new MutationObserver(() => {
@@ -439,7 +529,8 @@ export default function VoxelWorld({ portrait }: { portrait: string | null }) {
 
       window.addEventListener('scroll', onScroll, { passive: true });
       window.addEventListener('resize', onResize);
-      if (prefersReduced) {
+      if (prefersReduced || degraded) {
+        uniforms.uIntro.value = 1;
         render(0);
       } else {
         window.addEventListener('pointermove', onPointer, { passive: true });
@@ -448,6 +539,8 @@ export default function VoxelWorld({ portrait }: { portrait: string | null }) {
 
       cleanup = () => {
         cancelAnimationFrame(raf);
+        cancelAnimationFrame(pending);
+        window.clearTimeout(roTimer);
         ro.disconnect();
         themeObserver.disconnect();
         window.removeEventListener('scroll', onScroll);
@@ -461,12 +554,31 @@ export default function VoxelWorld({ portrait }: { portrait: string | null }) {
       };
     };
 
-    start();
+    // Wait until the page has loaded and the main thread is idle, so the 3D world never
+    // competes with the first paint or with hydration; it then fades in via the intro.
+    let idleId = 0;
+    let timer = 0;
+    const kick = () => {
+      const ric = (window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number })
+        .requestIdleCallback;
+      if (ric) idleId = ric(() => void start(), { timeout: 2500 });
+      else timer = window.setTimeout(() => void start(), 600);
+    };
+    if (document.readyState === 'complete') kick();
+    else window.addEventListener('load', kick, { once: true });
     return () => {
+      window.removeEventListener('load', kick);
+      const cic = (window as Window & { cancelIdleCallback?: (id: number) => void }).cancelIdleCallback;
+      if (idleId && cic) cic(idleId);
+      window.clearTimeout(timer);
       disposed = true;
       cleanup();
     };
   }, [portrait]);
 
-  return <div ref={containerRef} className="fixed inset-0 z-0 pointer-events-none" aria-hidden="true" />;
+  return (
+    <div ref={containerRef} className="fixed inset-0 z-0 pointer-events-none" aria-hidden="true">
+      {fallback && <Poster />}
+    </div>
+  );
 }

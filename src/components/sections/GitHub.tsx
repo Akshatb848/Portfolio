@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Github, ExternalLink, Code2, Clock, BookOpen, Radio } from 'lucide-react';
 import { languageColors } from '@/data/portfolio';
 import type { GitHubData } from '@/lib/github';
@@ -75,7 +75,7 @@ export function GitHubSection({ data }: { data: GitHubData }) {
 
         <div className="grid sm:grid-cols-3 gap-4 mb-8">
           {stats.map((s, i) => (
-            <motion.div
+            <m.div
               key={s.label}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -86,7 +86,7 @@ export function GitHubSection({ data }: { data: GitHubData }) {
               <s.icon className="w-5 h-5 text-violet-700 dark:text-violet-400 mb-3" aria-hidden="true" />
               <div className="text-2xl font-black text-foreground">{s.value}</div>
               <div className="text-xs text-muted-foreground mt-0.5">{s.label}</div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
 
@@ -95,7 +95,7 @@ export function GitHubSection({ data }: { data: GitHubData }) {
           <p className="text-sm font-semibold text-foreground mb-3">Languages by repository</p>
           <div className="flex h-2.5 rounded-full overflow-hidden bg-muted" aria-hidden="true">
             {languages.map(([lang, n]) => (
-              <motion.span
+              <m.span
                 key={lang}
                 initial={{ width: 0 }}
                 whileInView={{ width: `${(n / repos.length) * 100}%` }}
@@ -126,7 +126,7 @@ export function GitHubSection({ data }: { data: GitHubData }) {
             <p className="text-sm font-semibold text-foreground mb-4">Recently updated</p>
             <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {recent.map((repo, i) => (
-                <motion.li
+                <m.li
                   key={repo.name}
                   initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -162,7 +162,7 @@ export function GitHubSection({ data }: { data: GitHubData }) {
                       {repo.pushedAt && <span>Updated {fmtDate(repo.pushedAt)}</span>}
                     </span>
                   </a>
-                </motion.li>
+                </m.li>
               ))}
             </ul>
           </div>

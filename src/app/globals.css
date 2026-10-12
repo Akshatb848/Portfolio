@@ -352,3 +352,18 @@
     transform: none;
   }
 }
+
+/* Hero entrance in pure CSS: plays before hydration, so the LCP text paints immediately */
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.hero-in {
+  animation: hero-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
