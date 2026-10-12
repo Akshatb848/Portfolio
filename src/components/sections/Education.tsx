@@ -65,7 +65,7 @@ export function EducationSection() {
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ delay: 0.15 + i * 0.1 }}
                     whileHover={{ y: -2 }}
-                    className={`p-5 rounded-xl bg-card border border-border/50 ${colors.border} transition-all duration-200`}
+                    className={`fx-card p-5 rounded-xl bg-card border border-border/50 ${colors.border} transition-all duration-200`}
                   >
                     <div className="flex items-start gap-3">
                       <div className={`w-9 h-9 rounded-lg ${colors.initial} flex items-center justify-center font-bold text-xs shrink-0`}>
@@ -112,7 +112,7 @@ export function EducationSection() {
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ delay: 0.15 + i * 0.06 }}
                   whileHover={{ x: 3 }}
-                  className={`flex items-center gap-3 p-3.5 rounded-lg bg-card border border-border/50 border-l-2 ${certColorMap[cert.color]} hover:border-l-2 transition-all duration-200`}
+                  className={`fx-card flex items-center gap-3 p-3.5 rounded-lg bg-card border border-border/50 border-l-2 ${certColorMap[cert.color]} hover:border-l-2 transition-all duration-200`}
                 >
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-semibold text-foreground leading-snug">

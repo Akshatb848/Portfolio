@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { site } from '@/lib/site';
 import { SectionHeading } from '@/components/SectionHeading';
+import { CountUp } from '@/components/CountUp';
 
 const highlights = [
   {
@@ -145,7 +146,7 @@ export function AboutSection() {
                   animate={isInView ? { opacity: 1, scale: 1 } : {}}
                   transition={{ delay: 0.2 + i * 0.07 }}
                   whileHover={{ y: -3, scale: 1.02 }}
-                  className={`p-4 rounded-xl bg-card border ${item.border} transition-all duration-200 group cursor-default`}
+                  className={`fx-card p-4 rounded-xl bg-card border ${item.border} transition-all duration-200 group cursor-default`}
                 >
                   <div
                     className={`w-9 h-9 rounded-lg ${item.bg} flex items-center justify-center mb-3 group-hover:scale-110 transition-transform`}
@@ -173,10 +174,10 @@ export function AboutSection() {
               ].map((s) => (
                 <div
                   key={s.label}
-                  className="text-center p-3 rounded-xl bg-card border border-border/50"
+                  className="fx-card fx-tilt text-center p-3 rounded-xl bg-card border border-border/50"
                 >
                   <s.icon className="w-4 h-4 text-violet-700 dark:text-violet-400 mx-auto mb-1" />
-                  <div className="text-lg font-black text-foreground">{s.value}</div>
+                  <div className="text-lg font-black text-foreground"><CountUp value={s.value} /></div>
                   <div className="text-xs text-muted-foreground leading-tight">{s.label}</div>
                   <div className="text-xs text-muted-foreground/60 leading-tight">{s.note}</div>
                 </div>
@@ -187,7 +188,7 @@ export function AboutSection() {
               initial={{ opacity: 0, y: 10 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.45 }}
-              className="p-4 rounded-xl bg-card border border-border/50 font-mono"
+              className="fx-card p-4 rounded-xl bg-card border border-border/50 font-mono"
             >
               <div className="flex items-center gap-2 mb-3">
                 <div className="flex gap-1.5">

@@ -22,7 +22,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.45, delay: index * 0.05 }}
-      className={`group relative flex flex-col p-5 rounded-2xl bg-card border border-border/60 ${t.hoverBorder} hover:-translate-y-1 hover:shadow-lg ${t.glow} transition-[transform,box-shadow,border-color] duration-300`}
+      className={`fx-card group relative flex flex-col p-5 rounded-2xl bg-card border border-border/60 ${t.hoverBorder} hover:-translate-y-1 hover:shadow-lg ${t.glow} transition-[transform,box-shadow,border-color] duration-300`}
     >
       <div className="flex items-start gap-3 mb-3">
         <span

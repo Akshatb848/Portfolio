@@ -7,6 +7,9 @@ import { getGitHubData } from '@/lib/github';
 import { ScrollProgress } from '@/components/ScrollProgress';
 import { ChapterRail } from '@/components/ChapterRail';
 import { HudReadout } from '@/components/HudReadout';
+import { WorldLayer } from '@/components/WorldLayer';
+import { PointerFX } from '@/components/PointerFX';
+import { Marquee } from '@/components/Marquee';
 
 const AboutSection = dynamic(() =>
   import('@/components/sections/About').then((m) => ({ default: m.AboutSection }))
@@ -51,15 +54,25 @@ export default async function Home() {
     <>
       <ScrollProgress />
       <Navbar resumeUrl={resumeUrl} />
+      <WorldLayer portrait={assets.portrait ?? null} />
+      <PointerFX />
       <ChapterRail />
       <HudReadout />
-      <main id="main-content" className="relative min-h-screen bg-background overflow-x-hidden">
+      <main id="main-content" className="relative z-1 min-h-screen overflow-x-hidden">
         <HeroSection resumeUrl={resumeUrl} portrait={assets.portrait ?? null} />
         <AboutSection />
+        <Marquee
+          top={['AI Generalist', 'Low-code / No-code AI', 'Multi-agent systems', 'RAG', 'Automation']}
+          bottom={['LangGraph', 'n8n', 'Claude', 'Hugging Face', 'FastAPI', 'Ollama', 'Streamlit']}
+        />
         <SystemsSection />
         <SkillsSection />
         <ToolkitSection />
         <ProjectsSection availableVideos={availableVideos} availablePosters={availablePosters} />
+        <Marquee
+          top={['Built', 'Shipped', 'Measured', 'Documented', 'Open source']}
+          bottom={['Deloitte', 'YourNest VC', 'Jio Platforms', 'Unified Mentor', 'C-DOT']}
+        />
         <ExperienceSection />
         <GitHubSection data={github} />
         <EducationSection />
