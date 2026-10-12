@@ -163,4 +163,24 @@ export const tones = {
 
 export type ToneName = keyof typeof tones;
 
-export const tone = (name: string): Tone => tones[name as ToneName] ?? tones.indigo;
+/**
+ * Brand palette: every accent resolves to the violet / indigo / sky / cyan family so the page
+ * reads as one identity. Data can keep descriptive colour names; they map here.
+ */
+const BRAND: Record<string, ToneName> = {
+  violet: 'violet',
+  purple: 'violet',
+  fuchsia: 'violet',
+  rose: 'violet',
+  orange: 'violet',
+  indigo: 'indigo',
+  slate: 'indigo',
+  amber: 'indigo',
+  sky: 'sky',
+  teal: 'sky',
+  cyan: 'cyan',
+  emerald: 'cyan',
+  green: 'cyan',
+};
+
+export const tone = (name: string): Tone => tones[BRAND[name] ?? 'indigo'];

@@ -4,6 +4,7 @@ import './globals.css';
 import { ThemeProvider } from '@/components/providers/ThemeProvider';
 import { MotionProvider } from '@/components/providers/MotionProvider';
 import { site } from '@/lib/site';
+import { motionInitScript } from '@/lib/motion';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
 const mono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono', display: 'swap' });
@@ -86,6 +87,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className={`${inter.variable} ${mono.variable}`}>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: motionInitScript }} />
+      </head>
       <body className="font-sans antialiased">
         <script
           type="application/ld+json"

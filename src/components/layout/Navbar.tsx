@@ -3,7 +3,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
 import { useTheme } from 'next-themes';
-import { Moon, Sun, Menu, X, Code2, FileText } from 'lucide-react';
+import { Moon, Sun, Menu, X, Code2, FileText, Pause, Play } from 'lucide-react';
+import { setMotionOff, useMotionOff } from '@/lib/motion';
 import { chapters } from '@/data/chapters';
 import { useActiveChapter } from '@/lib/useActiveChapter';
 
@@ -14,6 +15,7 @@ export function Navbar({ resumeUrl }: { resumeUrl: string | null }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const activeSection = useActiveChapter();
   const { resolvedTheme, setTheme } = useTheme();
+  const motionOff = useMotionOff();
   const [mounted, setMounted] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
@@ -132,6 +134,20 @@ export function Navbar({ resumeUrl }: { resumeUrl: string | null }) {
                   <FileText className="w-4 h-4" aria-hidden="true" />
                   Résumé
                 </a>
+              )}
+
+              {/* Pause / play all animations (WCAG 2.2.2) */}
+              {mounted && (
+                <button
+                  type="button"
+                  onClick={() => setMotionOff(!motionOff)}
+                  aria-pressed={motionOff}
+                  className="w-11 h-11 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-accent transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
+                  aria-label="Pause animations"
+                  title={motionOff ? 'Animations paused: click to play' : 'Pause animations'}
+                >
+                  {motionOff ? <Play className="w-5 h-5" aria-hidden="true" /> : <Pause className="w-5 h-5" aria-hidden="true" />}
+                </button>
               )}
 
               {/* Theme toggle */}

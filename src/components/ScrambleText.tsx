@@ -1,5 +1,6 @@
 'use client';
 
+import { isMotionOff } from '@/lib/motion';
 import { useEffect, useRef, useState } from 'react';
 
 const GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&*+<>/';
@@ -29,7 +30,7 @@ export function ScrambleText({
 
   useEffect(() => {
     const el = ref.current;
-    if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (!el || (window.matchMedia('(prefers-reduced-motion: reduce)').matches || isMotionOff())) {
       setShown(text);
       return;
     }

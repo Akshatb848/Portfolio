@@ -2,6 +2,7 @@
 
 import { useRef } from 'react';
 import { m, useAnimationFrame, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform, useVelocity } from 'framer-motion';
+import { useMotionOff } from '@/lib/motion';
 
 const wrap = (min: number, max: number, v: number) => {
   const range = max - min;
@@ -9,7 +10,8 @@ const wrap = (min: number, max: number, v: number) => {
 };
 
 function Row({ items, baseVelocity, outline }: { items: string[]; baseVelocity: number; outline?: boolean }) {
-  const reduced = useReducedMotion();
+  const motionOff = useMotionOff();
+  const reduced = useReducedMotion() || motionOff;
   const baseX = useMotionValue(0);
   const { scrollY } = useScroll();
   const velocity = useVelocity(scrollY);
@@ -19,8 +21,11 @@ function Row({ items, baseVelocity, outline }: { items: string[]; baseVelocity: 
   const direction = useRef(1);
   const x = useTransform(baseX, (v) => `${wrap(-50, 0, v)}%`);
 
+  // useAnimationFrame keeps its first callback, so read the live pause state via a ref.
+  const reducedRef = useRef(reduced);
+  reducedRef.current = reduced;
   useAnimationFrame((_, delta) => {
-    if (reduced) return;
+    if (reducedRef.current) return;
     const b = boost.get();
     if (b < 0) direction.current = -1;
     else if (b > 0) direction.current = 1;
