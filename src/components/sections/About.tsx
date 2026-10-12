@@ -44,9 +44,9 @@ const highlights = [
     icon: Workflow,
     title: 'Low-code / No-code AI',
     description: 'Automations built from AI tools and n8n workflows that take manual steps out of everyday work.',
-    color: 'text-emerald-800 dark:text-emerald-500',
-    bg: 'bg-emerald-500/10',
-    border: 'border-emerald-500/20',
+    color: 'text-cyan-800 dark:text-cyan-400',
+    bg: 'bg-cyan-500/10',
+    border: 'border-cyan-500/20',
   },
 ];
 

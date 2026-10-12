@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { m, useReducedMotion, type PanInfo } from 'framer-motion';
+import { useMotionOff } from '@/lib/motion';
 import { ChevronLeft, ChevronRight, Github, Mail, Pause, Play } from 'lucide-react';
 import { featuredProjects, languageColors, type Project } from '@/data/portfolio';
 import { tone } from '@/lib/tones';
@@ -167,7 +168,8 @@ export function ProjectCarousel({
   const [inView, setInView] = useState(false);
   // The OS motion preference is unknown during server rendering, so only apply it after
   // mount; reading it during hydration made the pause button's label mismatch.
-  const prefersReduced = useReducedMotion();
+  const motionOff = useMotionOff();
+  const prefersReduced = useReducedMotion() || motionOff;
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
   const reduced = mounted && !!prefersReduced;

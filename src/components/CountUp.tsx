@@ -1,5 +1,6 @@
 'use client';
 
+import { isMotionOff } from '@/lib/motion';
 import { useEffect, useRef, useState } from 'react';
 
 /**
@@ -14,7 +15,7 @@ export function CountUp({ value, duration = 1400 }: { value: string; duration?: 
 
   useEffect(() => {
     const el = ref.current;
-    if (!el || !match || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!el || !match || (window.matchMedia('(prefers-reduced-motion: reduce)').matches || isMotionOff())) return;
     const [, pre, num, post] = match;
     const target = parseFloat(num);
     const decimals = num.includes('.') ? num.split('.')[1].length : 0;

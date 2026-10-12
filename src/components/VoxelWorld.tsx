@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { chapters, type ChapterId } from '@/data/chapters';
+import { isMotionOff, subscribeMotion } from '@/lib/motion';
 import {
   terrain,
   portraitRelief,
@@ -51,17 +52,26 @@ type Look = {
   light: Palette;
 };
 
+// One brand family (indigo → violet → cyan) with per-chapter shading, and a slow drift
+// rather than a spin so shapes stay calm while you read.
+const DARK_A: Palette = [0x1e1b4b, 0x7c3aed, 0x67e8f9];
+const DARK_B: Palette = [0x312e81, 0x8b5cf6, 0xa5b4fc];
+const DARK_C: Palette = [0x172554, 0x6366f1, 0x22d3ee];
+const LIGHT_A: Palette = [0xddd6fe, 0x8b5cf6, 0x0e7490];
+const LIGHT_B: Palette = [0xe0e7ff, 0x7c3aed, 0x4f46e5];
+const LIGHT_C: Palette = [0xdbeafe, 0x4f46e5, 0x0891b2];
+
 const LOOKS: Record<'hero' | ChapterId, Look> = {
-  hero: { side: 0, y: 0, spin: 0, alpha: 1, dark: [0x1e1b4b, 0x7c3aed, 0x67e8f9], light: [0xddd6fe, 0x8b5cf6, 0x0e7490] },
-  about: { side: 1, y: 0, spin: 0.08, alpha: 0.75, dark: [0x4c1d95, 0xa855f7, 0xf0abfc], light: [0xe9d5ff, 0x9333ea, 0xc026d3] },
-  systems: { side: -1, y: 20, spin: 0.06, alpha: 0.6, dark: [0x0c4a6e, 0x0ea5e9, 0x67e8f9], light: [0xbae6fd, 0x0284c7, 0x0e7490] },
-  skills: { side: 1, y: 0, spin: 0.18, alpha: 0.7, dark: [0x312e81, 0x6366f1, 0x5eead4], light: [0xc7d2fe, 0x4f46e5, 0x0d9488] },
-  toolkit: { side: 0, y: 10, spin: 0.1, alpha: 0.45, dark: [0x701a75, 0xd946ef, 0xfbbf24], light: [0xf5d0fe, 0xc026d3, 0xd97706] },
-  projects: { side: -1, y: 30, spin: 0.05, alpha: 0.55, dark: [0x1e1b4b, 0x8b5cf6, 0x93c5fd], light: [0xddd6fe, 0x7c3aed, 0x2563eb] },
-  experience: { side: 1, y: -10, xf: 0.3, spin: 0, alpha: 0.65, dark: [0x134e4a, 0x14b8a6, 0x99f6e4], light: [0xccfbf1, 0x0d9488, 0x0f766e] },
-  github: { side: 0, y: -330, z: -600, spin: 0, alpha: 0.24, dark: [0x14532d, 0x22c55e, 0xbbf7d0], light: [0xdcfce7, 0x16a34a, 0x15803d] },
-  education: { side: 1, y: 0, spin: 0.12, alpha: 0.65, dark: [0x1e3a8a, 0x3b82f6, 0xc4b5fd], light: [0xdbeafe, 0x2563eb, 0x7c3aed] },
-  contact: { side: 0, y: -40, spin: 0.15, alpha: 0.5, dark: [0x2e1065, 0x8b5cf6, 0x22d3ee], light: [0xede9fe, 0x7c3aed, 0x0891b2] },
+  hero: { side: 0, y: 0, spin: 0, alpha: 1, dark: DARK_A, light: LIGHT_A },
+  about: { side: 1, y: 0, spin: 0.03, alpha: 0.7, dark: DARK_B, light: LIGHT_B },
+  systems: { side: -1, y: 20, spin: 0.02, alpha: 0.55, dark: DARK_C, light: LIGHT_C },
+  skills: { side: 1, y: 0, spin: 0.05, alpha: 0.65, dark: DARK_A, light: LIGHT_A },
+  toolkit: { side: 0, y: 10, spin: 0.03, alpha: 0.4, dark: DARK_B, light: LIGHT_B },
+  projects: { side: -1, y: 30, spin: 0.02, alpha: 0.5, dark: DARK_C, light: LIGHT_C },
+  experience: { side: 1, y: -10, xf: 0.3, spin: 0, alpha: 0.6, dark: DARK_A, light: LIGHT_A },
+  github: { side: 0, y: -330, z: -600, spin: 0, alpha: 0.22, dark: DARK_C, light: LIGHT_C },
+  education: { side: 1, y: 0, spin: 0.03, alpha: 0.6, dark: DARK_B, light: LIGHT_B },
+  contact: { side: 0, y: -40, spin: 0.04, alpha: 0.45, dark: DARK_A, light: LIGHT_A },
 };
 
 const ORDER: ('hero' | ChapterId)[] = ['hero', ...chapters.map((c) => c.id)];
@@ -263,7 +273,8 @@ export default function VoxelWorld({ portrait }: { portrait: string | null }) {
     let disposed = false;
     let cleanup = () => {};
 
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Still = OS reduced motion or the visitor's Pause button; can change while the page is open.
+    let prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches || isMotionOff();
     const { cols, rows } = quality(window.innerWidth);
     const n = cols * rows;
 
@@ -464,7 +475,7 @@ export default function VoxelWorld({ portrait }: { portrait: string | null }) {
       let last = 0;
       let degraded = software;
       const loop = (now: number) => {
-        if (degraded) return;
+        if (degraded || prefersReduced) return;
         raf = requestAnimationFrame(loop);
         if (document.hidden) {
           last = 0;
@@ -533,12 +544,28 @@ export default function VoxelWorld({ portrait }: { portrait: string | null }) {
         uniforms.uIntro.value = 1;
         render(0);
       } else {
-        window.addEventListener('pointermove', onPointer, { passive: true });
         raf = requestAnimationFrame(loop);
       }
+      window.addEventListener('pointermove', onPointer, { passive: true });
+
+      // Pause / resume when the visitor toggles motion.
+      const unsubscribeMotion = subscribeMotion(() => {
+        const osReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const next = osReduced || isMotionOff();
+        if (next === prefersReduced) return;
+        prefersReduced = next;
+        uniforms.uBurst.value = next ? 0 : 1;
+        uniforms.uIntro.value = 1;
+        fromIdx = toIdx = -1;
+        applyProgress();
+        cancelAnimationFrame(raf);
+        if (next || degraded) render(performance.now());
+        else raf = requestAnimationFrame(loop);
+      });
 
       cleanup = () => {
         cancelAnimationFrame(raf);
+        unsubscribeMotion();
         cancelAnimationFrame(pending);
         window.clearTimeout(roTimer);
         ro.disconnect();

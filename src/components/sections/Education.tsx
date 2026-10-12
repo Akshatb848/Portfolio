@@ -8,15 +8,15 @@ import { SectionHeading } from '@/components/SectionHeading';
 
 const colorMap: Record<string, { border: string; dot: string; initial: string }> = {
   indigo: { border: 'hover:border-indigo-500/30', dot: 'bg-indigo-500', initial: 'bg-indigo-500/15 text-indigo-700 dark:text-indigo-400' },
-  emerald: { border: 'hover:border-emerald-500/30', dot: 'bg-emerald-500', initial: 'bg-emerald-500/15 text-emerald-800 dark:text-emerald-400' },
+  emerald: { border: 'hover:border-cyan-500/30', dot: 'bg-cyan-500', initial: 'bg-cyan-500/15 text-cyan-800 dark:text-cyan-400' },
 };
 
 const certColorMap: Record<string, string> = {
   violet: 'border-l-violet-500',
   indigo: 'border-l-indigo-500',
-  amber: 'border-l-amber-500',
-  orange: 'border-l-orange-500',
-  emerald: 'border-l-emerald-500',
+  amber: 'border-l-indigo-500',
+  orange: 'border-l-violet-500',
+  emerald: 'border-l-cyan-500',
   sky: 'border-l-sky-500',
 };
 
@@ -28,7 +28,7 @@ export function EducationSection() {
     <section id="education" className="section-padding relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute right-0 top-0 w-64 h-64 bg-indigo-500/5 rounded-full blur-3xl" />
-        <div className="absolute left-0 bottom-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl" />
+        <div className="absolute left-0 bottom-0 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl" />
       </div>
 
       <div className="container-max" ref={ref}>
@@ -97,9 +97,9 @@ export function EducationSection() {
               transition={{ delay: 0.1 }}
               className="flex items-center gap-2 mb-6"
             >
-              <Award className="w-5 h-5 text-amber-800 dark:text-amber-400" />
+              <Award className="w-5 h-5 text-violet-700 dark:text-violet-400" />
               <h3 className="text-lg font-bold text-foreground">Certifications</h3>
-              <span className="ml-auto text-xs px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-800 dark:text-amber-400 border border-amber-500/20">
+              <span className="ml-auto text-xs px-2 py-0.5 rounded-full bg-violet-500/10 text-violet-700 dark:text-violet-400 border border-amber-500/20">
                 {certifications.length}
               </span>
             </m.div>

@@ -1,5 +1,6 @@
 'use client';
 
+import { isMotionOff } from '@/lib/motion';
 import { useEffect, useRef, useState } from 'react';
 import { Sparkles } from 'lucide-react';
 
@@ -45,7 +46,7 @@ export function ProjectVideo({
   useEffect(() => {
     const video = videoRef.current;
     if (!video || errored) return;
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const reduced = (window.matchMedia('(prefers-reduced-motion: reduce)').matches || isMotionOff());
     if (active && inView && !reduced) {
       video.play().catch(() => {});
     } else {

@@ -331,7 +331,8 @@
 }
 .outline-word-strong {
   color: transparent;
-  -webkit-text-stroke: 1.5px hsl(var(--foreground) / 0.35);
+  /* strong enough for 3:1 (large text) in both themes */
+  -webkit-text-stroke: 1.5px hsl(var(--foreground) / 0.62);
 }
 
 /* Pointer spotlight + 3D tilt (driven by PointerFX via CSS variables) */
@@ -366,4 +367,17 @@
 }
 .hero-in {
   animation: hero-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Visitor paused animations (navbar button): same treatment as the OS reduced-motion setting */
+html[data-motion='off'] *,
+html[data-motion='off'] *::before,
+html[data-motion='off'] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+html[data-motion='off'] .fx-tilt {
+  transform: none;
 }

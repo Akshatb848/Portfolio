@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { m, AnimatePresence, useInView, useReducedMotion } from 'framer-motion';
+import { useMotionOff } from '@/lib/motion';
 import { AlertTriangle, Check, Pause, Play, RotateCcw, StepForward, Terminal } from 'lucide-react';
 import { scenarios, type Scenario, type SimNode } from '@/data/simulations';
 import { experiences, projectById } from '@/data/portfolio';
@@ -164,7 +165,8 @@ export function SystemsSection() {
   const [toggled, setToggled] = useState(false);
   const [step, setStep] = useState(0);
   const [playing, setPlaying] = useState(false);
-  const reduced = useReducedMotion();
+  const motionOff = useMotionOff();
+  const reduced = useReducedMotion() || motionOff;
   const stageRef = useRef<HTMLDivElement>(null);
   const inView = useInView(stageRef, { amount: 0.35 });
   const startedOnce = useRef(false);

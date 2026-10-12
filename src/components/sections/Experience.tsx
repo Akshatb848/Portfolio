@@ -123,7 +123,7 @@ function TimelineList() {
       <m.div
         aria-hidden="true"
         style={{ scaleY }}
-        className="absolute left-[5.5px] top-3 bottom-10 w-px origin-top bg-linear-to-b from-violet-500 via-cyan-400 to-teal-400 shadow-[0_0_12px_rgb(34_211_238/0.6)]"
+        className="absolute left-[5.5px] top-3 bottom-10 w-px origin-top bg-linear-to-b from-violet-500 via-indigo-400 to-cyan-400 shadow-[0_0_12px_rgb(34_211_238/0.6)]"
       />
       {experiences.map((exp, i) => (
         <ExperienceCard key={exp.id} exp={exp} index={i} />
