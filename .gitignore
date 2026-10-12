@@ -38,3 +38,8 @@ next-env.d.ts
 
 # generated at build time
 /src/data/assets.generated.json
+
+# Playwright / Lighthouse CI output
+test-results/
+playwright-report/
+.lighthouseci/
