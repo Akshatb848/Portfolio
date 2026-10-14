@@ -316,7 +316,11 @@ export default function VoxelWorld({ portrait }: { portrait: string | null }) {
       const dbg = gl.getExtension('WEBGL_debug_renderer_info');
       const rendererName = String(dbg ? gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER));
       const software = /swiftshader|llvmpipe|software|basic render/i.test(rendererName);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, software ? 1 : 1.5));
+      // Quality ladder: drop the render resolution step by step if frames run long, before
+      // giving up on animation altogether (see the loop below).
+      const ratios = software ? [1] : [Math.min(window.devicePixelRatio, 1.25), 1, 0.75];
+      let ratioStep = 0;
+      renderer.setPixelRatio(ratios[0]);
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.setClearColor(0x000000, 0);
       renderer.domElement.setAttribute('aria-hidden', 'true');
@@ -470,10 +474,16 @@ export default function VoxelWorld({ portrait }: { portrait: string | null }) {
 
       let raf = 0;
       let startTime = 0;
-      let frames = 0;
-      let slow = 0;
       let last = 0;
       let degraded = software;
+      // Adaptive quality: average the frame time over 90 active frames; when it is over budget,
+      // step down the resolution, and as a last resort switch to still frames on scroll.
+      let sampleTime = 0;
+      let samples = 0;
+      // Frame pacing: full rate while the visitor scrolls or moves the pointer (or during the
+      // intro), half rate when the page is idle, which halves GPU load for the ambient wave.
+      let lastActive = 0;
+      let odd = false;
       const loop = (now: number) => {
         if (degraded || prefersReduced) return;
         raf = requestAnimationFrame(loop);
@@ -482,23 +492,39 @@ export default function VoxelWorld({ portrait }: { portrait: string | null }) {
           return;
         }
         if (!startTime) startTime = now;
-        if (last && frames < 40) {
-          frames++;
-          if (now - last > 60) slow++;
-          if (slow > 12) {
-            degraded = true;
-            uniforms.uIntro.value = 1;
-            render(now);
-            return;
+        const intro = now - startTime < 2400;
+        const active = intro || now - lastActive < 1200;
+        if (!active) {
+          odd = !odd;
+          if (odd) return;
+          last = 0;
+        } else if (last) {
+          sampleTime += now - last;
+          if (++samples === 90) {
+            const avg = sampleTime / samples;
+            sampleTime = 0;
+            samples = 0;
+            if (avg > 24) {
+              if (ratioStep < ratios.length - 1) {
+                renderer.setPixelRatio(ratios[++ratioStep]);
+                renderer.setSize(window.innerWidth, window.innerHeight);
+              } else {
+                degraded = true;
+                uniforms.uIntro.value = 1;
+                render(now);
+                return;
+              }
+            }
           }
         }
-        last = now;
+        last = active ? now : 0;
         uniforms.uIntro.value = Math.min(1, (now - startTime) / 2400);
         render(now);
       };
 
       let pending = 0;
       const onScroll = () => {
+        lastActive = performance.now();
         applyProgress();
         if ((prefersReduced || degraded) && !pending) {
           pending = requestAnimationFrame(() => {
@@ -517,6 +543,7 @@ export default function VoxelWorld({ portrait }: { portrait: string | null }) {
         if (prefersReduced || degraded) render(performance.now());
       };
       const onPointer = (e: PointerEvent) => {
+        lastActive = performance.now();
         pointer.x = (e.clientX / window.innerWidth) * 2 - 1;
         pointer.y = (e.clientY / window.innerHeight) * 2 - 1;
       };

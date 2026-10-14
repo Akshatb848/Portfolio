@@ -74,7 +74,7 @@ export function ProjectVideo({
       </video>
       <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
       {concept && (
-        <span className="absolute left-3 bottom-2.5 flex items-center gap-1.5 px-2 py-1 rounded-md bg-black/60 backdrop-blur-xs text-[11px] font-medium text-white">
+        <span className="absolute left-3 bottom-2.5 flex items-center gap-1.5 px-2 py-1 rounded-md bg-black/75 text-[11px] font-medium text-white">
           <Sparkles className="w-3 h-3" aria-hidden="true" />
           Concept visual · AI-generated
         </span>
