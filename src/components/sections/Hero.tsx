@@ -27,7 +27,7 @@ export function HeroSection({ resumeUrl, portrait }: { resumeUrl: string | null;
       {assets.broll.hero && (
         <BrollVideo
           clip={assets.broll.hero}
-          className="absolute inset-0 w-full h-full opacity-40 mix-blend-screen [mask-image:linear-gradient(to_bottom,transparent_20%,black_70%)]"
+          className="absolute inset-0 w-full h-full opacity-30 [mask-image:linear-gradient(to_bottom,transparent_20%,black_70%)]"
         />
       )}
 
@@ -39,9 +39,9 @@ export function HeroSection({ resumeUrl, portrait }: { resumeUrl: string | null;
 
       {/* Soft gradient blobs layered on top of canvas */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-1">
-        <div className="absolute top-1/4 -left-40 w-[500px] h-[500px] bg-violet-600/8 rounded-full blur-[120px]" />
-        <div className="absolute top-1/3 -right-40 w-[500px] h-[500px] bg-indigo-600/8 rounded-full blur-[120px]" />
-        <div className="absolute -bottom-20 left-1/2 w-[400px] h-[400px] bg-cyan-500/5 rounded-full blur-[120px]" />
+        <div className="absolute top-1/4 -left-40 w-[500px] h-[500px] bg-violet-600/8 [mask-image:radial-gradient(closest-side,#000,transparent)]" />
+        <div className="absolute top-1/3 -right-40 w-[500px] h-[500px] bg-indigo-600/8 [mask-image:radial-gradient(closest-side,#000,transparent)]" />
+        <div className="absolute -bottom-20 left-1/2 w-[400px] h-[400px] bg-cyan-500/5 [mask-image:radial-gradient(closest-side,#000,transparent)]" />
       </div>
 
       {/* Subtle grid */}
@@ -152,12 +152,9 @@ export function HeroSection({ resumeUrl, portrait }: { resumeUrl: string | null;
           className="hero-in flex flex-col items-center gap-2 min-h-11 px-3 w-fit text-muted-foreground hover:text-foreground transition-colors mx-auto rounded-lg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
         >
           <span className="text-xs font-medium tracking-widest uppercase" aria-hidden="true">Scroll</span>
-          <m.div
-            animate={{ y: [0, 6, 0] }}
-            transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
-          >
+          <span className="nudge">
             <ArrowDown className="w-4 h-4" aria-hidden="true" />
-          </m.div>
+          </span>
         </m.a>
       </m.div>
 

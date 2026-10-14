@@ -72,7 +72,7 @@ export function Navbar({ resumeUrl }: { resumeUrl: string | null }) {
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled || mobileOpen
-            ? 'bg-background/80 backdrop-blur-xl border-b border-border/50 shadow-lg shadow-black/5'
+            ? 'bg-background/95 border-b border-border/50 shadow-lg shadow-black/5'
             : 'bg-transparent'
         }`}
       >
@@ -197,7 +197,7 @@ export function Navbar({ resumeUrl }: { resumeUrl: string | null }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="fixed top-16 left-0 right-0 z-40 max-h-[calc(100dvh-4rem)] overflow-y-auto bg-background/95 backdrop-blur-xl border-b border-border shadow-xl xl:hidden"
+            className="fixed top-16 left-0 right-0 z-40 max-h-[calc(100dvh-4rem)] overflow-y-auto bg-background border-b border-border shadow-xl xl:hidden"
           >
             <nav aria-label="Mobile" className="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1">
               {navLinks.map((link) => (

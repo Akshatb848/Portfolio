@@ -46,6 +46,12 @@ function Slide({
   const abs = Math.abs(offset);
   const visible = abs <= (compact ? 1 : 2);
 
+  // Slides well outside the fan keep only their anchor (so #project-<id> links still land
+  // here) and skip the card, its cover art and its 3D layer entirely.
+  if (abs > (compact ? 2 : 3)) {
+    return <div id={`project-${project.id}`} aria-hidden="true" className="invisible" style={{ gridArea: '1 / 1' }} />;
+  }
+
   return (
     <m.div
       id={`project-${project.id}`}
@@ -59,7 +65,6 @@ function Slide({
         rotateY: compact ? 0 : offset * -28,
         scale: isActive ? 1 : compact ? 0.9 : 0.82 - (abs - 1) * 0.08,
         opacity: visible ? 1 : 0,
-        filter: isActive ? 'blur(0px)' : 'blur(1.5px)',
       }}
       transition={{ type: 'spring', stiffness: 170, damping: 26 }}
       style={{ zIndex: 10 - abs, gridArea: '1 / 1', transformStyle: 'preserve-3d' }}

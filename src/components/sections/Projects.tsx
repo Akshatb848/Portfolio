@@ -92,7 +92,7 @@ export function ProjectsSection({
   return (
     <section id="projects" className="section-padding relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <div className="absolute top-0 left-1/4 w-1/2 h-1/3 bg-linear-to-b from-indigo-500/10 to-transparent blur-3xl" />
+        <div className="absolute top-0 left-1/4 w-1/2 h-1/3 bg-linear-to-b from-indigo-500/10 to-transparent [mask-image:radial-gradient(closest-side,#000,transparent)]" />
       </div>
 
       <div className="container-max">

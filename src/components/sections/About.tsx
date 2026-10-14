@@ -57,8 +57,8 @@ export function AboutSection() {
   return (
     <section id="about" className="section-padding relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-1/3 h-1/2 bg-linear-to-bl from-indigo-500/5 to-transparent rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-1/4 h-1/3 bg-linear-to-tr from-purple-500/5 to-transparent rounded-full blur-3xl" />
+        <div className="absolute top-0 right-0 w-1/3 h-1/2 bg-linear-to-bl from-indigo-500/5 to-transparent [mask-image:radial-gradient(closest-side,#000,transparent)]" />
+        <div className="absolute bottom-0 left-0 w-1/4 h-1/3 bg-linear-to-tr from-purple-500/5 to-transparent [mask-image:radial-gradient(closest-side,#000,transparent)]" />
       </div>
 
       <div className="container-max" ref={ref}>

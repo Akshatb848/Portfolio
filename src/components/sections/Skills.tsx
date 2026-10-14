@@ -139,8 +139,8 @@ export function SkillsSection() {
   return (
     <section id="skills" className="section-padding relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <div className="absolute top-1/4 left-0 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-0 w-72 h-72 bg-indigo-500/10 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 left-0 w-72 h-72 bg-purple-500/10 [mask-image:radial-gradient(closest-side,#000,transparent)]" />
+        <div className="absolute bottom-1/4 right-0 w-72 h-72 bg-indigo-500/10 [mask-image:radial-gradient(closest-side,#000,transparent)]" />
       </div>
 
       <div className="container-max">

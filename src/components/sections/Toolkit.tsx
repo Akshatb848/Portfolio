@@ -153,17 +153,16 @@ function Stage({ selected, setSelected }: { selected: string | null; setSelected
                 animate={inView ? { x, y, scale: 1, opacity: 1 } : {}}
                 transition={{ type: 'spring', stiffness: 70, damping: 14, delay: 0.15 + i * 0.05 }}
               >
-                <m.div
-                  className="w-28"
-                  animate={{ y: [0, -8, 0] }}
-                  transition={{ duration: 4 + (i % 4) * 0.7, repeat: Infinity, ease: 'easeInOut', delay: i * 0.3 }}
+                <div
+                  className="bob w-28"
+                  style={{ animationDuration: `${4 + (i % 4) * 0.7}s`, animationDelay: `${i * 0.3}s` }}
                 >
                   <ToolTile
                     tool={tool}
                     selected={selected === tool.id}
                     onSelect={() => setSelected(selected === tool.id ? null : tool.id)}
                   />
-                </m.div>
+                </div>
               </m.li>
             );
           })}
@@ -195,7 +194,7 @@ export function ToolkitSection() {
   return (
     <section id="toolkit" className="section-padding relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[640px] h-[640px] rounded-full bg-violet-600/10 blur-[140px]" />
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[640px] h-[640px] rounded-full bg-violet-600/10 [mask-image:radial-gradient(closest-side,#000,transparent)]" />
       </div>
       <div className="container-max relative">
         <SectionHeading

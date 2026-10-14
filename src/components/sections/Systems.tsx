@@ -53,13 +53,9 @@ function SignalChart({ faulty, detected, running }: { faulty: boolean; detected:
         />
       </svg>
       {running && (
-        <m.span
-          className="absolute top-0 bottom-0 w-px bg-cyan-400/50"
-          initial={{ left: '0%' }}
-          animate={{ left: '100%' }}
-          transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
-          aria-hidden="true"
-        />
+        <span className="scan-track absolute inset-0 pointer-events-none" aria-hidden="true">
+          <span className="absolute top-0 bottom-0 right-0 w-px bg-cyan-400/50" />
+        </span>
       )}
     </figure>
   );
@@ -70,7 +66,6 @@ function Node({ node, state, hex }: { node: SimNode; state: 'done' | 'active' | 
   const warn = state === 'done' && node.outcome === 'warn';
   return (
     <m.div
-      layout
       className={`relative flex-1 min-w-0 rounded-xl border p-3 transition-colors duration-300 ${
         state === 'pending' ? 'border-border/60 bg-card/60' : 'bg-card'
       } ${warn ? 'border-amber-500/50' : ''}`}
@@ -122,10 +117,12 @@ function Connector({ live, done, hex }: { live: boolean; done: boolean; hex: str
         <span className="flow-line absolute inset-0 rounded-full opacity-80" style={{ ['--flow' as string]: hex }} />
       )}
       {live && (
-        <span
-          className="packet absolute w-2.5 h-2.5 rounded-full -translate-x-1/2 -translate-y-1/2"
-          style={{ backgroundColor: hex, boxShadow: `0 0 12px 2px ${hex}`, ['--dur' as string]: `${STEP_MS / 1000}s` }}
-        />
+        <span className="packet-track absolute inset-0" style={{ ['--dur' as string]: `${STEP_MS / 1000}s` }}>
+          <span
+            className="absolute bottom-0 left-1/2 md:bottom-auto md:left-auto md:right-0 md:top-1/2 w-2.5 h-2.5 rounded-full -translate-x-1/2 translate-y-1/2 md:translate-x-1/2 md:-translate-y-1/2"
+            style={{ backgroundColor: hex, boxShadow: `0 0 12px 2px ${hex}` }}
+          />
+        </span>
       )}
     </div>
   );
@@ -213,7 +210,7 @@ export function SystemsSection() {
     <section id="systems" className="section-padding relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div className="absolute inset-0 grid-pattern opacity-50" />
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[640px] h-[320px] rounded-full blur-3xl bg-violet-500/10" />
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[640px] h-[320px] [mask-image:radial-gradient(closest-side,#000,transparent)] bg-violet-500/10" />
       </div>
 
       <div className="container-max relative">
@@ -281,7 +278,7 @@ export function SystemsSection() {
           role="tabpanel"
           aria-labelledby={`sim-tab-${scenarioId}`}
           ref={stageRef}
-          className={`rounded-3xl border ${t.border} bg-card/70 backdrop-blur-xs p-5 sm:p-7 shadow-2xl ${t.glow}`}
+          className={`rounded-3xl border ${t.border} bg-card/90 p-5 sm:p-7 shadow-2xl ${t.glow}`}
         >
           <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-5 mb-6">
             <div className="max-w-xl">

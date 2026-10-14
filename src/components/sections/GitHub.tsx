@@ -42,7 +42,7 @@ export function GitHubSection({ data }: { data: GitHubData }) {
   return (
     <section id="github" className="section-padding relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <div className="absolute left-0 bottom-0 w-96 h-64 bg-cyan-500/10 rounded-full blur-3xl" />
+        <div className="absolute left-0 bottom-0 w-96 h-64 bg-cyan-500/10 [mask-image:radial-gradient(closest-side,#000,transparent)]" />
       </div>
 
       <div className="container-max">

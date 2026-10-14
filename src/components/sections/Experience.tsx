@@ -139,7 +139,7 @@ export function ExperienceSection() {
   return (
     <section id="experience" className="section-padding relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute right-0 top-1/3 w-72 h-72 bg-purple-500/5 rounded-full blur-3xl" />
+        <div className="absolute right-0 top-1/3 w-72 h-72 bg-purple-500/5 [mask-image:radial-gradient(closest-side,#000,transparent)]" />
       </div>
 
       <div className="container-max" ref={ref}>
