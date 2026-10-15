@@ -7,6 +7,11 @@ import { projects, languageColors, type Project } from '@/data/portfolio';
 import { tone } from '@/lib/tones';
 import { site } from '@/lib/site';
 import { ProjectCarousel } from '@/components/ProjectCarousel';
+import dynamic from 'next/dynamic';
+import { CaseStudyButton } from '@/components/CaseStudyButton';
+
+// The dialog (and the case-study data) load after the section, not with it.
+const CaseStudyDialog = dynamic(() => import('@/components/CaseStudy').then((m) => ({ default: m.CaseStudyDialog })), { ssr: false });
 import { SectionHeading } from '@/components/SectionHeading';
 
 const moreProjects = projects.filter((p) => !p.featured);
@@ -58,6 +63,8 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           />
           {project.language}
         </span>
+        <span className="flex items-center gap-2">
+        <CaseStudyButton project={project} />
 {project.github && (
         <a
             href={project.github}
@@ -70,6 +77,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             Code
           </a>
         )}
+        </span>
       </div>
     </m.article>
   );
@@ -124,6 +132,7 @@ export function ProjectsSection({
         </SectionHeading>
 
         <ProjectCarousel availableVideos={availableVideos} availablePosters={availablePosters} />
+        <CaseStudyDialog />
 
         {/* More projects */}
         <div className="mt-20">

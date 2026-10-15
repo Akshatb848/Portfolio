@@ -8,6 +8,10 @@ import { scenarios, type Scenario, type SimNode } from '@/data/simulations';
 import { experiences, projectById } from '@/data/portfolio';
 import { tone } from '@/lib/tones';
 import { FOCUS_PROJECT_EVENT } from '@/lib/events';
+import dynamic from 'next/dynamic';
+
+// Loaded on demand: the demo and its retrieval engine stay out of the section's first bundle.
+const LiveRag = dynamic(() => import('@/components/LiveRag').then((m) => ({ default: m.LiveRag })), { ssr: false });
 import { SectionHeading } from '@/components/SectionHeading';
 
 const STEP_MS = 1300;
@@ -278,7 +282,7 @@ export function SystemsSection() {
           role="tabpanel"
           aria-labelledby={`sim-tab-${scenarioId}`}
           ref={stageRef}
-          className={`rounded-3xl border ${t.border} bg-card/90 p-5 sm:p-7 shadow-2xl ${t.glow}`}
+          className={`hud rounded-3xl border ${t.border} bg-card/90 p-5 sm:p-7 shadow-2xl ${t.glow}`}
         >
           <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-5 mb-6">
             <div className="max-w-xl">
@@ -400,6 +404,8 @@ export function SystemsSection() {
             </div>
           </div>
         </div>
+
+        <LiveRag />
       </div>
     </section>
   );

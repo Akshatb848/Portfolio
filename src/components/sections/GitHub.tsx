@@ -83,7 +83,7 @@ export function GitHubSection({ data }: { data: GitHubData }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.06 }}
-              className="fx-card p-5 rounded-xl bg-card border border-border/60"
+              className="hud fx-card p-5 rounded-xl bg-card border border-border/60"
             >
               <s.icon className="w-5 h-5 text-violet-700 dark:text-violet-400 mb-3" aria-hidden="true" />
               <div className="text-2xl font-black text-foreground">{s.value}</div>

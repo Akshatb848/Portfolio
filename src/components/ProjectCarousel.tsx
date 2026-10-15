@@ -8,6 +8,7 @@ import { featuredProjects, languageColors, type Project } from '@/data/portfolio
 import { tone } from '@/lib/tones';
 import { ProjectCover } from '@/components/ProjectCover';
 import { ProjectVideo } from '@/components/ProjectVideo';
+import { CaseStudyButton } from '@/components/CaseStudyButton';
 import { FOCUS_PROJECT_EVENT } from '@/lib/events';
 
 const AUTOPLAY_MS = 7000;
@@ -123,6 +124,7 @@ function Slide({
             </li>
           ))}
         </ul>
+        <div className="mt-auto flex flex-wrap items-center gap-2">
         {project.github ? (
           <a
             href={project.github}
@@ -130,7 +132,7 @@ function Slide({
             rel="noopener noreferrer"
             aria-label={`View ${project.title} on GitHub`}
             tabIndex={isActive ? undefined : -1}
-            className="mt-auto self-start flex items-center gap-2 min-h-11 px-4 text-sm font-semibold rounded-lg bg-foreground text-background hover:opacity-90 transition-opacity focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400 focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+            className="flex items-center gap-2 min-h-11 px-4 text-sm font-semibold rounded-lg bg-foreground text-background hover:opacity-90 transition-opacity focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400 focus-visible:ring-offset-2 focus-visible:ring-offset-card"
           >
             <Github className="w-4 h-4" aria-hidden="true" />
             View on GitHub
@@ -140,12 +142,14 @@ function Slide({
             href="#contact"
             aria-label={`Ask for a walkthrough of ${project.title}`}
             tabIndex={isActive ? undefined : -1}
-            className="mt-auto self-start flex items-center gap-2 min-h-11 px-4 text-sm font-semibold rounded-lg border border-border text-foreground hover:border-foreground/40 transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
+            className="flex items-center gap-2 min-h-11 px-4 text-sm font-semibold rounded-lg border border-border text-foreground hover:border-foreground/40 transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
           >
             <Mail className="w-4 h-4" aria-hidden="true" />
             Ask for a walkthrough
           </a>
         )}
+        <CaseStudyButton project={project} tabbable={isActive} className="text-sm px-4" />
+        </div>
       </article>
     </m.div>
   );

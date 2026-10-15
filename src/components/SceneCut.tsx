@@ -25,14 +25,14 @@ function rng(seed: number) {
  * all motion comes from CSS transforms on wrapper layers, which the GPU compositor animates
  * without repainting, so the scene stays smooth while the page scrolls over it.
  */
-function VectorScene({ motif, seed }: { motif: Motif; seed: number }) {
+function VectorScene({ motif, seed, accent }: { motif: Motif; seed: number; accent: string }) {
   const r = rng(seed);
   const gid = `scene-${motif}`;
   const defs = (
     <defs>
       <linearGradient id={`${gid}-ink`} x1="0" x2="1">
         <stop offset="0%" stopColor="#8b5cf6" />
-        <stop offset="100%" stopColor="#22d3ee" />
+        <stop offset="100%" stopColor={accent} />
       </linearGradient>
     </defs>
   );
@@ -146,16 +146,19 @@ function VectorScene({ motif, seed }: { motif: Motif; seed: number }) {
   return (
     <div className="absolute inset-0 overflow-hidden bg-[#0b0f17]">
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-size-[40px_40px]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(109,40,217,0.45),transparent_60%)]" />
+      <div
+        className="absolute inset-0"
+        style={{ background: `radial-gradient(circle at center, ${accent}55, rgba(109,40,217,0.25) 35%, transparent 65%)` }}
+      />
       {layer}
     </div>
   );
 }
 
-function SceneLayer({ motif, seed, clip }: { motif: Motif; seed: number; clip?: Broll }) {
+function SceneLayer({ motif, seed, clip, accent }: { motif: Motif; seed: number; clip?: Broll; accent: string }) {
   return (
     <>
-      <VectorScene motif={motif} seed={seed} />
+      <VectorScene motif={motif} seed={seed} accent={accent} />
       {clip && <BrollVideo clip={clip} className="absolute inset-0 w-full h-full opacity-80" />}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(11,15,23,0.85)_100%)]" />
     </>
@@ -212,7 +215,9 @@ export function SceneCut({
   const lift = useTransform(p, [0, 1], [60, -60]);
 
   const clipData = assets.broll[slot];
-  const label = chapters.find((c) => c.id === to)?.label ?? '';
+  const chapter = chapters.find((c) => c.id === to);
+  const label = chapter?.label ?? '';
+  const accent = chapter?.accent ?? '#22d3ee';
   const seed = [...slot].reduce((a, c) => a * 31 + c.charCodeAt(0), 7);
 
   return (
@@ -220,7 +225,7 @@ export function SceneCut({
       <div className={`${reduced ? 'relative h-full' : 'sticky top-0 h-screen'} overflow-hidden`}>
         {reduced ? (
           <div className="absolute inset-0">
-            <SceneLayer motif={motif} seed={seed} clip={clipData} />
+            <SceneLayer motif={motif} seed={seed} clip={clipData} accent={accent} />
           </div>
         ) : (
           <m.div
@@ -231,7 +236,7 @@ export function SceneCut({
               className="absolute left-1/2 top-1/2 w-screen h-screen -ml-[50vw] -mt-[50vh] will-change-transform"
               style={{ scale: counter }}
             >
-              <SceneLayer motif={motif} seed={seed} clip={clipData} />
+              <SceneLayer motif={motif} seed={seed} clip={clipData} accent={accent} />
             </m.div>
           </m.div>
         )}
@@ -253,8 +258,10 @@ export function SceneCut({
           className="absolute inset-0 flex flex-col items-center justify-center text-center will-change-transform"
           style={reduced ? undefined : { scale: zoom, opacity: fade, y: lift }}
         >
-          <span className="font-mono text-xs sm:text-sm tracking-[0.4em] uppercase text-cyan-300">Next chapter</span>
-          <span className="mt-2 text-[28vw] sm:text-[16rem] font-black leading-none tracking-tighter text-white/95 tabular-nums [text-shadow:0_0_40px_rgba(139,92,246,0.55)]">
+          <span className="font-mono text-xs sm:text-sm tracking-[0.4em] uppercase" style={{ color: accent }}>
+            Next chapter
+          </span>
+          <span className="mt-2 text-[28vw] sm:text-[16rem] font-black leading-none tracking-tighter text-white/95 tabular-nums " style={{ textShadow: `0 0 40px ${accent}aa` }}>
             {chapterNumber(to)}
           </span>
           <span className="text-2xl sm:text-4xl font-bold text-white">{label}</span>

@@ -5,6 +5,7 @@
 @theme {
   --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-mono), Fira Code, monospace;
+  --font-display: var(--font-space), var(--font-inter), system-ui, sans-serif;
 
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
@@ -546,4 +547,137 @@ html[data-motion='off'] .fx-tilt {
 .scan-track {
   animation: scan 3s linear infinite;
   will-change: transform;
+}
+
+/* ─── Typography: display face for headings, mono figures for data ─────────── */
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+/* ─── Chapter accents: each chapter keeps the violet/cyan brand but owns one accent,
+   used by its heading rule, eyebrow, HUD frame and scene cut. --ch-text meets 4.5:1. ── */
+main > section,
+#main-content > section {
+  --ch: #8b5cf6;
+  --ch-text: #6d28d9;
+}
+#systems { --ch: #22d3ee; --ch-text: #0e7490; }
+#skills { --ch: #d946ef; --ch-text: #a21caf; }
+#toolkit { --ch: #38bdf8; --ch-text: #0369a1; }
+#projects { --ch: #06b6d4; --ch-text: #0e7490; }
+#experience { --ch: #f59e0b; --ch-text: #b45309; }
+#github { --ch: #10b981; --ch-text: #047857; }
+#education { --ch: #6366f1; --ch-text: #4338ca; }
+#contact { --ch: #a78bfa; --ch-text: #6d28d9; }
+.dark #about, .dark #contact { --ch-text: #c4b5fd; }
+.dark #systems, .dark #projects { --ch-text: #67e8f9; }
+.dark #skills { --ch-text: #f0abfc; }
+.dark #toolkit { --ch-text: #7dd3fc; }
+.dark #experience { --ch-text: #fcd34d; }
+.dark #github { --ch-text: #6ee7b7; }
+.dark #education { --ch-text: #a5b4fc; }
+
+/* ─── HUD detailing ─────────────────────────────────────────────────────────── */
+/* Corner brackets drawn with background gradients: no extra elements, no repaints. */
+.hud {
+  position: relative;
+}
+.hud::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  pointer-events: none;
+  border-radius: inherit;
+  --b: color-mix(in srgb, var(--ch, #8b5cf6) 85%, transparent);
+  background:
+    linear-gradient(var(--b), var(--b)) top left / 14px 1.5px,
+    linear-gradient(var(--b), var(--b)) top left / 1.5px 14px,
+    linear-gradient(var(--b), var(--b)) top right / 14px 1.5px,
+    linear-gradient(var(--b), var(--b)) top right / 1.5px 14px,
+    linear-gradient(var(--b), var(--b)) bottom left / 14px 1.5px,
+    linear-gradient(var(--b), var(--b)) bottom left / 1.5px 14px,
+    linear-gradient(var(--b), var(--b)) bottom right / 14px 1.5px,
+    linear-gradient(var(--b), var(--b)) bottom right / 1.5px 14px;
+  background-repeat: no-repeat;
+}
+/* Tick ruler under chapter headings */
+.ruler {
+  height: 8px;
+  background:
+    repeating-linear-gradient(90deg, color-mix(in srgb, var(--ch, #8b5cf6) 55%, transparent) 0 1px, transparent 1px 8px) bottom / 100% 4px no-repeat,
+    repeating-linear-gradient(90deg, color-mix(in srgb, var(--ch, #8b5cf6) 80%, transparent) 0 1px, transparent 1px 64px) bottom / 100% 8px no-repeat;
+  -webkit-mask-image: linear-gradient(90deg, #000 40%, transparent);
+  mask-image: linear-gradient(90deg, #000 40%, transparent);
+}
+/* Film grain + scanlines over the whole page: one static, composited layer. */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.5) 0 1px, transparent 1px 3px),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+:root:not(.dark) .grain {
+  opacity: 0.035;
+}
+
+/* ─── Micro-interactions ───────────────────────────────────────────────────── */
+.cursor-ring {
+  position: fixed;
+  left: -16px;
+  top: -16px;
+  width: 32px;
+  height: 32px;
+  border-radius: 9999px;
+  border: 1.5px solid rgba(139, 92, 246, 0.7);
+  box-shadow: 0 0 12px rgba(34, 211, 238, 0.25);
+  pointer-events: none;
+  z-index: 70;
+  opacity: 0;
+  transition: opacity 0.2s;
+  will-change: transform;
+}
+.cursor-ring[data-on='1'] {
+  opacity: 1;
+}
+@media (hover: none), (pointer: coarse) {
+  .cursor-ring {
+    display: none;
+  }
+}
+.magnetic {
+  transform: translate3d(var(--tx, 0px), var(--ty, 0px), 0);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+html[data-motion='off'] .magnetic {
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .magnetic {
+    transform: none;
+  }
+}
+
+/* Case-study dialog entrance */
+@keyframes cs-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.case-study[open] > div > div {
+  animation: cs-in 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.case-study::backdrop {
+  background: rgb(0 0 0 / 0.7);
 }

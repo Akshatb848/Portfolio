@@ -11,15 +11,19 @@ import { useEffect, useRef, useState } from 'react';
 export function CountUp({ value, duration = 1400 }: { value: string; duration?: number }) {
   const ref = useRef<HTMLSpanElement>(null);
   const [shown, setShown] = useState(value);
-  const match = value.match(/^(\D*)([\d.]+)(.*)$/);
+  const match = value.match(/^(\D*)(\d[\d,.]*)(.*)$/);
 
   useEffect(() => {
     const el = ref.current;
     if (!el || !match || (window.matchMedia('(prefers-reduced-motion: reduce)').matches || isMotionOff())) return;
-    const [, pre, num, post] = match;
+    const [, pre, raw, post] = match;
+    const grouped = raw.includes(',');
+    const num = raw.replace(/,/g, '');
     const target = parseFloat(num);
     const decimals = num.includes('.') ? num.split('.')[1].length : 0;
-    setShown(`${pre}${(0).toFixed(decimals)}${post}`);
+    const fmt = (v: number) =>
+      grouped ? Math.round(v).toLocaleString('en-US') : v.toFixed(decimals);
+    setShown(`${pre}${fmt(0)}${post}`);
     let raf = 0;
     const io = new IntersectionObserver(([entry]) => {
       if (!entry.isIntersecting) return;
@@ -28,7 +32,7 @@ export function CountUp({ value, duration = 1400 }: { value: string; duration?: 
       const step = (now: number) => {
         const p = Math.min(1, (now - start) / duration);
         const eased = 1 - Math.pow(1 - p, 3);
-        setShown(`${pre}${(target * eased).toFixed(decimals)}${post}`);
+        setShown(`${pre}${fmt(target * eased)}${post}`);
         if (p < 1) raf = requestAnimationFrame(step);
       };
       raf = requestAnimationFrame(step);

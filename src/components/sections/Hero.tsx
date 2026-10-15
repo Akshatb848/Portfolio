@@ -5,6 +5,7 @@ import { ArrowDown, FileText, Github, Instagram, Linkedin, Mail, Terminal } from
 import { site } from '@/lib/site';
 import { ScrambleText } from '@/components/ScrambleText';
 import { BrollVideo } from '@/components/BrollVideo';
+import { ParticleTitle } from '@/components/ParticleTitle';
 import { assets } from '@/lib/assets';
 
 
@@ -62,12 +63,10 @@ export function HeroSection({ resumeUrl, portrait }: { resumeUrl: string | null;
         </m.div>
 
         {/* Name */}
-        <h1
-          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight mb-3 leading-none"
-        >
-          <span className="text-foreground">Akshat </span>
-          <span className="text-gradient">Banga</span>
-        </h1>
+        <ParticleTitle className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-3 leading-none">
+          <span data-word="solid" className="text-foreground">Akshat </span>
+          <span data-word="gradient" className="text-gradient">Banga</span>
+        </ParticleTitle>
 
         {/* Headline */}
         <m.p
@@ -97,13 +96,13 @@ export function HeroSection({ resumeUrl, portrait }: { resumeUrl: string | null;
         >
           <a
             href="#projects"
-            className="inline-flex items-center min-h-12 px-6 bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold rounded-lg transition-colors shadow-lg shadow-violet-500/25 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="magnetic inline-flex items-center min-h-12 px-6 bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold rounded-lg transition-colors shadow-lg shadow-violet-500/25 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             View Projects
           </a>
           <a
             href="#contact"
-            className="inline-flex items-center gap-2 min-h-12 px-6 text-sm font-semibold text-foreground rounded-lg border border-border hover:border-violet-500/50 bg-background/60 transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
+            className="magnetic inline-flex items-center gap-2 min-h-12 px-6 text-sm font-semibold text-foreground rounded-lg border border-border hover:border-violet-500/50 bg-background/60 transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
           >
             <Mail className="w-4 h-4" aria-hidden="true" />
             Get in touch

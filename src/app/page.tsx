@@ -11,6 +11,7 @@ import { WorldLayer } from '@/components/WorldLayer';
 import { PointerFX } from '@/components/PointerFX';
 import { SceneCut } from '@/components/SceneCut';
 import { AnimationGate } from '@/components/AnimationGate';
+import { CursorFX } from '@/components/CursorFX';
 
 const AboutSection = dynamic(() =>
   import('@/components/sections/About').then((m) => ({ default: m.AboutSection }))
@@ -58,6 +59,7 @@ export default async function Home() {
       <WorldLayer portrait={assets.portrait ?? null} />
       <PointerFX />
       <AnimationGate />
+      <CursorFX />
       <ChapterRail />
       <HudReadout />
       <main id="main-content" className="relative z-1 min-h-screen overflow-x-hidden">
