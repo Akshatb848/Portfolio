@@ -34,15 +34,19 @@ export function SectionHeading({
       >
         <span className="font-mono text-xs text-muted-foreground tabular-nums">{chapterNumber(chapter)}</span>
         <m.span
-          className="h-px w-12 bg-linear-to-r from-violet-500 to-cyan-500 origin-left"
+          className="h-px w-12 bg-linear-to-r from-(--ch) to-cyan-400 origin-left"
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.15 }}
           aria-hidden="true"
         />
-        <span className="text-xs font-semibold tracking-widest uppercase text-violet-700 dark:text-violet-400 font-mono">
+        <span className="text-xs font-semibold tracking-widest uppercase text-(--ch-text) font-mono">
           <ScrambleText text={eyebrow} />
+        </span>
+        {/* Telemetry readout: decorative chapter code */}
+        <span aria-hidden="true" className="hidden sm:inline font-mono text-[10px] tracking-[0.2em] uppercase text-muted-foreground">
+          {'// '}SYS.{chapterNumber(chapter)} · {chapter.toUpperCase()} · <span className="text-emerald-700 dark:text-emerald-400">online</span>
         </span>
       </m.div>
       <div
@@ -50,7 +54,7 @@ export function SectionHeading({
           center ? 'items-center sm:justify-center' : 'justify-between'
         }`}
       >
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight overflow-hidden pb-1">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight overflow-hidden pb-1">
           <m.span
             className="block"
             initial={{ y: '110%', rotate: 2 }}
@@ -72,6 +76,7 @@ export function SectionHeading({
           </m.div>
         )}
       </div>
+      <div aria-hidden="true" className={`ruler mt-4 max-w-md ${center ? 'mx-auto' : ''}`} />
       {children && (
         <m.div
           initial={{ opacity: 0, y: 12 }}

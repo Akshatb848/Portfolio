@@ -3,8 +3,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
 import { useTheme } from 'next-themes';
-import { Moon, Sun, Menu, X, Code2, FileText, Pause, Play } from 'lucide-react';
+import { Moon, Sun, Menu, X, Code2, FileText, Pause, Play, Volume2, VolumeX } from 'lucide-react';
 import { setMotionOff, useMotionOff } from '@/lib/motion';
+import { playTick, setSoundOn, useSoundOn } from '@/lib/sound';
 import { chapters } from '@/data/chapters';
 import { useActiveChapter } from '@/lib/useActiveChapter';
 
@@ -16,6 +17,7 @@ export function Navbar({ resumeUrl }: { resumeUrl: string | null }) {
   const activeSection = useActiveChapter();
   const { resolvedTheme, setTheme } = useTheme();
   const motionOff = useMotionOff();
+  const soundOn = useSoundOn();
   const [mounted, setMounted] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
@@ -147,6 +149,23 @@ export function Navbar({ resumeUrl }: { resumeUrl: string | null }) {
                   title={motionOff ? 'Animations paused: click to play' : 'Pause animations'}
                 >
                   {motionOff ? <Play className="w-5 h-5" aria-hidden="true" /> : <Pause className="w-5 h-5" aria-hidden="true" />}
+                </button>
+              )}
+
+              {/* Interface sound, off by default */}
+              {mounted && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSoundOn(!soundOn);
+                    if (!soundOn) playTick(0.8, true);
+                  }}
+                  aria-pressed={soundOn}
+                  className="w-11 h-11 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-accent transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
+                  aria-label="Interface sound"
+                  title={soundOn ? 'Interface sound on: click to mute' : 'Turn on interface sound'}
+                >
+                  {soundOn ? <Volume2 className="w-5 h-5" aria-hidden="true" /> : <VolumeX className="w-5 h-5" aria-hidden="true" />}
                 </button>
               )}
 

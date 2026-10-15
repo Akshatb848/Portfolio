@@ -57,7 +57,7 @@ export function ContactSection({ resumeUrl }: { resumeUrl: string | null }) {
           <div className="flex flex-col sm:flex-row items-stretch justify-center gap-3 mb-8">
             <a
               href={`mailto:${site.email}`}
-              className="inline-flex items-center justify-center gap-2.5 min-h-12 px-6 rounded-xl bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold shadow-lg shadow-violet-500/25 transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="magnetic inline-flex items-center justify-center gap-2.5 min-h-12 px-6 rounded-xl bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold shadow-lg shadow-violet-500/25 transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               <Mail className="w-4 h-4" aria-hidden="true" />
               {site.email}

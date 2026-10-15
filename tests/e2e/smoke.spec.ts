@@ -1,6 +1,8 @@
 import { test, expect, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { chapters } from '../../src/data/chapters';
+import { caseStudies } from '../../src/data/caseStudies';
+import { HAS_CASE_STUDY } from '../../src/components/CaseStudyButton';
 
 /** Console errors, ignoring Vercel's analytics scripts (they only exist on Vercel). */
 function trackErrors(page: Page) {
@@ -69,6 +71,46 @@ test('toolkit tiles explain each tool', async ({ page }) => {
   await tile.click({ force: true });
   await expect(tile).toHaveAttribute('aria-pressed', 'true');
   await expect(page.locator('#toolkit [aria-live]')).toContainText('Deloitte');
+});
+
+test('ask-this-site answers from the page and refuses off-topic questions', async ({ page }) => {
+  await page.goto('/');
+  const input = page.locator('#rag-q');
+  await input.scrollIntoViewIfNeeded();
+  const panel = input.locator('xpath=ancestor::div[contains(@class,"hud")]');
+  await input.fill('Kubernetes experience?');
+  await input.press('Enter');
+  await expect(panel.locator('[aria-live=polite]')).toContainText('Grounded answer');
+  await expect(panel.locator('[aria-live=polite]')).toContainText('Kubernetes');
+  await input.fill('favourite pizza topping');
+  await input.press('Enter');
+  await expect(panel.locator('[aria-live=polite]')).toContainText('Refused');
+});
+
+test('case study opens as a modal dialog and returns focus on close', async ({ page }) => {
+  await page.goto('/');
+  const open = page.getByRole('button', { name: /^Case study: ASIS/ });
+  await open.scrollIntoViewIfNeeded();
+  await open.click();
+  const dialog = page.getByRole('dialog', { name: /ASIS/ });
+  await expect(dialog).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Close case study' })).toBeFocused();
+  await expect(dialog.getByText('How it works')).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(dialog).toBeHidden();
+  await expect(open).toBeFocused();
+});
+
+test('every case-study button has case-study data', () => {
+  expect([...HAS_CASE_STUDY].sort()).toEqual(Object.keys(caseStudies).map(Number).sort());
+});
+
+test('interface sound is off by default and toggles', async ({ page }) => {
+  await page.goto('/');
+  const sound = page.getByRole('button', { name: 'Interface sound' });
+  await expect(sound).toHaveAttribute('aria-pressed', 'false');
+  await sound.click();
+  await expect(sound).toHaveAttribute('aria-pressed', 'true');
 });
 
 test('résumé, robots, sitemap and OG image respond', async ({ request }) => {

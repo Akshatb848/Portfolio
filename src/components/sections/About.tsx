@@ -188,7 +188,7 @@ export function AboutSection() {
               initial={{ opacity: 0, y: 10 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.45 }}
-              className="fx-card p-4 rounded-xl bg-card border border-border/50 font-mono"
+              className="hud fx-card p-4 rounded-xl bg-card border border-border/50 font-mono"
             >
               <div className="flex items-center gap-2 mb-3">
                 <div className="flex gap-1.5">
