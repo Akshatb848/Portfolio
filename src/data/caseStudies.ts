@@ -95,15 +95,15 @@ export const caseStudies: Record<number, CaseStudy> = {
   },
   7: {
     stages: [
-      { label: 'Ekush images', detail: 'Degraded handwritten characters' },
+      { label: 'Character images', detail: 'Degraded handwritten characters in two class folders' },
       { label: 'Preprocess', detail: 'OpenCV clean-up and resizing' },
-      { label: 'Transfer learning', detail: 'VGG-16, DenseNet-121, ResNet-50' },
-      { label: 'Script call', detail: 'Devanagari or Bangla' },
-      { label: 'Serve', detail: 'Streamlit, Docker and Kubernetes' },
+      { label: 'Custom CNN', detail: 'Keras, with early stopping' },
+      { label: 'Script call', detail: 'Devanagari or Bangla, in a Streamlit demo' },
+      { label: 'OCR pipeline', detail: 'FastAPI + LangGraph agents; Docker and Kubernetes assets' },
     ],
     figures: [
-      { value: '7,628', label: 'Training images' },
-      { value: '3', label: 'CNN backbones compared' },
+      { value: '7,628', label: 'Images in the dataset folders' },
+      { value: '37', label: 'Passing tests' },
     ],
   },
   8: {
