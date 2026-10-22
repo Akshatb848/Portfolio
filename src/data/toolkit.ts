@@ -102,7 +102,7 @@ export const tools: Tool[] = [
     name: 'FAISS · ChromaDB',
     icon: Database,
     color: 'indigo',
-    usedFor: 'Semantic search for RAG in the Deloitte dashboard and TennisIQ.',
+    usedFor: 'Semantic search for RAG in the Deloitte dashboard and the data-science agent platform.',
     href: '#project-12',
     linkLabel: 'See the Deloitte dashboard',
     projectId: 12,

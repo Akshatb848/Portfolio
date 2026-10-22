@@ -169,7 +169,7 @@ export function AboutSection() {
             >
               {[
                 { icon: Zap, value: '40%', label: 'Less manual analysis', note: 'Deloitte, multi-agent' },
-                { icon: Brain, value: '149', label: 'Passing tests', note: 'TennisIQ CI' },
+                { icon: Brain, value: '151', label: 'Passing tests', note: 'TennisIQ CI' },
                 { icon: Users, value: '8', label: 'Agents in ASIS', note: 'decision intelligence' },
               ].map((s) => (
                 <div

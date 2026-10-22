@@ -107,8 +107,8 @@ export const projects: Project[] = [
     name: 'AI-Tennis-Swing-Analyzer',
     title: 'AI Tennis Swing Analyzer',
     description:
-      'Multi-agent AI platform that analyzes tennis swings using a Streamlit dashboard. Built with a modular agents/core/services architecture, ChromaDB-backed RAG for coaching knowledge retrieval. Python core with TypeScript and Swift components.',
-    tech: ['Python', 'TypeScript', 'Streamlit', 'ChromaDB', 'RAG', 'Agents', 'Docker'],
+      'TennisIQ: single-camera tennis video analysis. OpenCV detects the court, ball and players, the pipeline computes rally and shot statistics, and a multi-agent step writes a coaching report, served through FastAPI with Next.js and Streamlit front ends. 151 tests in CI across Python 3.10–3.12.',
+    tech: ['Python', 'OpenCV', 'Agents', 'FastAPI', 'Next.js', 'TypeScript', 'Streamlit', 'Docker'],
     category: 'Computer Vision',
     color: 'indigo',
     github: 'https://github.com/Akshatb848/AI-Tennis-Swing-Analyzer',
