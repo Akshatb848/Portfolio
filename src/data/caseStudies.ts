@@ -8,6 +8,21 @@ export type Figure = { value: string; label: string };
 export type CaseStudy = { stages: Stage[]; figures: Figure[] };
 
 export const caseStudies: Record<number, CaseStudy> = {
+  14: {
+    stages: [
+      { label: 'Pitch intake', detail: 'FastAPI endpoint receives the deck and founder data' },
+      { label: 'Redis queue', detail: 'Each deal becomes a job for a background worker' },
+      { label: 'Specialist agents', detail: 'Market & moat, financial metrics, founder–market fit, ESG (Ollama)' },
+      { label: 'Deterministic score', detail: 'Rules, not an LLM, turn agent findings into a verdict' },
+      { label: 'Verdict', detail: 'Yes, Maybe, Needs Review or No' },
+      { label: 'IC memo', detail: 'An agent drafts the investment-committee memo; results stored in PostgreSQL' },
+    ],
+    figures: [
+      { value: '5', label: 'Agents incl. IC memo' },
+      { value: '4', label: 'Verdicts' },
+      { value: '130', label: 'Passing tests' },
+    ],
+  },
   13: {
     stages: [
       { label: 'Next.js UI', detail: 'Brief request; live progress streamed over SSE' },

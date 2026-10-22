@@ -89,10 +89,11 @@ test('ask-this-site answers from the page and refuses off-topic questions', asyn
 
 test('case study opens as a modal dialog and returns focus on close', async ({ page }) => {
   await page.goto('/');
-  const open = page.getByRole('button', { name: /^Case study: ASIS/ });
+  // The first featured slide is the active one, so its case-study button is clickable.
+  const open = page.getByRole('button', { name: /^Case study: Deal Screener/ });
   await open.scrollIntoViewIfNeeded();
   await open.click();
-  const dialog = page.getByRole('dialog', { name: /ASIS/ });
+  const dialog = page.getByRole('dialog', { name: /Deal Screener/ });
   await expect(dialog).toBeVisible();
   await expect(page.getByRole('button', { name: 'Close case study' })).toBeFocused();
   await expect(dialog.getByText('How it works')).toBeVisible();
@@ -103,6 +104,20 @@ test('case study opens as a modal dialog and returns focus on close', async ({ p
 
 test('every case-study button has case-study data', () => {
   expect([...HAS_CASE_STUDY].sort()).toEqual(Object.keys(caseStudies).map(Number).sort());
+});
+
+test('deal screener demo returns a verdict and routes incomplete pitches to review', async ({ page }) => {
+  await page.goto('/');
+  const open = page.getByRole('button', { name: /^Case study: Deal Screener/ });
+  await open.scrollIntoViewIfNeeded();
+  await open.click();
+  const dialog = page.getByRole('dialog', { name: /Deal Screener/ });
+  await dialog.getByRole('button', { name: 'B2B SaaS, seed' }).click();
+  await dialog.getByRole('button', { name: 'Run the screen' }).click();
+  await expect(dialog.locator('[aria-live=polite]')).toContainText('Yes');
+  await dialog.getByRole('button', { name: 'Pitch missing financials' }).click();
+  await dialog.getByRole('button', { name: 'Run the screen' }).click();
+  await expect(dialog.locator('[aria-live=polite]')).toContainText('Needs Review');
 });
 
 test('interface sound is off by default and toggles', async ({ page }) => {

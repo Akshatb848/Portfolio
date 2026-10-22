@@ -8,6 +8,7 @@ import { caseStudies } from '@/data/caseStudies';
 import { tone } from '@/lib/tones';
 import { CountUp } from '@/components/CountUp';
 import { ProjectCover } from '@/components/ProjectCover';
+import { DealScreenerDemo } from '@/components/DealScreenerDemo';
 
 import { OPEN_CASE_STUDY_EVENT, takePendingCaseStudy } from '@/components/CaseStudyButton';
 
@@ -105,6 +106,12 @@ export function CaseStudyDialog() {
                   </div>
                 ))}
               </dl>
+
+              {project.id === 14 && (
+                <div className="mt-8">
+                  <DealScreenerDemo />
+                </div>
+              )}
 
               {/* Architecture, drawn as the reader scrolls */}
               <h3 className="mt-12 mb-6 text-xl font-bold text-foreground">How it works</h3>
