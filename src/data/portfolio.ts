@@ -187,15 +187,15 @@ export const projects: Project[] = [
     name: 'Degraded-Devanagari-and-Bangla-Script-Identification-Using-CNN-Frameworks',
     title: 'Degraded Indic Script Classifier',
     description:
-      'CNN that identifies the script (Devanagari or Bangla) of degraded handwritten character images from the Ekush dataset (7,628 images). Training scripts cover VGG-16, DenseNet-121 and ResNet-50 transfer learning, and inference is packaged with Streamlit, Docker and Kubernetes assets, tests and modular services.',
-    tech: ['Python', 'TensorFlow', 'Keras', 'OpenCV', 'VGG-16', 'ResNet-50', 'Streamlit', 'Docker', 'Kubernetes'],
+      'Custom Keras CNN for telling Devanagari from Bangla in degraded handwritten characters, with a Streamlit demo and a FastAPI + LangGraph multi-agent OCR pipeline, packaged with Docker and Kubernetes assets and a test suite. The README is candid that the evaluation still needs a held-out split and a verified Devanagari source.',
+    tech: ['Python', 'TensorFlow', 'Keras', 'OpenCV', 'FastAPI', 'LangGraph', 'Streamlit', 'Docker', 'Kubernetes'],
     category: 'Computer Vision',
     color: 'rose',
     github:
       'https://github.com/Akshatb848/Degraded-Devanagari-and-Bangla-Script-Identification-Using-CNN-Frameworks',
     language: 'Python',
     icon: Languages,
-    featured: true,
+    featured: false,
   },
   {
     id: 8,
@@ -543,7 +543,7 @@ export function evidenceFor(skill: Skill): Evidence[] {
 }
 
 // Featured order follows the résumé's selected projects, then other highlights.
-const FEATURED_ORDER = [14, 13, 2, 4, 7, 3, 1];
+const FEATURED_ORDER = [14, 13, 2, 4, 3, 1];
 export const featuredProjects = FEATURED_ORDER.map((id) => projects.find((p) => p.id === id)).filter(
   (p): p is Project => !!p && p.featured
 );
