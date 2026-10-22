@@ -40,14 +40,15 @@ export const caseStudies: Record<number, CaseStudy> = {
   },
   1: {
     stages: [
-      { label: 'Swing input', detail: 'Captured through the Streamlit dashboard' },
-      { label: 'Agents', detail: 'Modular agents / core / services' },
-      { label: 'ChromaDB RAG', detail: 'Retrieves coaching knowledge' },
-      { label: 'Feedback', detail: 'Coaching guidance back to the player' },
+      { label: 'Upload', detail: 'Single-camera match video via the Next.js app' },
+      { label: 'Detect', detail: 'OpenCV finds the court, ball and players' },
+      { label: 'Measure', detail: 'Rally and shot statistics' },
+      { label: 'Coach', detail: 'Agents write the coaching report' },
+      { label: 'Serve', detail: 'FastAPI API, Next.js and Streamlit dashboards' },
     ],
     figures: [
-      { value: '149', label: 'Passing tests in CI' },
-      { value: '3', label: 'Languages: Python, TS, Swift' },
+      { value: '151', label: 'Passing tests in CI' },
+      { value: '3', label: 'Python versions tested' },
     ],
   },
   2: {
