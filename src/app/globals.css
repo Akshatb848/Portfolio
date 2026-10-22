@@ -612,20 +612,6 @@ main > section,
   -webkit-mask-image: linear-gradient(90deg, #000 40%, transparent);
   mask-image: linear-gradient(90deg, #000 40%, transparent);
 }
-/* Film grain + scanlines over the whole page: one static, composited layer. */
-.grain {
-  position: fixed;
-  inset: 0;
-  z-index: 60;
-  pointer-events: none;
-  opacity: 0.05;
-  background-image:
-    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.5) 0 1px, transparent 1px 3px),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-:root:not(.dark) .grain {
-  opacity: 0.035;
-}
 
 /* ─── Micro-interactions ───────────────────────────────────────────────────── */
 .cursor-ring {
@@ -680,4 +666,11 @@ html[data-motion='off'] .magnetic {
 }
 .case-study::backdrop {
   background: rgb(0 0 0 / 0.7);
+}
+
+/* Chapters far off-screen skip layout and paint entirely; the browser remembers each
+   chapter's last rendered height, so the scrollbar and anchors stay stable. */
+#main-content > section:not(:first-child) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 1100px;
 }

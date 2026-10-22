@@ -95,7 +95,6 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: motionInitScript }} />
       </head>
       <body className="font-sans antialiased">
-        <div className="grain" aria-hidden="true" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
