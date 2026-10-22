@@ -54,7 +54,7 @@ export const scenarios: Scenario[] = [
     title: 'AI deal-intake automation',
     tagline: 'An automation that turns an inbound pitch into a scored, routed deal record.',
     color: 'fuchsia',
-    basedOn: { experienceIds: [1] },
+    basedOn: { experienceIds: [1], projectIds: [14] },
     toggle: {
       label: 'Send a messy, incomplete pitch',
       description: 'Extraction confidence drops, so the workflow pauses for a human instead of guessing.',

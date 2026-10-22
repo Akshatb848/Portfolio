@@ -4,7 +4,7 @@ import { FileSearch } from 'lucide-react';
 import type { Project } from '@/data/portfolio';
 
 /** Projects with an entry in data/caseStudies.ts (kept here so the button stays tiny). */
-export const HAS_CASE_STUDY = new Set([13, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12]);
+export const HAS_CASE_STUDY = new Set([14, 13, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12]);
 
 export const OPEN_CASE_STUDY_EVENT = 'open-case-study';
 

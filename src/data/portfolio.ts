@@ -25,6 +25,7 @@ import {
   Layers,
   Cloud,
   Compass,
+  Handshake,
 } from 'lucide-react';
 import type { ToneName } from '@/lib/tones';
 
@@ -74,6 +75,19 @@ export type RepoSummary = {
 };
 
 export const projects: Project[] = [
+  {
+    id: 14,
+    name: 'dealscreener',
+    title: 'Deal Screener – VC Dealflow Intelligence (YourNest)',
+    description:
+      'Multi-agent dealflow system built at YourNest Venture Capital. A FastAPI intake API queues each pitch on Redis; workers run local Ollama agents for market and moat, financial metrics, founder–market fit and ESG, then deterministic scoring returns Yes, Maybe, Needs Review or No and an agent drafts the IC memo. PostgreSQL, Docker, 130 passing tests.',
+    tech: ['Python', 'FastAPI', 'Agents', 'Ollama', 'Redis', 'PostgreSQL', 'Docker'],
+    category: 'Agentic AI',
+    color: 'violet',
+    language: 'Python',
+    icon: Handshake,
+    featured: true,
+  },
   {
     id: 13,
     name: 'Strategic-Consultant',
@@ -529,7 +543,7 @@ export function evidenceFor(skill: Skill): Evidence[] {
 }
 
 // Featured order follows the résumé's selected projects, then other highlights.
-const FEATURED_ORDER = [13, 2, 4, 7, 3, 1];
+const FEATURED_ORDER = [14, 13, 2, 4, 7, 3, 1];
 export const featuredProjects = FEATURED_ORDER.map((id) => projects.find((p) => p.id === id)).filter(
   (p): p is Project => !!p && p.featured
 );
