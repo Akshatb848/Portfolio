@@ -154,7 +154,7 @@ export function ProjectsSection({
         >
           <p className="text-sm text-muted-foreground mt-3 flex items-center gap-2">
             <BookOpen className="w-3.5 h-3.5 text-indigo-700 dark:text-indigo-400" aria-hidden="true" />
-            Swipe, use the arrows, or pick a project below. Most link to their public repository; the two YourNest products are in private repositories.
+            Swipe, use the arrows, or pick a project below. Each links to its public repository; the two YourNest products link to public editions with synthetic data.
           </p>
         </SectionHeading>
 

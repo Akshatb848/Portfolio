@@ -20,7 +20,7 @@ export const caseStudies: Record<number, CaseStudy> = {
     figures: [
       { value: '3', label: 'Team permission tiers' },
       { value: '1', label: 'Approver for all content' },
-      { value: '22', label: 'Tests in CI' },
+      { value: '69', label: 'Tests in the public edition' },
     ],
   },
   14: {
@@ -35,7 +35,7 @@ export const caseStudies: Record<number, CaseStudy> = {
     figures: [
       { value: '5', label: 'Agents incl. IC memo' },
       { value: '4', label: 'Verdicts' },
-      { value: '130', label: 'Passing tests' },
+      { value: '107', label: 'Tests in the public edition' },
     ],
   },
   13: {
