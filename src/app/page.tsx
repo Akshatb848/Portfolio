@@ -25,6 +25,9 @@ const SkillsSection = dynamic(() =>
 const ToolkitSection = dynamic(() =>
   import('@/components/sections/Toolkit').then((m) => ({ default: m.ToolkitSection }))
 );
+const VentureSection = dynamic(() =>
+  import('@/components/sections/Venture').then((m) => ({ default: m.VentureSection }))
+);
 const ProjectsSection = dynamic(() =>
   import('@/components/sections/Projects').then((m) => ({ default: m.ProjectsSection }))
 );
@@ -78,14 +81,15 @@ export default async function Home() {
         <SkillsSection />
         <ToolkitSection />
         <SceneCut
-          to="projects"
+          to="venture"
           slot="projects"
           motif="blueprint"
           rows={[
-            ['Built', 'Shipped', 'Measured', 'Open source'],
-            ['Agents', 'Dashboards', 'Classifiers', 'Forecasts'],
+            ['Venture capital', 'Deal Screener', 'Founder Portal', 'YourNest'],
+            ['Built', 'Shipped', 'Measured', 'Agents', 'Dashboards'],
           ]}
         />
+        <VentureSection />
         <ProjectsSection availableVideos={availableVideos} availablePosters={availablePosters} />
         <SceneCut
           to="experience"

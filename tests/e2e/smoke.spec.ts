@@ -90,7 +90,7 @@ test('ask-this-site answers from the page and refuses off-topic questions', asyn
 test('case study opens as a modal dialog and returns focus on close', async ({ page }) => {
   await page.goto('/');
   // The first featured slide is the active one, so its case-study button is clickable.
-  const open = page.getByRole('button', { name: /^Case study: Deal Screener/ });
+  const open = page.locator('#projects').getByRole('button', { name: /^Case study: Deal Screener/ });
   await open.scrollIntoViewIfNeeded();
   await open.click();
   const dialog = page.getByRole('dialog', { name: /Deal Screener/ });
@@ -108,7 +108,7 @@ test('every case-study button has case-study data', () => {
 
 test('deal screener demo returns a verdict and routes incomplete pitches to review', async ({ page }) => {
   await page.goto('/');
-  const open = page.getByRole('button', { name: /^Case study: Deal Screener/ });
+  const open = page.locator('#projects').getByRole('button', { name: /^Case study: Deal Screener/ });
   await open.scrollIntoViewIfNeeded();
   await open.click();
   const dialog = page.getByRole('dialog', { name: /Deal Screener/ });
@@ -118,6 +118,26 @@ test('deal screener demo returns a verdict and routes incomplete pitches to revi
   await dialog.getByRole('button', { name: 'Pitch missing financials' }).click();
   await dialog.getByRole('button', { name: 'Run the screen' }).click();
   await expect(dialog.locator('[aria-live=polite]')).toContainText('Needs Review');
+});
+
+test('VC work section explains both YourNest products', async ({ page }) => {
+  const errors = trackErrors(page);
+  await page.goto('/#venture');
+  const section = page.locator('#venture');
+  await expect(section.getByRole('heading', { name: /venture capital fund/ })).toBeVisible();
+  // Deal Screener: explainer video and the try-it demo with a memo draft
+  await expect(section.locator('video')).toHaveAttribute('src', '/videos/dealscreener-explainer.mp4');
+  await section.getByRole('button', { name: 'Run the screen' }).click();
+  await expect(section.locator('[aria-live=polite]').first()).toContainText('Draft IC memo');
+  // Founder portal: real-recording toggle and the click-through tour
+  await section.getByRole('tab', { name: "Founder's Resource Portal" }).click();
+  await expect(section.getByRole('tabpanel')).toContainText('Private repository');
+  await section.getByRole('button', { name: 'Real product' }).click();
+  await expect(section.locator('video')).toHaveAttribute('src', '/videos/founder-portal-real.mp4');
+  await section.getByRole('button', { name: 'Next step' }).click();
+  await expect(section.getByText('Step 2 of 9')).toBeVisible();
+  await expect(section.getByRole('img', { name: /Sector news/ })).toBeVisible();
+  expect(errors).toEqual([]);
 });
 
 test('interface sound is off by default and toggles', async ({ page }) => {

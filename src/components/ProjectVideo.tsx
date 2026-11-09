@@ -2,7 +2,7 @@
 
 import { isMotionOff } from '@/lib/motion';
 import { useEffect, useRef, useState } from 'react';
-import { Sparkles } from 'lucide-react';
+import { Clapperboard, Sparkles } from 'lucide-react';
 
 interface ProjectVideoProps {
   videoSrc: string;
@@ -16,6 +16,8 @@ interface ProjectVideoProps {
   fallback?: React.ReactNode;
   /** Clips generated with AI (not screen recordings) carry a visible label. */
   concept?: boolean;
+  /** Animated explainers made for this site carry their own label. */
+  explainer?: boolean;
 }
 
 export function ProjectVideo({
@@ -26,6 +28,7 @@ export function ProjectVideo({
   active = true,
   fallback = null,
   concept = false,
+  explainer = false,
 }: ProjectVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [errored, setErrored] = useState(false);
@@ -65,7 +68,7 @@ export function ProjectVideo({
         muted
         playsInline
         preload={active ? 'auto' : 'none'}
-        aria-label={concept ? `AI-generated concept visual for ${title}` : `${title} demo video`}
+        aria-label={explainer ? `Animated explainer of ${title}` : concept ? `AI-generated concept visual for ${title}` : `${title} demo video`}
         className="w-full h-full object-cover"
       >
         {webmSrc && <source src={webmSrc} type="video/webm" />}
@@ -73,7 +76,13 @@ export function ProjectVideo({
         <source src={videoSrc} type="video/mp4" onError={() => setErrored(true)} />
       </video>
       <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
-      {concept && (
+      {explainer && (
+        <span className="absolute left-3 bottom-2.5 flex items-center gap-1.5 px-2 py-1 rounded-md bg-black/75 text-[11px] font-medium text-white">
+          <Clapperboard className="w-3 h-3" aria-hidden="true" />
+          Animated explainer
+        </span>
+      )}
+      {concept && !explainer && (
         <span className="absolute left-3 bottom-2.5 flex items-center gap-1.5 px-2 py-1 rounded-md bg-black/75 text-[11px] font-medium text-white">
           <Sparkles className="w-3 h-3" aria-hidden="true" />
           Concept visual · AI-generated

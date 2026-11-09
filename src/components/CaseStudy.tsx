@@ -2,13 +2,16 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { m } from 'framer-motion';
-import { ArrowUpRight, Github, Mail, X } from 'lucide-react';
+import { ArrowUpRight, Github, Lock, Mail, X } from 'lucide-react';
 import { projects, type Project } from '@/data/portfolio';
 import { caseStudies } from '@/data/caseStudies';
 import { tone } from '@/lib/tones';
 import { CountUp } from '@/components/CountUp';
 import { ProjectCover } from '@/components/ProjectCover';
 import { DealScreenerDemo } from '@/components/DealScreenerDemo';
+import { ExplainerPlayer } from '@/components/ExplainerPlayer';
+import { PortalTour } from '@/components/PortalTour';
+import { ventureStories, portalTour } from '@/data/venture';
 
 import { OPEN_CASE_STUDY_EVENT, takePendingCaseStudy } from '@/components/CaseStudyButton';
 
@@ -61,6 +64,7 @@ export function CaseStudyDialog() {
   const project = id === null ? null : projects.find((p) => p.id === id) ?? null;
   const study = id === null ? null : caseStudies[id];
   const t = project ? tone(project.color) : tone('violet');
+  const story = ventureStories.find((s) => s.projectId === id);
 
   return (
     <dialog
@@ -107,9 +111,20 @@ export function CaseStudyDialog() {
                 ))}
               </dl>
 
+              {story && (
+                <div className="mt-8">
+                  <ExplainerPlayer title={story.name} explainer={story.explainer} recording={story.recording} />
+                </div>
+              )}
+
               {project.id === 14 && (
                 <div className="mt-8">
                   <DealScreenerDemo />
+                </div>
+              )}
+              {project.id === 15 && portalTour.length > 0 && (
+                <div className="mt-8">
+                  <PortalTour steps={portalTour} />
                 </div>
               )}
 
@@ -183,6 +198,12 @@ export function CaseStudyDialog() {
                     <Mail className="w-4 h-4" aria-hidden="true" />
                     Ask for a walkthrough
                   </a>
+                )}
+                {project.privateRepo && (
+                  <span className="inline-flex items-center gap-1.5 min-h-11 px-3 rounded-lg border border-border text-sm font-medium text-muted-foreground">
+                    <Lock className="w-4 h-4" aria-hidden="true" />
+                    Private repository · built at YourNest
+                  </span>
                 )}
               </div>
             </div>

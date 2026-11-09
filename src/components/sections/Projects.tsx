@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
-import { Github, ChevronRight, BookOpen } from 'lucide-react';
+import { Github, ChevronRight, BookOpen, Lock } from 'lucide-react';
 import { projects, languageColors, type Project } from '@/data/portfolio';
 import { tone } from '@/lib/tones';
 import { site } from '@/lib/site';
@@ -65,6 +65,12 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         </span>
         <span className="flex items-center gap-2">
         <CaseStudyButton project={project} />
+        {project.privateRepo && (
+          <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
+            <Lock className="w-3.5 h-3.5" aria-hidden="true" />
+            Private repo
+          </span>
+        )}
 {project.github && (
         <a
             href={project.github}
@@ -127,7 +133,7 @@ export function ProjectsSection({
         >
           <p className="text-sm text-muted-foreground mt-3 flex items-center gap-2">
             <BookOpen className="w-3.5 h-3.5 text-indigo-700 dark:text-indigo-400" aria-hidden="true" />
-            Swipe, use the arrows, or pick a project below. Most link to their public repository.
+            Swipe, use the arrows, or pick a project below. Most link to their public repository; the two YourNest products are in private repositories.
           </p>
         </SectionHeading>
 

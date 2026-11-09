@@ -1,7 +1,7 @@
 'use client';
 
 import { m, useScroll, useTransform, useSpring } from 'framer-motion';
-import { ArrowDown, FileText, Github, Instagram, Linkedin, Mail, Terminal } from 'lucide-react';
+import { ArrowDown, ArrowRight, FileText, Github, Instagram, Linkedin, Mail, Terminal } from 'lucide-react';
 import { site } from '@/lib/site';
 import { ScrambleText } from '@/components/ScrambleText';
 import { BrollVideo } from '@/components/BrollVideo';
@@ -118,6 +118,20 @@ export function HeroSection({ resumeUrl, portrait }: { resumeUrl: string | null;
             </a>
           )}
         </m.div>
+
+        {/* Latest work, one click from the top */}
+        <m.a
+          href="#venture"
+          style={{ animationDelay: '0.6s' }}
+          className={`hero-in group flex w-fit items-center gap-3 min-h-11 pl-2 pr-4 py-1.5 mb-8 mx-auto ${split ? 'lg:mx-0' : ''} rounded-full border border-violet-500/30 bg-violet-500/8 text-sm text-foreground hover:border-violet-500/60 transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400`}
+        >
+          <span className="px-2 py-0.5 rounded-full bg-violet-600 text-white text-[11px] font-semibold uppercase tracking-wider">New</span>
+          <span className="text-left">
+            Two products built at <span className="font-semibold">YourNest Venture Capital</span>
+            <span className="hidden sm:inline text-muted-foreground"> · watch the short explainers</span>
+          </span>
+          <ArrowRight className="w-4 h-4 shrink-0 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+        </m.a>
 
         {/* Social links */}
         <m.div

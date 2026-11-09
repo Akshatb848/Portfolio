@@ -7,6 +7,7 @@ export const chapters = [
   { id: 'systems', label: 'Systems', accent: '#22d3ee' },
   { id: 'skills', label: 'Skills', accent: '#d946ef' },
   { id: 'toolkit', label: 'Toolkit', accent: '#38bdf8' },
+  { id: 'venture', label: 'VC Work', accent: '#8b5cf6' },
   { id: 'projects', label: 'Projects', accent: '#06b6d4' },
   { id: 'experience', label: 'Experience', accent: '#f59e0b' },
   { id: 'github', label: 'GitHub', accent: '#10b981' },
