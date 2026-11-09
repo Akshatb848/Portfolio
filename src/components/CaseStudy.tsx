@@ -12,6 +12,7 @@ import { DealScreenerDemo } from '@/components/DealScreenerDemo';
 import { ExplainerPlayer } from '@/components/ExplainerPlayer';
 import { PortalTour } from '@/components/PortalTour';
 import { ventureStories, portalTour } from '@/data/venture';
+import { explainers } from '@/data/explainers';
 
 import { OPEN_CASE_STUDY_EVENT, takePendingCaseStudy } from '@/components/CaseStudyButton';
 
@@ -114,6 +115,11 @@ export function CaseStudyDialog() {
               {story && (
                 <div className="mt-8">
                   <ExplainerPlayer title={story.name} explainer={story.explainer} recording={story.recording} />
+                </div>
+              )}
+              {!story && id !== null && explainers[id] && (
+                <div className="mt-8">
+                  <ExplainerPlayer title={project.title} explainer={explainers[id]} />
                 </div>
               )}
 

@@ -2,13 +2,13 @@
 
 import { useMemo, useState } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
-import { Github, ChevronRight, BookOpen, Lock } from 'lucide-react';
+import { Github, ChevronRight, BookOpen, Lock, Play } from 'lucide-react';
 import { projects, languageColors, type Project } from '@/data/portfolio';
 import { tone } from '@/lib/tones';
 import { site } from '@/lib/site';
 import { ProjectCarousel } from '@/components/ProjectCarousel';
 import dynamic from 'next/dynamic';
-import { CaseStudyButton } from '@/components/CaseStudyButton';
+import { CaseStudyButton, HAS_CASE_STUDY, openCaseStudy } from '@/components/CaseStudyButton';
 
 // The dialog (and the case-study data) load after the section, not with it.
 const CaseStudyDialog = dynamic(() => import('@/components/CaseStudy').then((m) => ({ default: m.CaseStudyDialog })), { ssr: false });
@@ -16,9 +16,10 @@ import { SectionHeading } from '@/components/SectionHeading';
 
 const moreProjects = projects.filter((p) => !p.featured);
 
-function ProjectCard({ project, index }: { project: Project; index: number }) {
+function ProjectCard({ project, index, poster }: { project: Project; index: number; poster?: string }) {
   const t = tone(project.color);
   const Icon = project.icon;
+  const watchable = poster && HAS_CASE_STUDY.has(project.id);
 
   return (
     <m.article
@@ -29,6 +30,26 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       transition={{ duration: 0.45, delay: index * 0.05 }}
       className={`fx-card group relative flex flex-col p-5 rounded-2xl bg-card border border-border/60 ${t.hoverBorder} hover:-translate-y-1 hover:shadow-lg ${t.glow} transition-[transform,box-shadow,border-color] duration-300`}
     >
+      {watchable && (
+        <button
+          type="button"
+          onClick={() => openCaseStudy(project.id)}
+          aria-label={`Watch the explainer for ${project.title}`}
+          aria-haspopup="dialog"
+          className="group/vid relative -mx-1 -mt-1 mb-4 aspect-video rounded-xl overflow-hidden border border-border/60 bg-[#0b0f17] focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={poster} alt="" loading="lazy" decoding="async" width={1280} height={720} className="w-full h-full object-cover opacity-90 group-hover/vid:opacity-100 transition-opacity" />
+          <span className="absolute inset-0 flex items-center justify-center" aria-hidden="true">
+            <span className="w-12 h-12 rounded-full bg-black/70 text-white flex items-center justify-center group-hover/vid:scale-105 transition-transform">
+              <Play className="w-5 h-5 ml-0.5" />
+            </span>
+          </span>
+          <span className="absolute left-2.5 bottom-2 px-2 py-0.5 rounded-md bg-black/75 text-[11px] font-medium text-white" aria-hidden="true">
+            Watch the explainer
+          </span>
+        </button>
+      )}
       <div className="flex items-start gap-3 mb-3">
         <span
           className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 border ${t.badge}`}
@@ -172,7 +193,12 @@ export function ProjectsSection({
               className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5"
             >
               {filtered.map((project, i) => (
-                <ProjectCard key={project.id} project={project} index={i} />
+                <ProjectCard
+                  key={project.id}
+                  project={project}
+                  index={i}
+                  poster={project.video && availablePosters.includes(project.video.replace(/\.\w+$/, '.jpg')) ? project.video.replace(/\.\w+$/, '.jpg') : undefined}
+                />
               ))}
             </m.div>
           </AnimatePresence>

@@ -170,11 +170,11 @@ export const caseStudies: Record<number, CaseStudy> = {
   },
   12: {
     stages: [
-      { label: 'Newsletter data', detail: 'Monthly Ministry of Education issues' },
+      { label: 'Newsletter data', detail: 'Bundled sample of monthly education newsletters' },
       { label: 'FastAPI', detail: 'Backend behind Nginx' },
       { label: 'FAISS', detail: 'Semantic search over the issues' },
       { label: 'Ollama chatbot', detail: 'Answers grounded in retrieved text' },
-      { label: 'Command center', detail: 'Chart.js views for cabinet presentations' },
+      { label: 'Command center', detail: 'Timeline, KPI cards and Chart.js views' },
     ],
     figures: [{ value: 'Docker', label: 'Compose deployment' }],
   },
