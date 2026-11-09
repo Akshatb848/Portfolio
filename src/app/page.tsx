@@ -73,7 +73,7 @@ export default async function Home() {
           slot="systems"
           motif="streams"
           rows={[
-            ['AI Generalist', 'Low-code / No-code AI', 'Multi-agent', 'RAG', 'Automation'],
+            ['AI Engineer', 'Full-Stack AI', 'Multi-agent', 'RAG', 'Automation'],
             ['LangGraph', 'n8n', 'Claude', 'Hugging Face', 'FastAPI', 'Ollama'],
           ]}
         />

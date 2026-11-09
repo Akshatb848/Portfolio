@@ -82,10 +82,11 @@ export function AboutSection() {
             <div className="space-y-4 text-muted-foreground leading-relaxed">
               <p className="text-lg">
                 I&apos;m <span className="text-foreground font-semibold">Akshat Banga</span>, an{' '}
-                <span className="text-foreground font-semibold">AI Generalist and transformation expert</span>{' '}
-                in New Delhi. I pick the right AI tool for the job and use{' '}
-                <span className="text-foreground font-semibold">low-code / no-code AI</span> to
-                transform manual processes quickly, then write custom code where it pays off.
+                <span className="text-foreground font-semibold">AI Engineer and full-stack AI developer</span>{' '}
+                in New Delhi. I build AI products end to end, from the agents and APIs to the database
+                and the screen people use, and I reach for{' '}
+                <span className="text-foreground font-semibold">low-code / no-code AI</span> when it
+                gets a manual process fixed faster.
               </p>
               <p>
                 I build <span className="text-foreground font-semibold">LLM apps, RAG and multi-agent systems</span>:
@@ -207,7 +208,7 @@ export function AboutSection() {
                 <div className="pl-4">
                   <span className="text-sky-700 dark:text-sky-400">role</span>
                   <span className="text-muted-foreground"> = </span>
-                  <span className="text-green-800 dark:text-green-400">&quot;AI Generalist&quot;</span>
+                  <span className="text-green-800 dark:text-green-400">&quot;AI Engineer&quot;</span>
                 </div>
                 <div className="pl-4">
                   <span className="text-sky-700 dark:text-sky-400">focus</span>

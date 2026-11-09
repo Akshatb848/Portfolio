@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   title: site.title,
   description: site.description,
   keywords: [
-    'AI Generalist',
+    'Full-Stack AI Developer',
     'AI Transformation',
     'Low-code AI',
     'No-code AI',
@@ -66,7 +66,7 @@ const personJsonLd = {
   name: site.name,
   url: site.url,
   email: `mailto:${site.email}`,
-  jobTitle: 'AI Generalist & Transformation Expert',
+  jobTitle: 'AI Engineer & Full-Stack AI Developer',
   address: { '@type': 'PostalAddress', addressLocality: 'New Delhi', addressCountry: 'IN' },
   alumniOf: [
     { '@type': 'CollegeOrUniversity', name: 'University of Southampton' },

@@ -85,15 +85,15 @@ export function Navbar({ resumeUrl }: { resumeUrl: string | null }) {
               href="#main-content"
               onClick={() => setMobileOpen(false)}
               className="flex items-center gap-2 min-h-11 rounded-lg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
-              aria-label="akshatbanga.com, back to top"
+              aria-label="Akshat Banga, back to top"
             >
               <span className="w-8 h-8 rounded-lg bg-linear-to-br from-violet-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-violet-500/25">
                 <Code2 className="w-4 h-4 text-white" aria-hidden="true" />
               </span>
               <span className="font-mono font-bold text-sm tracking-tight">
-                <span className="text-foreground">akshatbanga</span>
+                <span className="text-foreground">akshat</span>
                 <span className="text-violet-700 dark:text-violet-400">.</span>
-                <span className="text-muted-foreground">com</span>
+                <span className="text-muted-foreground">banga</span>
               </span>
             </a>
 
