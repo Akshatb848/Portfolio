@@ -26,6 +26,7 @@ import {
   Cloud,
   Compass,
   Handshake,
+  Rocket,
 } from 'lucide-react';
 import type { ToneName } from '@/lib/tones';
 
@@ -45,8 +46,11 @@ export type Project = {
   /** Path under /public; only rendered when the file exists at build time. A .jpg with the
    *  same name next to it is used as the poster frame. */
   video?: string;
-  /** 'concept' = AI-generated visual (labelled on the site); 'recording' = real screen capture. */
-  videoKind?: 'concept' | 'recording';
+  /** 'concept' = AI-generated visual; 'explainer' = animated explainer made for this site;
+   *  'recording' = real screen capture. Each is labelled on the site. */
+  videoKind?: 'concept' | 'explainer' | 'recording';
+  /** The code lives in a private repository (shown as a label instead of a GitHub link). */
+  privateRepo?: boolean;
 };
 
 export type Language = { name: string; level: string };
@@ -87,6 +91,25 @@ export const projects: Project[] = [
     language: 'Python',
     icon: Handshake,
     featured: true,
+    video: '/videos/dealscreener-explainer.mp4',
+    videoKind: 'explainer',
+    privateRepo: true,
+  },
+  {
+    id: 15,
+    name: 'founders-resource-portal',
+    title: "Founder's Resource Portal (YourNest)",
+    description:
+      "Support portal for the founders a venture capital fund backs, built at YourNest. Each founder sees only their own company: sector news, an approved resource library, a 100-day playbook, events and one trackable help thread to the fund's team. The team works in three permission tiers with approvals and an audit trail. FastAPI, PostgreSQL, tested in CI.",
+    tech: ['Python', 'FastAPI', 'PostgreSQL', 'RBAC', 'JavaScript', 'pytest', 'CI/CD'],
+    category: 'Product Engineering',
+    color: 'teal',
+    language: 'Python',
+    icon: Rocket,
+    featured: true,
+    video: '/videos/founder-portal-explainer.mp4',
+    videoKind: 'explainer',
+    privateRepo: true,
   },
   {
     id: 13,
@@ -278,6 +301,7 @@ export const projectCategories = [
   'Agentic AI',
   'Data & Analytics',
   'Enterprise AI',
+  'Product Engineering',
 ];
 
 export const experiences: Experience[] = [
@@ -295,8 +319,9 @@ export const experiences: Experience[] = [
     bullets: [
       'Built a multi-agent AI workflow automating the entire dealflow process end-to-end, from deal ingestion to final investment verdict.',
       'Engineered deterministic scoring models evaluating thesis alignment, market performance, moat, financials and industry readiness.',
+      "Built the Founder's Resource Portal: a permission-based FastAPI and PostgreSQL portal giving each portfolio founder sector news, approved resources, a 100-day playbook and a tracked line to the fund's team.",
     ],
-    tech: ['Multi-agent AI', 'Agents', 'Scoring models'],
+    tech: ['Multi-agent AI', 'Agents', 'Scoring models', 'FastAPI', 'PostgreSQL'],
   },
   {
     id: 2,
@@ -543,7 +568,7 @@ export function evidenceFor(skill: Skill): Evidence[] {
 }
 
 // Featured order follows the résumé's selected projects, then other highlights.
-const FEATURED_ORDER = [14, 13, 2, 4, 3, 1];
+const FEATURED_ORDER = [14, 15, 13, 2, 4, 3, 1];
 export const featuredProjects = FEATURED_ORDER.map((id) => projects.find((p) => p.id === id)).filter(
   (p): p is Project => !!p && p.featured
 );

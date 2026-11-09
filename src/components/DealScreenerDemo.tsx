@@ -31,6 +31,26 @@ function score(d: Deal): { verdict: Verdict; total: number | null; reason: strin
   return { verdict: 'No', total, reason: 'Below the bar on the weighted signals.' };
 }
 
+const describe = (v: number) => (v >= 8 ? 'strong' : v >= 6 ? 'solid' : v >= 4 ? 'mixed' : 'weak');
+
+/** A short, template-written memo draft (the real product has an agent write it). */
+function memo(d: Deal, verdict: Verdict): string[] {
+  const lines = [
+    `Market and moat look ${describe(d.values.market)} (${d.values.market}/10).`,
+    d.hasFinancials
+      ? `Financial metrics are ${describe(d.values.financials)} (${d.values.financials}/10).`
+      : 'No financials were provided, so the numbers could not be checked.',
+    `Founder–market fit is ${describe(d.values.founder)} (${d.values.founder}/10); ESG is ${describe(d.values.esg)}.`,
+  ];
+  const next: Record<Verdict, string> = {
+    Yes: 'Recommend a partner meeting this week.',
+    Maybe: 'Recommend a first call to probe the weakest area.',
+    'Needs Review': 'Ask the founders for financials before any decision.',
+    No: 'Recommend a polite pass, with feedback.',
+  };
+  return [...lines, next[verdict]];
+}
+
 const VERDICT_STYLE: Record<Verdict, string> = {
   Yes: 'border-emerald-500/50 bg-emerald-500/10 text-emerald-800 dark:text-emerald-300',
   Maybe: 'border-amber-500/50 bg-amber-500/10 text-amber-800 dark:text-amber-300',
@@ -154,6 +174,14 @@ export function DealScreenerDemo() {
                 </p>
                 <p className="mt-1 text-2xl font-bold">{result.verdict}</p>
                 <p className="mt-1 text-sm text-foreground">{result.reason}</p>
+                <div className="mt-3 pt-3 border-t border-current/20">
+                  <p className="font-mono text-[11px] uppercase tracking-widest">Draft IC memo</p>
+                  <ul className="mt-1.5 space-y-1 text-sm text-foreground list-disc pl-5">
+                    {memo(deal, result.verdict).map((l) => (
+                      <li key={l}>{l}</li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             )}
           </div>

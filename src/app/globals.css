@@ -535,6 +535,18 @@ html[data-motion='off'] .fx-tilt {
   animation-play-state: paused !important;
 }
 
+/* Portal tour: a soft pulse on the part of the screen a step is about */
+@keyframes tour-ring {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.18); opacity: 0.55; }
+}
+.tour-ring {
+  animation: tour-ring 1.6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .tour-ring { animation: none; }
+}
+
 /* Systems signal chart: scan line sweeping across while the simulation runs */
 @keyframes scan {
   from {
@@ -567,12 +579,13 @@ main > section,
 #systems { --ch: #22d3ee; --ch-text: #0e7490; }
 #skills { --ch: #d946ef; --ch-text: #a21caf; }
 #toolkit { --ch: #38bdf8; --ch-text: #0369a1; }
+#venture { --ch: #8b5cf6; --ch-text: #6d28d9; }
 #projects { --ch: #06b6d4; --ch-text: #0e7490; }
 #experience { --ch: #f59e0b; --ch-text: #b45309; }
 #github { --ch: #10b981; --ch-text: #047857; }
 #education { --ch: #6366f1; --ch-text: #4338ca; }
 #contact { --ch: #a78bfa; --ch-text: #6d28d9; }
-.dark #about, .dark #contact { --ch-text: #c4b5fd; }
+.dark #about, .dark #contact, .dark #venture { --ch-text: #c4b5fd; }
 .dark #systems, .dark #projects { --ch-text: #67e8f9; }
 .dark #skills { --ch-text: #f0abfc; }
 .dark #toolkit { --ch-text: #7dd3fc; }

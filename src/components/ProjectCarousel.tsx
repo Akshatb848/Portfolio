@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { m, useReducedMotion, type PanInfo } from 'framer-motion';
 import { useMotionOff } from '@/lib/motion';
-import { ChevronLeft, ChevronRight, Github, Mail, Pause, Play } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Github, Lock, Mail, Pause, Play } from 'lucide-react';
 import { featuredProjects, languageColors, type Project } from '@/data/portfolio';
 import { tone } from '@/lib/tones';
 import { ProjectCover } from '@/components/ProjectCover';
@@ -91,7 +91,8 @@ function Slide({
             poster={poster}
             title={project.title}
             active={isActive}
-            concept={project.videoKind !== 'recording'}
+            concept={project.videoKind === 'concept' || !project.videoKind}
+            explainer={project.videoKind === 'explainer'}
             fallback={<ProjectCover project={project} />}
           />
         ) : (
@@ -149,6 +150,12 @@ function Slide({
           </a>
         )}
         <CaseStudyButton project={project} tabbable={isActive} className="text-sm px-4" />
+        {project.privateRepo && (
+          <span className="inline-flex items-center gap-1.5 min-h-8 px-2.5 rounded-md border border-border text-xs font-medium text-muted-foreground">
+            <Lock className="w-3.5 h-3.5" aria-hidden="true" />
+            Private repository
+          </span>
+        )}
         </div>
       </article>
     </m.div>

@@ -8,6 +8,21 @@ export type Figure = { value: string; label: string };
 export type CaseStudy = { stages: Stage[]; figures: Figure[] };
 
 export const caseStudies: Record<number, CaseStudy> = {
+  15: {
+    stages: [
+      { label: 'Sign in', detail: 'Session tokens; repeated failed logins are rate-limited' },
+      { label: 'Permission check', detail: 'Every API route checks a permission, never a role name' },
+      { label: 'Company scope', detail: 'A founder only ever sees their own company' },
+      { label: 'Founder tools', detail: 'Sector news, resource library, 100-day playbook, events, help thread' },
+      { label: 'Team workspace', detail: 'Analysts and Admins draft; the Super Admin approves' },
+      { label: 'Audit trail', detail: 'Approvals and changes recorded in PostgreSQL' },
+    ],
+    figures: [
+      { value: '3', label: 'Team permission tiers' },
+      { value: '1', label: 'Approver for all content' },
+      { value: '22', label: 'Tests in CI' },
+    ],
+  },
   14: {
     stages: [
       { label: 'Pitch intake', detail: 'FastAPI endpoint receives the deck and founder data' },
