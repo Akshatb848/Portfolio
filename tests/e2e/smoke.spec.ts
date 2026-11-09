@@ -148,7 +148,7 @@ test('VC work section explains both YourNest products', async ({ page }) => {
   await expect(section.locator('[aria-live=polite]').first()).toContainText('Draft IC memo');
   // Founder portal: real-recording toggle and the click-through tour
   await section.getByRole('tab', { name: "Founder's Resource Portal" }).click();
-  await expect(section.getByRole('tabpanel')).toContainText('Private repository');
+  await expect(section.getByRole('link', { name: /Public code for Founder's Resource Portal/ })).toHaveAttribute('href', 'https://github.com/Akshatb848/founder-resource-portal');
   await section.getByRole('button', { name: 'Real product' }).click();
   await expect(section.locator('video')).toHaveAttribute('src', '/videos/founder-portal-real.mp4');
   await section.getByRole('button', { name: 'Next step' }).click();

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { m } from 'framer-motion';
-import { ArrowRight, Briefcase, CheckCircle2, Layers, Lock, Mail, Scale } from 'lucide-react';
+import { ArrowRight, Briefcase, CheckCircle2, Github, Layers, Mail, Scale } from 'lucide-react';
 import { SectionHeading } from '@/components/SectionHeading';
 import { ExplainerPlayer } from '@/components/ExplainerPlayer';
 import { DealScreenerDemo } from '@/components/DealScreenerDemo';
@@ -173,10 +173,18 @@ export function VentureSection() {
                   <Mail className="w-4 h-4" aria-hidden="true" />
                   Ask for a live walkthrough
                 </a>
-                <span className="inline-flex items-center gap-1.5 min-h-8 px-2.5 rounded-md border border-border text-xs font-medium text-muted-foreground">
-                  <Lock className="w-3.5 h-3.5" aria-hidden="true" />
-                  Private repository
-                </span>
+                {project?.github && (
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Public code for ${story.name} on GitHub`}
+                    className="inline-flex items-center gap-2 min-h-11 px-4 text-sm font-semibold rounded-lg bg-foreground text-background hover:opacity-90 transition-opacity focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
+                  >
+                    <Github className="w-4 h-4" aria-hidden="true" />
+                    Public code
+                  </a>
+                )}
               </div>
             </div>
           </div>
