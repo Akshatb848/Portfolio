@@ -82,11 +82,10 @@ export function HeroSection({ resumeUrl, portrait }: { resumeUrl: string | null;
           style={{ animationDelay: '0.45s' }}
           className={`hero-in text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed ${split ? 'lg:mx-0' : ''}`}
         >
-          An <span className="text-foreground font-semibold">AI tools expert</span> who transforms
-          manual work with{' '}
-          <span className="text-foreground font-semibold">low-code / no-code AI</span>, and builds{' '}
-          <span className="text-foreground font-semibold">LLM apps, RAG and multi-agent systems</span>{' '}
-          when a problem needs custom code.
+          I build AI products end to end:{' '}
+          <span className="text-foreground font-semibold">LLM apps, RAG and multi-agent systems</span>, plus the{' '}
+          <span className="text-foreground font-semibold">FastAPI and PostgreSQL apps</span> around them, and{' '}
+          <span className="text-foreground font-semibold">low-code / no-code AI</span> where it is faster.
         </m.p>
 
         {/* CTAs */}

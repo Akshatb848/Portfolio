@@ -1,6 +1,6 @@
 # Akshat Banga — AI Generalist Portfolio
 
-A world-class, production-grade personal portfolio website for Akshat Banga, an AI Generalist and transformation expert working across low-code / no-code AI, generative AI and machine learning.
+A world-class, production-grade personal portfolio website for Akshat Banga, an AI Engineer and full-stack AI developer working across generative AI, multi-agent systems, machine learning and low-code / no-code AI.
 
 ## 🚀 Tech Stack
 

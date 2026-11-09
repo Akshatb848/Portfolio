@@ -32,7 +32,7 @@ export function Footer() {
             <span className="font-bold text-sm">
               <span className="text-foreground">Akshat Banga</span>
               <span className="text-violet-700 dark:text-violet-400"> · </span>
-              <span className="text-muted-foreground">AI Generalist</span>
+              <span className="text-muted-foreground">AI Engineer</span>
             </span>
           </m.div>
 
