@@ -3,6 +3,8 @@ import AxeBuilder from '@axe-core/playwright';
 import { chapters } from '../../src/data/chapters';
 import { caseStudies } from '../../src/data/caseStudies';
 import { HAS_CASE_STUDY } from '../../src/components/CaseStudyButton';
+import { projects } from '../../src/data/portfolio';
+import { existsSync } from 'node:fs';
 
 /** Console errors, ignoring Vercel's analytics scripts (they only exist on Vercel). */
 function trackErrors(page: Page) {
@@ -100,6 +102,21 @@ test('case study opens as a modal dialog and returns focus on close', async ({ p
   await page.keyboard.press('Escape');
   await expect(dialog).toBeHidden();
   await expect(open).toBeFocused();
+});
+
+test('every project video and its poster exist', () => {
+  const missing = projects
+    .filter((p) => p.video)
+    .flatMap((p) => [p.video!, p.video!.replace(/\.\w+$/, '.jpg')])
+    .filter((f) => !existsSync(`public${f}`));
+  expect(missing).toEqual([]);
+});
+
+test('a project card opens its case study with the explainer video', async ({ page }) => {
+  await page.goto('/#projects');
+  await page.getByRole('button', { name: /Watch the explainer for Music Genre Classification/ }).click();
+  const dialog = page.getByRole('dialog', { name: /Music Genre Classification/ });
+  await expect(dialog.locator('video')).toHaveAttribute('src', '/videos/genre-explainer.mp4');
 });
 
 test('every case-study button has case-study data', () => {

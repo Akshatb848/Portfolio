@@ -124,6 +124,8 @@ export const projects: Project[] = [
     language: 'Python',
     icon: Compass,
     featured: true,
+    video: '/videos/asis-explainer.mp4',
+    videoKind: 'explainer',
   },
   {
     id: 1,
@@ -138,8 +140,8 @@ export const projects: Project[] = [
     language: 'Python',
     icon: Activity,
     featured: true,
-    video: '/videos/ai-tennis-demo.mp4',
-    videoKind: 'concept',
+    video: '/videos/tennisiq-explainer.mp4',
+    videoKind: 'explainer',
   },
   {
     id: 2,
@@ -154,8 +156,8 @@ export const projects: Project[] = [
     language: 'Jupyter Notebook',
     icon: ShieldCheck,
     featured: true,
-    video: '/videos/aegis-demo.mp4',
-    videoKind: 'concept',
+    video: '/videos/aegis-explainer.mp4',
+    videoKind: 'explainer',
   },
   {
     id: 3,
@@ -170,8 +172,8 @@ export const projects: Project[] = [
     language: 'Python',
     icon: Bot,
     featured: true,
-    video: '/videos/ds-agent-demo.mp4',
-    videoKind: 'concept',
+    video: '/videos/dsagents-explainer.mp4',
+    videoKind: 'explainer',
   },
   {
     id: 4,
@@ -186,8 +188,8 @@ export const projects: Project[] = [
     language: 'Python',
     icon: BarChart3,
     featured: true,
-    video: '/videos/analytics-demo.mp4',
-    videoKind: 'concept',
+    video: '/videos/analytics-explainer.mp4',
+    videoKind: 'explainer',
   },
   {
     id: 5,
@@ -202,8 +204,8 @@ export const projects: Project[] = [
     language: 'JavaScript',
     icon: BookOpen,
     featured: false,
-    video: '/videos/llm-dashboard-demo.mp4',
-    videoKind: 'concept',
+    video: '/videos/edurag-explainer.mp4',
+    videoKind: 'explainer',
   },
   {
     id: 7,
@@ -219,6 +221,8 @@ export const projects: Project[] = [
     language: 'Python',
     icon: Languages,
     featured: false,
+    video: '/videos/indic-explainer.mp4',
+    videoKind: 'explainer',
   },
   {
     id: 8,
@@ -233,6 +237,8 @@ export const projects: Project[] = [
     language: 'Jupyter Notebook',
     icon: Wind,
     featured: false,
+    video: '/videos/airquality-explainer.mp4',
+    videoKind: 'explainer',
   },
   {
     id: 9,
@@ -247,6 +253,8 @@ export const projects: Project[] = [
     language: 'Jupyter Notebook',
     icon: Users,
     featured: false,
+    video: '/videos/edtech-explainer.mp4',
+    videoKind: 'explainer',
   },
   {
     id: 10,
@@ -261,6 +269,8 @@ export const projects: Project[] = [
     language: 'Jupyter Notebook',
     icon: Music,
     featured: false,
+    video: '/videos/genre-explainer.mp4',
+    videoKind: 'explainer',
   },
   {
     id: 11,
@@ -275,13 +285,15 @@ export const projects: Project[] = [
     language: 'Jupyter Notebook',
     icon: Plane,
     featured: false,
+    video: '/videos/nps-explainer.mp4',
+    videoKind: 'explainer',
   },
   {
     id: 12,
     name: 'Deloitte-South-Asia-projects',
-    title: 'MoE Education Intelligence Dashboard (Deloitte)',
+    title: 'Education Intelligence Dashboard (Deloitte internship demo)',
     description:
-      'Government-grade AI analytics platform built for India\'s Ministry of Education with Deloitte Touche Tohmatsu. Converts monthly newsletter data into an interactive command center (FAISS semantic search, LLM chatbot via Ollama, Chart.js visualizations) optimized for cabinet presentations. Deployable via Docker Compose.',
+      'Runnable portfolio demo of a dashboard concept from my Deloitte internship: monthly education newsletter data becomes an interactive command center with FAISS semantic search, a local-LLM (Ollama) chatbot that falls back to plain retrieval when no model is running, and Chart.js views. Bundled sample data, MIT-licensed.',
     tech: ['Python', 'FastAPI', 'FAISS', 'Ollama', 'Docker', 'JavaScript', 'Chart.js', 'Nginx'],
     category: 'Enterprise AI',
     color: 'green',
@@ -289,6 +301,8 @@ export const projects: Project[] = [
     language: 'Python',
     icon: Landmark,
     featured: false,
+    video: '/videos/edinsights-explainer.mp4',
+    videoKind: 'explainer',
   },
 ];
 
