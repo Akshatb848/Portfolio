@@ -12,7 +12,7 @@ concurrency:
 jobs:
   checks:
     name: Lint, types, build, e2e + a11y, Lighthouse
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # Playwright 1.56 does not support ubuntu-latest (26.04) yet
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
