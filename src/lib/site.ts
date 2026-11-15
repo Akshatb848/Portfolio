@@ -1,16 +1,13 @@
 export const site = {
   name: 'Akshat Banga',
   /**
-   * Canonical origin. On Vercel this is the project's production URL (VERCEL_PROJECT_PRODUCTION_URL,
-   * which follows any custom domain automatically once one is connected), so canonical
-   * links, the sitemap and share previews never point at an address that isn't live.
-   * NEXT_PUBLIC_SITE_URL overrides it.
+   * Canonical origin: the project's permanent Vercel address, which never expires (unlike the
+   * per-deployment URLs Vercel removes under its retention policy). It is fixed here rather than
+   * read from VERCEL_PROJECT_PRODUCTION_URL, because that follows the custom domain set in Vercel
+   * even when the domain's DNS is not live, which would point share previews at a dead address.
+   * Set NEXT_PUBLIC_SITE_URL once a custom domain is confirmed working.
    */
-  url:
-    process.env.NEXT_PUBLIC_SITE_URL ??
-    (process.env.VERCEL_PROJECT_PRODUCTION_URL
-      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-      : 'https://portfolio-akshat-bangas-projects.vercel.app'),
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://portfolio-akshat-bangas-projects.vercel.app',
   title: 'Akshat Banga | AI Engineer & Full-Stack AI Developer',
   headline: 'AI Engineer · Full-Stack AI Developer',
   description:
