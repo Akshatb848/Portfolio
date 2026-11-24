@@ -534,6 +534,13 @@ html[data-motion='off'] .fx-tilt {
 [data-offscreen] *::after {
   animation-play-state: paused !important;
 }
+/* An open case study lives inside #projects but is shown on top of any section, so it must
+   never be paused with its off-screen parent (its entrance would freeze at opacity 0) */
+[data-offscreen] dialog[open] *,
+[data-offscreen] dialog[open] *::before,
+[data-offscreen] dialog[open] *::after {
+  animation-play-state: running !important;
+}
 
 /* Portal tour: a soft pulse on the part of the screen a step is about */
 @keyframes tour-ring {
@@ -686,4 +693,9 @@ html[data-motion='off'] .magnetic {
 #main-content > section:not(:first-child) {
   content-visibility: auto;
   contain-intrinsic-size: auto 1100px;
+}
+/* An open case study lives inside the Projects chapter; keep that chapter painted while the
+   dialog is open, wherever the page is scrolled. */
+#main-content > section:has(dialog[open]) {
+  content-visibility: visible;
 }

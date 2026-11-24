@@ -104,6 +104,32 @@ test('case study opens as a modal dialog and returns focus on close', async ({ p
   await expect(open).toBeFocused();
 });
 
+test('a case study opened from another chapter is fully shown, not frozen mid-entrance', async ({ page }) => {
+  await page.goto('/#venture');
+  await page.locator('#venture').getByRole('button', { name: /^Case study: Deal Screener/ }).click();
+  const panel = page.locator('dialog[open] > div > div');
+  // toBeVisible ignores opacity, so check the entrance animation actually finished.
+  await expect.poll(() => panel.evaluate((e) => getComputedStyle(e).opacity)).toBe('1');
+});
+
+test('project case studies include a click-through of real screens or results', async ({ page }) => {
+  const errors = trackErrors(page);
+  await page.goto('/');
+  const dialog = page.getByRole('dialog', { name: /ASIS/ });
+  // The listener attaches on hydration, so keep asking until the dialog is open.
+  await expect(async () => {
+    await page.evaluate(() => window.dispatchEvent(new CustomEvent('open-case-study', { detail: 13 })));
+    await expect(dialog).toBeVisible({ timeout: 1000 });
+  }).toPass();
+  await expect(dialog.getByRole('heading', { name: 'Click through ASIS' })).toBeVisible();
+  await expect(dialog.getByText(/^Step 1 of \d+/)).toBeVisible();
+  await dialog.getByRole('button', { name: 'Next step' }).click();
+  await expect(dialog.getByText(/^Step 2 of \d+/)).toBeVisible();
+  const img = dialog.locator('img[src^="/tours/asis/"]').first();
+  await expect.poll(() => img.evaluate((e: HTMLImageElement) => e.complete && e.naturalWidth > 0)).toBe(true);
+  expect(errors).toEqual([]);
+});
+
 test('every project video and its poster exist', () => {
   const missing = projects
     .filter((p) => p.video)
