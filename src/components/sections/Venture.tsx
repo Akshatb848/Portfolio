@@ -21,7 +21,7 @@ const journey: { label: string; detail: string; product?: 'dealscreener' | 'port
 ];
 
 const glance = [
-  { icon: Briefcase, title: 'Role', text: 'Intern, Strategy and AI at YourNest Venture Capital, Gurugram (Jun to Nov 2026).' },
+  { icon: Briefcase, title: 'Role', text: 'AI Transformation Expert (Intern) at YourNest Venture Capital, Gurugram, Jun to Nov 2026.' },
   { icon: Layers, title: 'Scope', text: 'Two products covering both ends of a deal: before the investment and after it.' },
   { icon: Scale, title: 'Approach', text: 'AI where it saves time, fixed rules and human approval where it must be right.' },
 ];
