@@ -59,7 +59,7 @@ export function HeroSection({ resumeUrl, portrait }: { resumeUrl: string | null;
           className="hero-in inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-emerald-500/25 bg-emerald-500/8 text-emerald-800 dark:text-emerald-400 text-xs font-medium mb-10 tracking-wide"
         >
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse" aria-hidden="true" />
-          Available for new opportunities
+          Open to new roles
         </m.div>
 
         {/* Name */}
@@ -82,10 +82,10 @@ export function HeroSection({ resumeUrl, portrait }: { resumeUrl: string | null;
           style={{ animationDelay: '0.45s' }}
           className={`hero-in text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed ${split ? 'lg:mx-0' : ''}`}
         >
-          I build AI products end to end:{' '}
-          <span className="text-foreground font-semibold">LLM apps, RAG and multi-agent systems</span>, plus the{' '}
-          <span className="text-foreground font-semibold">FastAPI and PostgreSQL apps</span> around them, and{' '}
-          <span className="text-foreground font-semibold">low-code / no-code AI</span> where it is faster.
+          I build{' '}
+          <span className="text-foreground font-semibold">LLM apps, RAG and multi-agent systems</span>, and the{' '}
+          <span className="text-foreground font-semibold">FastAPI and PostgreSQL apps</span> that run them. When a{' '}
+          <span className="text-foreground font-semibold">low-code / no-code</span> tool does the job faster, I use that.
         </m.p>
 
         {/* CTAs */}
@@ -127,7 +127,7 @@ export function HeroSection({ resumeUrl, portrait }: { resumeUrl: string | null;
           <span className="px-2 py-0.5 rounded-full bg-violet-600 text-white text-[11px] font-semibold uppercase tracking-wider">New</span>
           <span className="text-left">
             Two products built at <span className="font-semibold">YourNest Venture Capital</span>
-            <span className="hidden sm:inline text-muted-foreground"> · watch the short explainers</span>
+            <span className="hidden sm:inline text-muted-foreground"> · short video explainers</span>
           </span>
           <ArrowRight className="w-4 h-4 shrink-0 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
         </m.a>

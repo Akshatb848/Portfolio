@@ -148,13 +148,13 @@ export function ExperienceSection() {
           eyebrow="Experience"
           title={
             <>
-              Where I&apos;ve <span className="text-gradient">made an impact</span>
+              Where I&apos;ve <span className="text-gradient">worked</span>
             </>
           }
           aside={
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <Briefcase className="w-4 h-4 text-violet-700 dark:text-violet-400" aria-hidden="true" />
-              <span>{experiences.length} roles across AI &amp; ML</span>
+              <span>{experiences.length} roles in AI, ML and cloud</span>
             </div>
           }
         />

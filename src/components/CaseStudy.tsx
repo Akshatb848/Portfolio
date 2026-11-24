@@ -11,6 +11,8 @@ import { ProjectCover } from '@/components/ProjectCover';
 import { DealScreenerDemo } from '@/components/DealScreenerDemo';
 import { ExplainerPlayer } from '@/components/ExplainerPlayer';
 import { PortalTour } from '@/components/PortalTour';
+import { ProjectTour } from '@/components/ProjectTour';
+import { tours } from '@/data/tours';
 import { ventureStories, portalTour } from '@/data/venture';
 import { explainers } from '@/data/explainers';
 
@@ -126,6 +128,11 @@ export function CaseStudyDialog() {
               {project.id === 14 && (
                 <div className="mt-8">
                   <DealScreenerDemo />
+                </div>
+              )}
+              {id !== null && tours[id] && (
+                <div className="mt-8">
+                  <ProjectTour tour={tours[id]} name={project.title.split(/ [–(-]/)[0]} />
                 </div>
               )}
               {project.id === 15 && portalTour.length > 0 && (

@@ -93,7 +93,7 @@ export const caseStudies: Record<number, CaseStudy> = {
     stages: [
       { label: 'Data', detail: 'Pandas, NumPy and SciPy' },
       { label: 'Detect + forecast', detail: 'Anomaly detection and Prophet forecasting' },
-      { label: 'KPI catalog', detail: 'Semantic definitions of each metric' },
+      { label: 'KPI catalogue', detail: 'Semantic definitions of each metric' },
       { label: 'Ask in English', detail: 'Natural-language queries over the KPIs' },
       { label: 'Executive view', detail: 'Plotly cards, exports and summaries' },
     ],
@@ -107,7 +107,7 @@ export const caseStudies: Record<number, CaseStudy> = {
       { label: 'Guardrail', detail: 'Retrieval-only fallback, never a guess' },
       { label: 'REST + dashboard', detail: 'FastAPI backend, analytics overview' },
     ],
-    figures: [{ value: 'RAG-first', label: 'No-hallucination fallback' }],
+    figures: [{ value: 'RAG-first', label: 'Retrieval-only fallback' }],
   },
   7: {
     stages: [
@@ -174,7 +174,7 @@ export const caseStudies: Record<number, CaseStudy> = {
       { label: 'FastAPI', detail: 'Backend behind Nginx' },
       { label: 'FAISS', detail: 'Semantic search over the issues' },
       { label: 'Ollama chatbot', detail: 'Answers grounded in retrieved text' },
-      { label: 'Command center', detail: 'Timeline, KPI cards and Chart.js views' },
+      { label: 'Dashboard', detail: 'Timeline, KPI cards and Chart.js views' },
     ],
     figures: [{ value: 'Docker', label: 'Compose deployment' }],
   },

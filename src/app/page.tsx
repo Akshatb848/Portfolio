@@ -86,7 +86,7 @@ export default async function Home() {
           motif="blueprint"
           rows={[
             ['Venture capital', 'Deal Screener', 'Founder Portal', 'YourNest'],
-            ['Built', 'Shipped', 'Measured', 'Agents', 'Dashboards'],
+            ['Pitch intake', 'Scoring rules', 'IC memo', '100-day playbook'],
           ]}
         />
         <VentureSection />
@@ -97,7 +97,7 @@ export default async function Home() {
           motif="towers"
           rows={[
             ['Deloitte', 'YourNest VC', 'Jio Platforms', 'Unified Mentor', 'C-DOT'],
-            ['Strategy', 'Transformation', 'Delivery', 'Impact'],
+            ['Dealflow', 'RAG', 'Forecasting', 'Cloud ops'],
           ]}
         />
         <ExperienceSection />
@@ -108,8 +108,8 @@ export default async function Home() {
           slot="contact"
           motif="converge"
           rows={[
-            ['Hiring?', 'Building?', 'Automating?'],
-            ["Let's talk", 'AI transformation', 'Agents', 'RAG'],
+            ['AI roles', 'Collaborations', 'Automation'],
+            ['Email me', 'Agents', 'RAG', 'Low-code AI'],
           ]}
         />
         <ContactSection resumeUrl={resumeUrl} />

@@ -60,10 +60,10 @@ function Detail({ tool }: { tool: Tool | null }) {
       ) : (
         <>
           <p className="text-2xl sm:text-3xl font-black tracking-tight text-foreground">
-            Every AI tool, <span className="text-gradient">the right job.</span>
+            AI tools I <span className="text-gradient">work with</span>
           </p>
           <p className="mt-3 text-sm text-muted-foreground">
-            Pick a tool to see what I actually built with it.
+            Pick one to see what I built with it.
           </p>
         </>
       )}
@@ -203,7 +203,7 @@ export function ToolkitSection() {
           center
           title={
             <>
-              The right AI tool <span className="text-gradient">for every job</span>
+              AI tools, <span className="text-gradient">and what I used them for</span>
             </>
           }
         />

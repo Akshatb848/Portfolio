@@ -11,7 +11,7 @@ export const site = {
   title: 'Akshat Banga | AI Engineer & Full-Stack AI Developer',
   headline: 'AI Engineer · Full-Stack AI Developer',
   description:
-    'AI Engineer and full-stack AI developer in New Delhi. Builds AI products end to end: LLM apps, RAG and multi-agent systems, plus the FastAPI and PostgreSQL apps around them.',
+    'AI engineer and full-stack AI developer in New Delhi. I build LLM apps, RAG and multi-agent systems, and the FastAPI and PostgreSQL apps that run them.',
   email: 'akshatbanga848@gmail.com',
   github: 'https://github.com/Akshatb848',
   githubUsername: 'Akshatb848',
