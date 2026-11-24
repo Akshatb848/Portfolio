@@ -48,9 +48,9 @@ export function VentureSection() {
           }
         >
           <p className="text-base text-muted-foreground mt-4 max-w-3xl leading-relaxed">
-            At YourNest Venture Capital I built two products the fund&apos;s team works with: one reads the startup
-            pitches that come in, the other supports the founders the fund has backed. Each one is explained below in a
-            short video, in plain English, and with something you can try yourself.
+            At YourNest Venture Capital I built two products for the fund&apos;s team: one reads the startup pitches
+            that come in, the other supports the founders the fund has backed. Below, each has a short plain-English
+            video and a demo you can try.
           </p>
         </SectionHeading>
 

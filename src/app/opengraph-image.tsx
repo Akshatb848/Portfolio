@@ -31,7 +31,7 @@ export default function OpengraphImage() {
           {site.headline}
         </div>
         <div style={{ display: 'flex', fontSize: 30, color: '#94a3b8', marginTop: 40, maxWidth: 1000 }}>
-          Agentic AI · RAG · ML systems, from prototype to production
+          Multi-agent systems, RAG and machine learning in Python
         </div>
       </div>
     ),

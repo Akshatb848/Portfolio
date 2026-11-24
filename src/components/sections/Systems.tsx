@@ -228,8 +228,8 @@ export function SystemsSection() {
           }
         >
           <p className="text-sm sm:text-base text-muted-foreground mt-3 max-w-2xl">
-            Interactive, illustrative simulations of the kinds of systems I build. Flip the switch to see how
-            each pipeline behaves when something goes wrong. Values are simulated.
+            Simulations of three kinds of system I build. Flip the switch to see what each pipeline does
+            when something goes wrong. All values are simulated.
           </p>
         </SectionHeading>
 

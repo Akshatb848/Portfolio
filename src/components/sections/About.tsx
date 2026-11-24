@@ -43,7 +43,7 @@ const highlights = [
   {
     icon: Workflow,
     title: 'Low-code / No-code AI',
-    description: 'Automations built from AI tools and n8n workflows that take manual steps out of everyday work.',
+    description: 'n8n workflows and AI tools that replace manual steps.',
     color: 'text-cyan-800 dark:text-cyan-400',
     bg: 'bg-cyan-500/10',
     border: 'border-cyan-500/20',
@@ -67,7 +67,7 @@ export function AboutSection() {
           eyebrow="About me"
           title={
             <>
-              Building AI that <span className="text-gradient">actually works</span>
+              What I <span className="text-gradient">build</span>
             </>
           }
         />
@@ -83,16 +83,16 @@ export function AboutSection() {
               <p className="text-lg">
                 I&apos;m <span className="text-foreground font-semibold">Akshat Banga</span>, an{' '}
                 <span className="text-foreground font-semibold">AI Engineer and full-stack AI developer</span>{' '}
-                in New Delhi. I build AI products end to end, from the agents and APIs to the database
-                and the screen people use, and I reach for{' '}
-                <span className="text-foreground font-semibold">low-code / no-code AI</span> when it
-                gets a manual process fixed faster.
+                in New Delhi. I work on every layer of an AI product: the agents and APIs, the database
+                and the screen people use. If a{' '}
+                <span className="text-foreground font-semibold">low-code / no-code AI</span> tool fixes a
+                manual process faster, I use it.
               </p>
               <p>
-                I build <span className="text-foreground font-semibold">LLM apps, RAG and multi-agent systems</span>:
-                currently a multi-agent dealflow workflow at{' '}
+                Most of my recent work is <span className="text-foreground font-semibold">LLM apps, RAG and multi-agent systems</span>:
+                a multi-agent pitch-screening workflow at{' '}
                 <span className="text-foreground font-semibold">YourNest Venture Capital</span>{' '}
-                (internship through November 2026), and earlier
+                (internship, June to November 2026), and before that
                 LangChain multi-agent systems at{' '}
                 <span className="text-foreground font-semibold">Deloitte South Asia</span> that cut
                 manual data-analysis effort by 40%.
@@ -117,7 +117,7 @@ export function AboutSection() {
                 href="#contact"
                 className="flex items-center gap-2 min-h-11 text-sm font-semibold text-violet-700 dark:text-violet-400 hover:text-violet-800 dark:hover:text-violet-300 transition-colors rounded-lg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
               >
-                Let&apos;s work together
+                Get in touch
                 <ArrowRight className="w-4 h-4" aria-hidden="true" />
               </a>
               <span className="text-border" aria-hidden="true">·</span>
@@ -127,7 +127,7 @@ export function AboutSection() {
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 min-h-11 text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors rounded-lg focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-violet-400"
               >
-                LinkedIn Profile
+                LinkedIn profile
                 <ArrowRight className="w-4 h-4" aria-hidden="true" />
               </a>
             </div>
@@ -171,7 +171,7 @@ export function AboutSection() {
               {[
                 { icon: Zap, value: '40%', label: 'Less manual analysis', note: 'Deloitte, multi-agent' },
                 { icon: Brain, value: '151', label: 'Passing tests', note: 'TennisIQ CI' },
-                { icon: Users, value: '8', label: 'Agents in ASIS', note: 'decision intelligence' },
+                { icon: Users, value: '8', label: 'Agents in ASIS', note: 'strategy briefs' },
               ].map((s) => (
                 <div
                   key={s.label}
@@ -257,7 +257,7 @@ export function AboutSection() {
                     @{site.instagramHandle}
                   </span>
                   <span className="block text-xs text-muted-foreground leading-relaxed">
-                    AI tools and low-code automations that do the busywork for you.
+                    Posts on AI tools and low-code automations.
                   </span>
                 </span>
                 <ArrowRight
