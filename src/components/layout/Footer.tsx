@@ -1,7 +1,7 @@
 'use client';
 
 import { m } from 'framer-motion';
-import { Github, Linkedin, Instagram, Mail, Code2, Heart, ArrowUp } from 'lucide-react';
+import { Github, Linkedin, Instagram, Mail, Code2, ArrowUp } from 'lucide-react';
 import { site } from '@/lib/site';
 
 const socialLinks = [
@@ -65,9 +65,7 @@ export function Footer() {
             transition={{ delay: 0.2 }}
             className="text-xs text-muted-foreground flex items-center gap-1.5"
           >
-            <span>© {new Date().getFullYear()} Akshat Banga. Built with</span>
-            <Heart className="w-3 h-3 text-red-500 fill-current" aria-label="love" />
-            <span>and Next.js, TailwindCSS, Framer Motion</span>
+            <span>© {new Date().getFullYear()} Akshat Banga. Built with Next.js, Tailwind CSS and Framer Motion.</span>
           </m.p>
         </div>
       </div>

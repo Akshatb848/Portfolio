@@ -53,7 +53,7 @@ export const ventureStories: VentureStory[] = [
     projectId: 15,
     key: 'portal',
     name: "Founder's Resource Portal",
-    oneLiner: 'One secure home where every founder the fund backs gets its help.',
+    oneLiner: 'One sign-in where each founder the fund backs gets news, resources and help.',
     problem:
       'After a fund invests, founders need news, templates, introductions and quick answers, and those usually arrive scattered across email and chat.',
     solution:

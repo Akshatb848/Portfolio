@@ -136,7 +136,7 @@ export function ProjectsSection({
           eyebrow="Projects"
           title={
             <>
-              Things I&apos;ve <span className="text-gradient">built & shipped</span>
+              Things I&apos;ve <span className="text-gradient">built</span>
             </>
           }
           aside={

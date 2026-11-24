@@ -82,7 +82,7 @@ export const projects: Project[] = [
   {
     id: 14,
     name: 'dealscreener',
-    title: 'Deal Screener – VC Dealflow Intelligence (YourNest)',
+    title: 'Deal Screener – Pitch Screening for a VC Fund (YourNest)',
     description:
       'Multi-agent dealflow system built at YourNest Venture Capital. A FastAPI intake API queues each pitch on Redis; workers run local Ollama agents for market and moat, financial metrics, founder–market fit and ESG, then deterministic scoring returns Yes, Maybe, Needs Review or No and an agent drafts the IC memo. PostgreSQL, Docker. The public edition runs on synthetic pitches, with a demo that needs no LLM.',
     tech: ['Python', 'FastAPI', 'Agents', 'Ollama', 'Redis', 'PostgreSQL', 'Docker'],
@@ -116,7 +116,7 @@ export const projects: Project[] = [
     name: 'Strategic-Consultant',
     title: 'ASIS – Strategic Intelligence Platform',
     description:
-      'An 8-agent enterprise decision-intelligence system that generates cited strategic briefs, roadmaps, SWOT analyses, executive summaries and PDF reports. FastAPI backend, Next.js frontend with live progress over SSE, Docker, Terraform, CI/CD and a GCP deployment structure.',
+      'Eight specialist agents take a brief request and write cited strategic briefs, roadmaps, SWOT analyses, executive summaries and PDF reports. FastAPI backend, Next.js frontend with live progress over SSE, Docker, Terraform, CI/CD and a GCP deployment setup.',
     tech: ['LangGraph', 'Agents', 'FastAPI', 'Next.js', 'LiteLLM', 'PostgreSQL', 'Redis', 'Docker', 'Terraform', 'CI/CD', 'GCP'],
     category: 'Agentic AI',
     color: 'cyan',
@@ -148,7 +148,7 @@ export const projects: Project[] = [
     name: 'AI-Governance-and-Risk-Management',
     title: 'AEGIS – AI Governance & Risk Platform',
     description:
-      'Agent-based audit platform for ML and GenAI/RAG systems covering fairness, drift, explainability, prompt injection and citation checks. Automates PASS/FAIL/REVIEW controls, risk registers, remediation actions and workflow traces, and produces audit-ready PDF packs.',
+      'Agent-based audit platform for ML and GenAI/RAG systems that checks fairness, drift, explainability, prompt injection and citations. Each control is scored PASS, FAIL or REVIEW; findings go into a risk register with remediation actions and workflow traces, and the result is exported as an audit-ready PDF pack.',
     tech: ['Python', 'Agents', 'Streamlit', 'SHAP', 'RAG', 'ReportLab'],
     category: 'Generative AI',
     color: 'purple',
@@ -164,7 +164,7 @@ export const projects: Project[] = [
     name: 'data-science-agent-platform',
     title: 'Data Science Agent Platform',
     description:
-      'Agentic AI platform that automates data science workflows through a modular agents/core/services/dashboard architecture, with Docker support and a RAG pipeline for knowledge-grounded analysis.',
+      'Agents that automate data-science workflows, split into four layers (agents, core, services, dashboard), with a RAG pipeline for knowledge-grounded analysis. Packaged with Docker.',
     tech: ['Python', 'Agents', 'RAG', 'FastAPI', 'Docker', 'Streamlit'],
     category: 'Agentic AI',
     color: 'emerald',
@@ -180,7 +180,7 @@ export const projects: Project[] = [
     name: 'AI-Analytics-Dashboard',
     title: 'AI Analytics Dashboard',
     description:
-      'AI analytics product with automated insights, anomaly detection, Prophet forecasting, a semantic KPI catalog and natural-language queries. Executive dashboard cards, dynamic visualisations, data export, statistical summaries and stakeholder-ready reporting.',
+      'Analytics dashboard with automated insights, anomaly detection, Prophet forecasting, a semantic KPI catalogue and natural-language queries over the KPIs. It also has executive summary cards, interactive Plotly charts, data export and statistical summaries.',
     tech: ['Python', 'Streamlit', 'Plotly', 'Prophet', 'Pandas', 'NumPy', 'SciPy'],
     category: 'Data & Analytics',
     color: 'sky',
@@ -196,8 +196,8 @@ export const projects: Project[] = [
     name: 'LLM-dashboard',
     title: 'LLM Education Dashboard & RAG Chatbot',
     description:
-      'Conference-ready Ministry of Education dashboard featuring a RAG-first AI chatbot that strictly prevents hallucinations. Includes monthly newsletter retrieval, analytics overview, and optional OLLAMA integration. REST API backend with strict no-hallucination retrieval-only fallback mode.',
-    tech: ['JavaScript', 'Python', 'FastAPI', 'RAG', 'OLLAMA', 'REST API'],
+      'Ministry of Education dashboard with a RAG chatbot over the monthly newsletters. An optional local model (Ollama) writes the replies; if none is running, a retrieval-only fallback returns the matching passages instead of guessing. Analytics overview and a REST API backend.',
+    tech: ['JavaScript', 'Python', 'FastAPI', 'RAG', 'Ollama', 'REST API'],
     category: 'Generative AI',
     color: 'violet',
     github: 'https://github.com/Akshatb848/LLM-dashboard',
@@ -293,7 +293,7 @@ export const projects: Project[] = [
     name: 'Deloitte-South-Asia-projects',
     title: 'Education Intelligence Dashboard (Deloitte internship demo)',
     description:
-      'Runnable portfolio demo of a dashboard concept from my Deloitte internship: monthly education newsletter data becomes an interactive command center with FAISS semantic search, a local-LLM (Ollama) chatbot that falls back to plain retrieval when no model is running, and Chart.js views. Bundled sample data, MIT-licensed.',
+      'A runnable version of a dashboard concept from my Deloitte internship. It turns monthly education newsletters into one searchable dashboard: FAISS semantic search, a local-LLM (Ollama) chatbot that falls back to plain retrieval when no model is running, and Chart.js views. Sample data included; MIT-licensed.',
     tech: ['Python', 'FastAPI', 'FAISS', 'Ollama', 'Docker', 'JavaScript', 'Chart.js', 'Nginx'],
     category: 'Enterprise AI',
     color: 'green',
@@ -329,10 +329,10 @@ export const experiences: Experience[] = [
     location: 'Gurugram',
     color: 'violet',
     description:
-      'Brought multi-agent AI into venture-capital dealflow, from deal ingestion to the final investment verdict.',
+      "Built the fund's pitch-screening workflow and a portal for the founders it backs.",
     bullets: [
-      'Built a multi-agent AI workflow automating the entire dealflow process end-to-end, from deal ingestion to final investment verdict.',
-      'Engineered deterministic scoring models evaluating thesis alignment, market performance, moat, financials and industry readiness.',
+      'Built a multi-agent workflow that takes each pitch from intake to a Yes, Maybe, Needs Review or No verdict, with an IC memo drafted by an agent.',
+      'Built deterministic scoring models that rate thesis alignment, market performance, moat, financials and industry readiness.',
       "Built the Founder's Resource Portal: a permission-based FastAPI and PostgreSQL portal giving each portfolio founder sector news, approved resources, a 100-day playbook and a tracked line to the fund's team.",
     ],
     tech: ['Multi-agent AI', 'Agents', 'Scoring models', 'FastAPI', 'PostgreSQL'],
@@ -347,11 +347,11 @@ export const experiences: Experience[] = [
     location: 'Gurugram',
     color: 'emerald',
     description:
-      'AI-driven transformation work with LLMs, RAG pipelines and agentic workflows for enterprise-scale use cases.',
+      'LLM, RAG and agent prototypes for enterprise use cases.',
     bullets: [
-      'Architected AI-driven transformation solutions using LLMs, RAG pipelines and agentic workflows for enterprise-scale use cases.',
-      'Engineered LangChain-based multi-agent systems with vector database integration, reducing manual data-analysis effort by 40%.',
-      'Developed Generative AI prototypes using OpenAI APIs with GCP/Azure-ready deployment patterns for enterprise AI adoption.',
+      'Designed LLM, RAG and agent-based solutions for enterprise use cases.',
+      'Built LangChain multi-agent systems backed by a vector database, which cut manual data-analysis effort by 40%.',
+      'Built generative AI prototypes on the OpenAI API, set up to deploy on GCP or Azure.',
     ],
     tech: ['LangChain', 'RAG', 'Agents', 'Vector search', 'OpenAI API', 'GCP', 'Azure'],
     githubRepo: 'https://github.com/Akshatb848/Deloitte-South-Asia-projects',
@@ -383,12 +383,12 @@ export const experiences: Experience[] = [
     location: 'Navi Mumbai',
     color: 'indigo',
     description:
-      'Cloud operations and observability for Jio CloudXP and NIC Meghraj 2.0, supporting enterprise AI and GenAI-enabled workloads.',
+      'Cloud operations and monitoring for Jio CloudXP and NIC Meghraj 2.0, which run enterprise workloads, AI and GenAI included.',
     bullets: [
-      'Supported Jio CloudXP and NIC Meghraj 2.0 cloud operations across observability, monitoring, agent reliability and production readiness for enterprise AI and GenAI-enabled workloads.',
-      'Monitored Prometheus, Pulse Agent, Pulse Gateway and service-availability metrics to improve the reliability of cloud platforms used for automation, analytics and AI operations.',
+      'Worked on day-to-day operations for Jio CloudXP and NIC Meghraj 2.0: observability, monitoring, agent reliability and production readiness.',
+      'Monitored Prometheus, Pulse Agent, Pulse Gateway and service-availability metrics on platforms that run automation, analytics and AI workloads.',
       'Deployed Pulse Agent, Pulse Gateway and Prometheus updates across sandbox, replica and production servers using controlled release and rollback practices.',
-      'Supported Docker/Kubernetes clusters, LaaS pods, ELK Stack, Cassandra, PostgreSQL and MySQL to strengthen scalable infrastructure for cloud-native and AI operations.',
+      'Supported Docker and Kubernetes clusters, LaaS pods, the ELK Stack and Cassandra, PostgreSQL and MySQL databases.',
     ],
     tech: ['Prometheus', 'Pulse Agent', 'Docker', 'Kubernetes', 'ELK Stack', 'Cassandra', 'PostgreSQL', 'MySQL'],
   },
@@ -529,7 +529,7 @@ export const skillGroups: SkillGroup[] = [
     title: 'MLOps & Cloud Ops',
     icon: Layers,
     color: 'sky',
-    description: 'Shipping, monitoring and operating AI systems.',
+    description: 'Deploying and running AI systems.',
     skills: [
       { name: 'Docker', match: ['Docker'] },
       { name: 'Kubernetes', match: ['Kubernetes'] },

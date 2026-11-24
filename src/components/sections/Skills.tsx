@@ -91,7 +91,7 @@ function Flashcard({ skill, t, index }: { skill: Skill; t: Tone; index: number }
             <span className="text-sm text-muted-foreground">{summary}</span>
             <span className={`flex items-center gap-1 text-xs font-semibold ${t.text}`}>
               <RotateCcw className="w-3.5 h-3.5" aria-hidden="true" />
-              See proof
+              Show evidence
             </span>
           </span>
         </button>
@@ -149,13 +149,13 @@ export function SkillsSection() {
           eyebrow="Skills"
           title={
             <>
-              Skills, <span className="text-gradient">with receipts</span>
+              Skills, <span className="text-gradient">with evidence</span>
             </>
           }
         >
           <p className="text-sm sm:text-base text-muted-foreground mt-3 max-w-2xl">
-            No self-rated percentages. Flip a card to see the {projects.length} public projects and the
-            roles where each skill was actually used.
+            No self-rated percentages. Flip a card to see which of the {projects.length} public projects
+            and which roles used that skill.
           </p>
         </SectionHeading>
 
